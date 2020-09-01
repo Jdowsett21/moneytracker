@@ -1,0 +1,394 @@
+.grivety {
+  max-width: 150px !important;
+}
+
+.small-font {
+  font-size: 0.7rem !important;
+  color: #999;
+}
+
+.small-font-dark {
+  font-size: 0.7rem !important;
+  color: rgb(26, 26, 26);
+}
+
+.card {
+  border-radius: 0em;
+}
+
+.extra-small-font {
+  font-size: 0.54rem !important;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+ul.horizontal-bar li.cash {
+  line-height: 12px;
+  height: 12px;
+  margin: 0 0 8px;
+  background-color: #0ac775;
+}
+ul,
+ol {
+  vertical-align: baseline;
+}
+
+ul.vertical-bar {
+  border-bottom: none;
+  position: relative;
+  zoom: 1;
+  display: block;
+  width: calc(100%=40px);
+  margin: 40px 0 20px;
+}
+
+ul.vertical-bar li.graphLines div.graphTop aside,
+ul.vertical-bar li.graphLines div.graphMiddle aside {
+  top: -10px;
+}
+ul li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+}
+
+ul.vertical-bar li.graphLines div aside {
+  font-size: 9px;
+  position: relative;
+  right: 0;
+}
+ul.vertical-bar li {
+  bottom: 0;
+  text-align: center;
+  vertical-align: top;
+  width: 16.6%;
+  z-index: 2;
+  display: inline-block;
+  margin-left: -5px;
+}
+ul.vertical-bar,
+ul.vertical-bar li.month {
+  height: 160px;
+  padding-inline-start: 0px !important;
+}
+ul.vertical-bar li.month {
+  position: relative;
+  color: #999;
+}
+ul.vertical-bar li.graphLines {
+  z-index: 1;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+ul.vertical-bar li.graphLines div {
+  border-top: 1px solid #ebebeb;
+  height: 19px;
+  position: relative;
+  width: 85%;
+  text-align: right;
+  margin-left: 10px;
+}
+h2.month-header {
+  margin-bottom: 20px;
+}
+ul.vertical-bar li.month label {
+  width: 100%;
+  margin-bottom: -20px;
+  position: relative;
+  top: -24px;
+  text-transform: uppercase;
+  text-align: center;
+  float: left;
+  font-size: 9px;
+  letter-spacing: normal;
+  color: #999;
+}
+ul.vertical-bar p {
+  color: #999;
+  display: inline;
+  background: #fff;
+  position: relative;
+  right: -35px;
+}
+ul.vertical-bar li.graphLines div.graphMiddle {
+  border-color: #ccc;
+}
+div,
+h2,
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+div {
+  display: block;
+}
+ul.vertical-bar li a {
+  width: 12px;
+  position: relative;
+  display: block;
+  margin: -3px auto 0;
+  text-decoration: none;
+  background-color: #0ac775;
+}
+
+a,
+nav li {
+  cursor: pointer;
+}
+
+ul.vertical-bar li a.negative {
+  background-color: #f24965;
+  top: 50%;
+  padding-bottom: 2px;
+}
+
+ul.horizontal-bar {
+  list-style: none;
+  padding-left: 40px;
+  padding-top: 5px;
+}
+
+ul.horizontal-bar li.debt {
+  background-color: #f24965;
+  line-height: 12px;
+  height: 12px;
+  margin: 0 0 8px;
+  border-bottom: #272727;
+}
+
+.medium-font {
+  font-size: 12px;
+}
+
+ul.horizontal-bar li label {
+  color: #999;
+  text-transform: uppercase;
+  font-size: 0.55rem;
+  float: none;
+  text-align: left;
+  margin: 0;
+  padding-left: 0.5rem;
+  white-space: nowrap;
+  width: 40px;
+  position: absolute;
+  left: 0.4rem;
+}
+.card-body {
+  padding: 0.25rem !important;
+  font-weight: 400 !important;
+}
+
+.logo-background {
+  background-color: #272727 !important;
+  color: white;
+}
+
+ul.horizontal-bar li var {
+  position: relative;
+  right: 0.4rem;
+  width: 40px;
+  float: left;
+  font-size: 0.6rem;
+  left: 100%;
+  padding-left: 0.4rem;
+  white-space: nowrap;
+  font-weight: 350;
+}
+
+.secondary-nav {
+  display: flex;
+  justify-content: space-between !important ;
+}
+
+.card-heading-background {
+  background-color: #f7f7f7;
+}
+/* Bell animation */
+
+.faa-ring {
+  color: white;
+}
+
+.card-header {
+  border-bottom-width: 1px solid !important;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(235, 235, 235);
+  background-color: #fff;
+  margin: 0.3rem;
+}
+.account-list-primary-left {
+  list-style: none;
+  float: left;
+  font-size: 12px;
+  border: none;
+  padding: 0px;
+}
+
+.account-list-primary-right {
+  float: right;
+  list-style: none;
+  font-size: 12px;
+  border: none;
+  padding: 0px;
+}
+
+.account-list-secondary-left {
+  float: left;
+  list-style: none;
+  font-size: 7px;
+  border: none;
+  padding: 0px;
+}
+
+.list-group-item {
+  border: none;
+  padding: 0px;
+}
+
+@-webkit-keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes ring {
+  0% {
+    -webkit-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+
+  2% {
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  4% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  6% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  8% {
+    -webkit-transform: rotate(-22deg);
+    -ms-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+  }
+
+  10% {
+    -webkit-transform: rotate(22deg);
+    -ms-transform: rotate(22deg);
+    transform: rotate(22deg);
+  }
+
+  12% {
+    -webkit-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
+
+  14% {
+    -webkit-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    transform: rotate(18deg);
+  }
+
+  16% {
+    -webkit-transform: rotate(-12deg);
+    -ms-transform: rotate(-12deg);
+    transform: rotate(-12deg);
+  }
+
+  18% {
+    -webkit-transform: rotate(12deg);
+    -ms-transform: rotate(12deg);
+    transform: rotate(12deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.faa-ring.animated,
+.faa-ring.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-ring {
+  -webkit-animation: ring 5s ease infinite;
+  animation: ring 5s ease infinite;
+  transform-origin-x: 50%;
+  transform-origin-y: 0px;
+  transform-origin-z: initial;
+}
