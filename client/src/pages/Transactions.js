@@ -6,7 +6,7 @@ import TransactionsRightColumn from '../components/Transactions/TransactionsRigh
 import { getTransactions } from '../actions/transactionActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
+import AddTransactionModal from '../components/Transactions/AddTransactionModal';
 import {
   logout,
   isUserAuthenticated,
@@ -19,6 +19,7 @@ function Transactions({
   auth: { isAuthenticated },
   setAuthInfo,
   getTransactions,
+  getBudgetCategories,
 }) {
   useEffect(() => {
     getTransactions();
@@ -29,12 +30,9 @@ function Transactions({
 
   return (
     <React.Fragment>
-      {isAuthenticated === false && <Redirect to='/' />}
-
-      <NavbarTop />
-      <NavBarSecondary />
       <section>
         <Container>
+          <AddTransactionModal />
           <TransactionsLeftColumn />
           <TransactionsRightColumn />
         </Container>

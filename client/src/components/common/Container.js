@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Container({ children }) {
+function Container({ children, margin }) {
   return (
-    <div className='container '>
+    <div className={`container ${margin}`}>
       <div className='row  justify-content-md-center'>{children}</div>
     </div>
   );

@@ -5,7 +5,19 @@ const Budget = require('../models/budget');
 router.get(
   '/getBudgets',
   asyncMiddleware(async (req, res) => {
-    const budget = await Budget.find();
+    const budget = await Budget.find({ userId: req.user._id });
+
+    res.send(budget);
+  })
+);
+
+router.get(
+  '/getBudgetType/:budgetType',
+  asyncMiddleware(async (req, res) => {
+    const budget = await Budget.find({
+      budgetType: req.params.budgetType,
+      userId: req.user._id,
+    });
 
     res.send(budget);
   })
@@ -14,9 +26,12 @@ router.get(
 router.post(
   '/addBudget',
   asyncMiddleware(async (req, res) => {
-    const duplicateBudget = await Budget.find({ category: req.body.category });
-
-    if (duplicateBudget.length > 0)
+    //allowing multiple budgets with no subcategory to be set up
+    const duplicateSubCategoryBudget = await Budget.find({
+      category: req.body.category,
+      subCategory: req.body.subCategory,
+    });
+    if (duplicateSubCategoryBudget.length > 0)
       return res
         .status(400)
         .json({ message: 'Budget with that category already exists' });
@@ -30,9 +45,46 @@ router.post(
 );
 
 router.put(
+  '/incrementBudget/:id',
+  asyncMiddleware(async (req, res) => {
+    const budget = await Budget.findByIdAndUpdate(
+      req.params.id,
+      {
+        $inc: {
+          budgetLimit: 10,
+        },
+      },
+
+      { new: true }
+    );
+    res.json(budget);
+  })
+);
+
+router.put(
+  '/decrementBudget/:id',
+  asyncMiddleware(async (req, res) => {
+    const budget = await Budget.findByIdAndUpdate(
+      req.params.id,
+      {
+        $inc: {
+          budgetLimit: -10,
+        },
+      },
+
+      { new: true }
+    );
+    res.json(budget);
+  })
+);
+
+router.put(
   '/updateBudget/:id',
   asyncMiddleware(async (req, res) => {
-    const duplicateBudget = await Budget.find({ category: req.body.category });
+    const duplicateBudget = await Budget.find({
+      subCategory: req.body.subCategory,
+      userId: req.params._id,
+    });
 
     if (duplicateBudget)
       return res
@@ -43,6 +95,7 @@ router.put(
       req.params._id,
       {
         category: req.body.category,
+        subCategory: req.body.subCategory,
         budgetLimit: req.body.budgetLimit,
       },
       { new: true }

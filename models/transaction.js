@@ -10,6 +10,7 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     default: moment().format('MMM, DD'),
   },
+  //merchant ex Uber.com, Interac e transfer
   description: {
     type: String,
     required: true,
@@ -18,9 +19,14 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //Income, Utilities, Food and Dining
   category: {
     type: String,
     required: true,
+  },
+  //Groceries, Phone Bill etc
+  subCategory: {
+    type: String,
   },
   amount: {
     type: Number,
@@ -39,16 +45,10 @@ const transactionSchema = new mongoose.Schema({
   paymentType: {
     type: String,
     default: function () {
-      const incomeCategories = [
-        'Income',
-        'Deposit',
-        'Cashback',
-        'Refund',
-        'Payment',
-      ];
-
-      return incomeCategories.filter((c) => c === this.category).length > 0
+      return this.category === 'Income'
         ? 'Deposit'
+        : this.category === 'Transfer'
+        ? 'Transfer'
         : 'Withdrawal';
     },
   },
@@ -59,7 +59,11 @@ const transactionSchema = new mongoose.Schema({
       const amount = this.amount;
       const paymentType = this.paymentType;
 
-      return paymentType === 'Withdrawal' ? amount * -1 : amount;
+      return paymentType === 'Withdrawal'
+        ? amount * -1
+        : paymentType === 'Transfer'
+        ? 0
+        : amount;
     },
   },
 });

@@ -1,20 +1,33 @@
 import {
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
+  SET_TRANSACTION_LOADING,
   SET_MONTH_NET,
+  TRANSACTION_ERROR,
+  GET_NON_BUDGETED_INCOME_SUM,
+  GET_NON_BUDGETED_SPENDING_SUM,
+  SET_HOVERED_MONTH_COLOR,
+  GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY,
+  GET_INCOME_SUM_BY_MONTH_TYPE,
+  GET_SPENDING_SUM_BY_MONTH_TYPE,
+  GET_TRANSACTIONS_BY_MONTH,
+  GET_TRANSACTION_CATEGORIES,
+  GET_TRANSACTIONS_BY_ACCOUNT,
+  GET_NON_BUDGETED_SPENDING_TRANSACTIONS,
+  GET_NON_BUDGETED_INCOME_TRANSACTIONS,
+  SET_6_MONTH_NET,
   GET_TRANSACTIONS_BY_CATEGORY,
   GET_TRANSACTION_CATEGORY_TOTALS,
-  GET_TRANSACTION_CATEGORIES,
-  SET_6_MONTH_MAX,
-  GET_TRANSACTIONS_BY_MONTH,
-  SET_6_MONTH_NET,
-  SET_MONTH_NET_PERCENT,
   SET_MONTH_TOTALS,
+  SET_6_MONTH_MAX,
+  SET_MONTH_NET_PERCENT,
 } from '../actions/types';
 import moment from 'moment';
 const initialState = {
   transactionList: [],
-  monthNet: 0,
+  hoveredTransactionList: [],
+  monthNet: null,
+  monthGraphNet: null,
   monthIncome: 0,
   monthDebt: 0,
   sixMonthNetTotals: 0,
@@ -29,15 +42,47 @@ const initialState = {
   sixMonthMaxNet: 0,
   transactionCategories: [],
   categoryTotals: [],
+  monthNetColor: null,
   monthTransactions: [],
+  transactionLoading: false,
+  hoveredColor: null,
+  error: null,
+  spendingSum: 0,
+  //spending transactions with no budget category
+  nonBudgetedIncomeTransactions: [],
+  nonBudgetedSpendingTransactions: [],
+  nonBudgetedTransferTransactions: [],
+  incomeSum: 0,
+  nonBudgetedIncomeSum: 0,
+  nonBudgetedSpendingSum: 0,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY:
+      return {
+        ...state,
+        transactionList: action.payload,
+      };
+    case GET_TRANSACTIONS_BY_ACCOUNT:
+      return {
+        ...state,
+        transactionList: action.payload,
+      };
     case SET_MONTH_NET:
       return {
         ...state,
-        monthNet: state.monthIncome - state.monthDebt,
+        monthNet: action.payload.reduce(
+          (accumulator, transaction) => transaction.amountValue + accumulator,
+          0
+        ),
+        monthNetColor:
+          action.payload.reduce(
+            (accumulator, transaction) => transaction.amountValue + accumulator,
+            0
+          ) >= 0
+            ? '#40c740'
+            : '#bc1c04',
       };
 
     //created amount.Value in transaction schema to easily determine net without
@@ -62,6 +107,7 @@ export default (state = initialState, action) => {
         }),
       };
 
+    //needed to combine income debt and net into one transaction in order to properly set each value
     case SET_MONTH_TOTALS:
       return {
         ...state,
@@ -74,7 +120,7 @@ export default (state = initialState, action) => {
             )
             .reduce((accumulator, transaction) => {
               if (transaction.paymentType === 'Deposit') {
-                return transaction.amount + accumulator;
+                return transaction.amountValue + accumulator;
               } else return 0 + accumulator;
             }, 0),
         monthDebt:
@@ -86,12 +132,24 @@ export default (state = initialState, action) => {
             )
             .reduce((accumulator, transaction) => {
               if (transaction.paymentType === 'Withdrawal') {
-                return transaction.amount + accumulator;
+                return (transaction.amountValue + accumulator) * -1;
               } else return 0 + accumulator;
             }, 0),
-        monthNet: state.monthIncome - state.monthDebt,
+        monthGraphNet:
+          state.transactionList &&
+          state.transactionList
+            .filter(
+              (transaction) =>
+                action.payload === transaction.shortDate.split(',')[0]
+            )
+            .reduce(
+              (accumulator, transaction) =>
+                transaction.amountValue + accumulator,
+              0
+            ),
       };
 
+    //this action is to determine the top and bottom value of the graph in the overview trends card for month net
     case SET_6_MONTH_MAX:
       return {
         ...state,
@@ -104,6 +162,123 @@ export default (state = initialState, action) => {
               previousValue > currentValue ? previousValue : currentValue
             ),
       };
+
+    //only add to sum if it is a budget item
+    case GET_SPENDING_SUM_BY_MONTH_TYPE:
+      return {
+        ...state,
+        spendingSum: action.payload.data
+          .filter((transaction) =>
+            action.payload.budgetList.some(
+              (budget) => transaction.category === budget.category
+            )
+          )
+          .reduce(
+            (accumulator, transaction) => accumulator + transaction.amount,
+            0
+          ),
+      };
+    //include all income
+    case GET_INCOME_SUM_BY_MONTH_TYPE:
+      return {
+        ...state,
+        incomeSum: action.payload.data
+          .filter((transaction) =>
+            action.payload.budgetList.some(
+              (budget) => transaction.category === budget.category
+            )
+          )
+          .reduce(
+            (accumulator, transaction) => transaction.amount + accumulator,
+            0
+          ),
+      };
+
+    //list of transactions underneath budgets on budgets page
+    case GET_NON_BUDGETED_INCOME_TRANSACTIONS:
+      return {
+        ...state,
+        nonBudgetedIncomeTransactions: action.payload.data.filter(
+          (transaction) =>
+            !action.payload.budgetList.some(
+              (budget) => transaction.category === budget.category
+            )
+        ),
+      };
+
+    //non budgeted spending AND Transfers
+    case GET_NON_BUDGETED_SPENDING_TRANSACTIONS:
+      return {
+        ...state,
+        nonBudgetedSpendingTransactions: action.payload.data.filter(
+          (transaction) =>
+            !action.payload.budgetList.some(
+              (budget) =>
+                transaction.subCategory === budget.subCategory &&
+                transaction.category === budget.category
+            )
+        ),
+      };
+
+    //sum of non budgeted income items
+    case GET_NON_BUDGETED_INCOME_TRANSACTIONS:
+      return {
+        ...state,
+        nonBudgetedIncomeSum: action.payload.data.filter(
+          (transaction) =>
+            !action.payload.budgetList.some(
+              (budget) =>
+                transaction.subCategory === budget.subCategory &&
+                transaction.category === budget.category
+            )
+        ),
+      };
+
+    //sum of non budgeted income
+    case GET_NON_BUDGETED_INCOME_SUM:
+      return {
+        ...state,
+        nonBudgetedIncomeSum: action.payload.data
+          .filter(
+            (transaction) =>
+              !action.payload.budgetList.some(
+                (budget) =>
+                  transaction.subCategory === budget.subCategory &&
+                  transaction.category === budget.category
+              )
+          )
+          .reduce(
+            (accumulator, currentValue) =>
+              currentValue.amountValue + accumulator,
+            0
+          ),
+      };
+
+    //sum of non budgeted spending items
+    //cant use .amount because then transfers will be
+    //included in total value
+    //need to use .amountValue so transfers are worth 0
+    //then multiply by -1
+    case GET_NON_BUDGETED_SPENDING_SUM:
+      return {
+        ...state,
+        nonBudgetedSpendingSum: action.payload.data
+          .filter(
+            (transaction) =>
+              !action.payload.budgetList.some(
+                (budget) =>
+                  transaction.subCategory === budget.subCategory &&
+                  transaction.category === budget.category
+              )
+          )
+          .reduce(
+            (accumulator, currentValue) =>
+              (accumulator + currentValue.amountValue) * -1,
+            0
+          ),
+      };
+
+    //this action is used to determine the height of the bars for the month net graph on the overview page
     case SET_MONTH_NET_PERCENT:
       return {
         ...state,
@@ -113,54 +288,120 @@ export default (state = initialState, action) => {
             : `${(state.total / state.monthDebt) * 75}%`,
       };
 
+    //http post request to add an account
     case ADD_TRANSACTION:
       return {
         ...state,
         transactionList: [...state.transactionList, action.payload],
+        transactionLoading: false,
+        error: null,
       };
 
+    //http get request for all accounts
     case GET_TRANSACTIONS:
       return {
         ...state,
         transactionList: action.payload,
+        transactionLoading: false,
+        error: null,
+      };
+
+    //http request for a single months transactions in order to determine color
+    //on hover for the month net on the budgets page
+    //setting color for hovered month in budget page, state was setting it too early
+    //and for previous month
+    case SET_HOVERED_MONTH_COLOR:
+      return {
+        ...state,
+        hoveredColor:
+          action.payload === ''
+            ? '#e9ecef'
+            : action.payload.reduce(
+                (accumulator, transaction) =>
+                  transaction.amountValue + accumulator,
+                0
+              ) >= 0
+            ? '#40c740'
+            : '#bc1c04',
+
+        transactionLoading: false,
+        error: null,
+      };
+
+    //if http request has an error
+    case TRANSACTION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     case GET_TRANSACTIONS_BY_MONTH:
       return {
         ...state,
-        transactionList: action.payload,
+        monthTransactions: action.payload,
       };
+
+    //filtering transactions by category
     case GET_TRANSACTIONS_BY_CATEGORY:
       return {
         ...state,
         transactionsByCategory: action.payload,
       };
 
+    //array of categories in order to map with budget categories in budgets page
     case GET_TRANSACTION_CATEGORIES:
       return {
         ...state,
         transactionCategories: [
           ...new Set(
-            state.transactionList.map((transaction) => transaction.category)
+            state.monthTransactions.map((transaction) => transaction.category)
           ),
         ],
       };
 
+    //setting category total inside the budget bar, if there are no transactions of that
+    //category then the category total is set to 0
+    //this creates an array of objects with the category and the total for the month
+    //that is  selected in the budget page
+    //this is then mapped out in progress bars
+
     case GET_TRANSACTION_CATEGORY_TOTALS:
       return {
         ...state,
-        categoryTotals: state.transactionCategories.map((category) => {
-          return {
-            category,
-            total: state.transactionList
-              .filter((transaction) => transaction.category === category)
-              .reduce((accumulator, transaction) => {
-                if (transaction.category === category) {
-                  return transaction.amountValue + accumulator;
-                }
-              }, 0),
-          };
+        categoryTotals: action.payload.map((budget) => {
+          return state.monthTransactions.length === 0
+            ? {
+                category: budget.category,
+                subCategory: budget.subCategory,
+                total: 0,
+              }
+            : {
+                category: budget.category,
+                subCategory: budget.subCategory,
+                total: state.monthTransactions
+                  .filter(
+                    (transaction) =>
+                      //ensuring categories with no subcategory are not all summed together and instead filtered by category
+                      transaction.subCategory === budget.subCategory &&
+                      transaction.category === budget.category
+                  )
+                  .reduce((accumulator, transaction) => {
+                    if (
+                      transaction.subCategory === budget.subCategory &&
+                      transaction.category === budget.category
+                    ) {
+                      return transaction.amountValue + accumulator;
+                    }
+                  }, 0),
+              };
         }),
+      };
+
+    //loading bar for page
+    case SET_TRANSACTION_LOADING:
+      return {
+        ...state,
+        transactionLoading: true,
       };
 
     default:

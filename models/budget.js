@@ -5,6 +5,10 @@ const budgetSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subCategory: {
+    type: String,
+    required: false,
+  },
   budgetLimit: {
     type: Number,
     required: true,
@@ -12,6 +16,12 @@ const budgetSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+  },
+  budgetType: {
+    type: String,
+    default: function () {
+      return this.category === 'Income' ? 'Income' : 'Spending';
+    },
   },
 });
 

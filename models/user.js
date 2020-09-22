@@ -18,20 +18,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  streetNumber: {
-    type: Number,
-    min: 0,
-    max: 999999,
-    required: true,
-    trim: true,
-  },
-  streetName: {
-    type: String,
-    minlength: 3,
-    maxlength: 50,
-    required: true,
-    trim: true,
-  },
   email: {
     type: String,
     unique: true,
@@ -88,7 +74,7 @@ userSchema.methods.generateAuthToken = async function () {
       aud: 'api.it-logger',
     },
     process.env.JWT_SECRET,
-    { algorithm: 'HS256', expiresIn: '1hr' }
+    { algorithm: 'HS256', expiresIn: '5hr' }
   );
 
   user.tokens = user.tokens.concat({ token });

@@ -43,14 +43,14 @@ const accountSchema = new mongoose.Schema({
       if (
         accountType === 'Mortgage' ||
         accountType === 'OSAP' ||
-        accountType === 'Car Loan'
+        accountType === 'Car Loan' ||
+        accountType === 'Line Of Credit'
       )
         return 'Loan';
       if (
         accountType === 'MasterCard' ||
         accountType === 'Visa' ||
-        accountType === 'American Express' ||
-        accountType === 'Line Of Credit'
+        accountType === 'American Express'
       )
         return 'Credit';
 

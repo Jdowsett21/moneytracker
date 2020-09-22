@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
 import GradientButton from '../components/common/GradientButton';
-import FormInput from '../components/FormInput';
+import FormInput from '../components/common/FormInput';
 import NavbarTop from './../components/common/NavbarTop';
 import NavBarSecondary from './../components/common/NavBarSecondary';
 

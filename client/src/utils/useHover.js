@@ -10,16 +10,19 @@ export const useHover = () => {
 
   useEffect(() => {
     const node = ref.current;
-
     if (node) {
       node.addEventListener('mouseover', handleMouseOver);
       node.addEventListener('mouseout', handleMouseOut);
+
+      return () => {
+        node.removeEventListener('mouseover', handleMouseOver);
+        node.removeEventListener('mouseout', handleMouseOut);
+      };
     }
-    return () => {
-      node.removeEventListener('mouseover', handleMouseOver);
-      node.removeEventListener('mouseout', handleMouseOut);
-    };
-  }, [ref.current]);
+
+    // If we didn't set up any listeners, we won't need to unsubscribe from anything.
+    return () => {};
+  }, [ref.current]); // Ensure we remove and re-add the listeners if and only if the ref changes.
 
   return [ref, value];
 };

@@ -18,14 +18,13 @@ function MonthlyNetGraph({
   setSixMonthMax,
   months: { hoveredMonth },
   transactions: {
-    monthNet,
+    monthGraphNet,
     monthIncome,
     monthDebt,
     sixMonthNetTotals,
     sixMonthMax,
     transactionList,
   },
-  accounts: { cash },
 }) {
   const months = [
     moment().subtract(5, 'months').format('MMM'),
@@ -39,13 +38,13 @@ function MonthlyNetGraph({
   useEffect(() => {
     getTransactions();
 
-    setSixMonthNet();
-    setSixMonthMax();
     if (transactionList && transactionList.length > 0) {
+      setSixMonthNet();
+      setSixMonthMax();
       setMonthTotals(hoveredMonth);
     }
     // eslint-disable-next-line
-  }, [hoveredMonth, monthIncome, cash]);
+  }, [transactionList.length, hoveredMonth]);
 
   return (
     <React.Fragment>
@@ -88,7 +87,7 @@ function MonthlyNetGraph({
       <MonthTable
         monthDebt={monthDebt}
         monthIncome={monthIncome}
-        monthNet={monthNet}
+        monthNet={monthGraphNet}
       />
     </React.Fragment>
   );

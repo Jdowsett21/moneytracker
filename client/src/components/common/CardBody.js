@@ -1,7 +1,7 @@
 import React from 'react';
 
-function CardBody({ children }) {
-  return <div className='card-body'>{children}</div>;
+function CardBody({ children, classSpecifics }) {
+  return <div className={`card-body ${classSpecifics}`}>{children}</div>;
 }
 
 export default CardBody;

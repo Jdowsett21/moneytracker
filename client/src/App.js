@@ -1,5 +1,10 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
 //redux
 import { Provider } from 'react-redux';
@@ -15,6 +20,8 @@ import AuthenticatedRoutes from './AuthenticatedRoutes';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import AppShell from './AppShell';
+import { connect } from 'react-redux';
+import AuthenticatedNavBar from './AuthenticatedNavBar';
 const Overview = lazy(() => import('./pages/Overview'));
 const Transactions = lazy(() => import('./pages/Transactions'));
 const AddAccount = lazy(() => import('./pages/AddAccount'));
@@ -24,7 +31,6 @@ const WaysToSave = lazy(() => import('./pages/WaysToSave'));
 const Budgets = lazy(() => import('./pages/Budgets.js'));
 const Settings = lazy(() => import('./pages/Settings.js'));
 const Profile = lazy(() => import('./pages/Profile.js'));
-const AddTransactions = lazy(() => import('./pages/AddTransactions.js'));
 
 const LoadingFallback = () => (
   <AppShell>
@@ -47,6 +53,7 @@ const UnauthenticatedRoutes = () => (
 
 const AppRoutes = () => (
   <React.Fragment>
+    <AuthenticatedNavBar />
     <Suspense fallback={<LoadingFallback />}>
       <Switch>
         <AuthenticatedRoutes path='/overview'>
@@ -78,9 +85,6 @@ const AppRoutes = () => (
         </AuthenticatedRoutes>
         <AuthenticatedRoutes path='/tour'>
           <Profile />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/addTransactions'>
-          <AddTransactions />
         </AuthenticatedRoutes>
 
         <UnauthenticatedRoutes />

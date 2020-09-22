@@ -20,6 +20,8 @@
     "moment": "^2.27.0",
     "mongoose": "^5.9.25",
     "react-cookie": "^4.0.3",
+    "react-scrollspy": "^3.4.3",
+    "react-toastify": "^6.0.8",
     "winston": "^2.4.5",
     "yup": "^0.29.3"
   },

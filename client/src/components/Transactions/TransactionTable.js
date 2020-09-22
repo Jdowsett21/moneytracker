@@ -15,10 +15,13 @@ function TransactionTable({
   }, []);
   return (
     <div className=''>
-      <table className='table table-dark'>
+      <table
+        className='table table-striped table-hover table-bordered'
+        style={{ fontSize: '0.8rem', borderColor: '#999' }}
+      >
         <thead className='text-small'>
-          <tr>
-            <th>CheckBox</th>
+          <tr className='table-header'>
+            <th></th>
             <th>Date</th>
             <th>Description</th>
             <th>Category</th>
@@ -30,7 +33,9 @@ function TransactionTable({
           {transactionList &&
             transactionList.map((transaction) => (
               <tr key={transaction._id}>
-                <td>Checkbox</td>
+                <td>
+                  <input type='checkbox' />
+                </td>
                 <td>{transaction.shortDate}</td>
                 <td>{transaction.description}</td>
                 <td>{transaction.category}</td>

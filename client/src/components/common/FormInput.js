@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
-import FormError from './../components/common/FormError';
+import FormError from './FormError';
 
 const FormInput = ({ ariaLabel, name, type, placeholder }) => {
   const [field, meta] = useField(name);
@@ -14,6 +14,7 @@ const FormInput = ({ ariaLabel, name, type, placeholder }) => {
         type={type}
         placeholder={placeholder}
       />
+
       {meta.touched && meta.error ? (
         <FormError text={meta.error}></FormError>
       ) : null}

@@ -5,6 +5,7 @@ const settings = require('../routes/settings');
 const transactions = require('../routes/transactions');
 const users = require('../routes/users');
 const budgets = require('../routes/budgets');
+const budgetCategories = require('../routes/budgetCategories');
 //middleware
 const jwt = require('express-jwt');
 const attachUser = require('../middleware/attachUser');
@@ -37,4 +38,5 @@ module.exports = function (app) {
   app.use('/api/settings', settings);
   app.use('/api/transactions', transactions);
   app.use('/api/budgets', budgets);
+  app.use('/api/budgetCategories', budgetCategories);
 };

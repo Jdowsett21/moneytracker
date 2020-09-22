@@ -27,9 +27,6 @@ function Overview({
 
   return (
     <React.Fragment>
-      {isAuthenticated === false && <Redirect to='/' />}
-      <NavbarTop />
-      <NavBarSecondary />
       <section>
         <Container>
           <OverviewLeftColumn />

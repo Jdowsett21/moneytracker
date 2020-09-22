@@ -55,6 +55,18 @@ router.post(
 );
 
 router.get(
+  '/monthAndType/:month/:type',
+  asyncMiddleware(async (req, res) => {
+    const transactions = await Transaction.find({
+      userId: req.user._id,
+      shortDate: { $regex: req.params.month, $options: 'i' },
+      paymentType: req.params.type,
+    });
+    res.send(transactions);
+  })
+);
+
+router.get(
   '/category/:category',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
@@ -65,6 +77,45 @@ router.get(
       return res.status(400).json({
         message: 'User does not have any transactions under this category',
       });
+
+    res.send(transactions);
+  })
+);
+
+router.get(
+  '/account/:account',
+  asyncMiddleware(async (req, res) => {
+    const transactions = await Transaction.find({
+      userId: req.user._id,
+      accountId: req.params.account,
+    });
+
+    res.send(transactions);
+  })
+);
+
+router.get(
+  '/accountCategory/:accountCategory',
+  asyncMiddleware(async (req, res) => {
+    const { accountCategory } = req.params;
+
+    const accounts =
+      accountCategory === 'Cash & Credit'
+        ? await Account.find({
+            userId: req.user._id,
+            $or: [{ accountCategory: 'Cash' }, { accountCategory: 'Credit' }],
+          })
+        : await Account.find({
+            userId: req.user._id,
+            accountCategory: accountCategory,
+          });
+
+    const transactions = await Transaction.find({
+      userId: req.user._id,
+      // map through all accounts to find all transactions
+      //within that account
+      accountId: { $in: accounts.map((account) => account._id) },
+    });
 
     res.send(transactions);
   })

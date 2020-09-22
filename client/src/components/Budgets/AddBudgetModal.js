@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import FormInput from '../FormInput';
+import FormInput from '../common/FormInput';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { addBudget } from '../../actions/BudgetActions';
@@ -16,14 +16,51 @@ function AddBudgetModal({ addBudget }) {
     <div id='addBudget' className='modal fade'>
       <div className='modal-dialog'>
         <div className='modal-content'>
+          <h2>Create A Budget</h2>
           <div className='modal-body'>
             <Formik
               validationSchema={budgetValidation}
-              initialValues={{ category: '', budgetLimit: '' }}
+              initialValues={{ category: '', subCategory: '', budgetLimit: '' }}
               onSubmit={(values) => addBudget(values)}
             >
               {() => (
                 <Form>
+                  {/* <li class='nav-item dropdown'>
+                    <a
+                      class='nav-link dropdown-toggle'
+                      href='#'
+                      id='navbarDropdownMenuLink'
+                      data-toggle='dropdown'
+                      aria-haspopup='true'
+                      aria-expanded='false'
+                    >
+                      {' '}
+                    </a>
+                    <ul
+                      class='dropdown-menu'
+                      aria-labelledby='navbarDropdownMenuLink'
+                    > */}
+                  {/* {budgetCategoryList.map((budget) => (
+                        <li class='dropdown-submenu'>
+                          <a
+                            class='dropdown-item dropdown-toggle'
+                            href='http://google.com'
+                          >
+                            {budget.category}
+                          </a>
+                          <ul class='dropdown-menu'>
+                            {budget.subCategories.map((b) => (
+                              <li>
+                                <a class='dropdown-item' href='#'>
+                                  {b}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      ))} */}
+                  {/* </ul>
+                  </li> */}
                   <Label text='Category' />
                   <FormInput
                     ariaLabel='Category'
@@ -31,7 +68,14 @@ function AddBudgetModal({ addBudget }) {
                     type='text'
                     placeholder='Category'
                   />
-                  <Label text='Category' />
+                  <Label text='SubCategory' />
+                  <FormInput
+                    ariaLabel='SubCategory'
+                    name='subCategory'
+                    type='text'
+                    placeholder='SubCategory'
+                  />
+
                   <Label text='Budget Limit' />
                   <FormInput
                     ariaLabel='Budget Limit'

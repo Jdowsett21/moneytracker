@@ -6,14 +6,16 @@ import {
   getMonthsTransactions,
   getTransactionCategories,
   getTransactionTotalByCategory,
-} from './../../../actions/transactionActions';
+  setMonthNet,
+} from '../../../actions/transactionActions';
 
-function BudgetList({
+function BudgetIncomeList({
   getBudgets,
+  setMonthNet,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
-  transactions: { categoryTotals, transactionList },
+  transactions: { categoryTotals, monthTransactions },
   budgets: { budgetList },
   months: { month },
 }) {
@@ -23,18 +25,19 @@ function BudgetList({
   }, [month]);
 
   useEffect(() => {
+    setMonthNet(month);
     getTransactionCategories();
-    getTransactionTotalByCategory();
-  }, [transactionList]);
+    getTransactionTotalByCategory(budgetList);
+  }, [monthTransactions, budgetList]);
 
   return (
     <React.Fragment>
-      {categoryTotals.map((object) => {
-        return budgetList.map((item) => {
-          if (item.category === object.category) {
+      {budgetList.map((item) => {
+        return categoryTotals.map((object) => {
+          if (item.category === object.category && item.category !== 'Income') {
             return (
               <BudgetItem
-                item={item}
+                budget={item}
                 categoryTotal={
                   object.total < 0 ? object.total * -1 : object.total
                 }
@@ -56,7 +59,8 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getBudgets,
+  setMonthNet,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
-})(BudgetList);
+})(BudgetIncomeList);

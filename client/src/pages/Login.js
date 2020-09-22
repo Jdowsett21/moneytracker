@@ -10,9 +10,9 @@ import {
   setAuthInfo,
   loginValidation,
 } from '../actions/authActions';
-import FormInput from './../components/FormInput';
+import FormInput from './../components/common/FormInput';
 
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import GradientButton from './../components/common/GradientButton';
 import FormSuccess from './../components/common/FormSuccess';
 import FormError from './../components/common/FormError';
@@ -43,13 +43,11 @@ const Login = ({
   return (
     <>
       {(redirectOnLogin || isAuthenticated) && <Redirect to='/overview' />}
-      <div className='logo-background'>
+      <section className='logo-background fill-window'>
         <div className='container'>
           <div className='row'>
             <div className='col-md-4 m-auto text-center'>
               <img src={grivety} alt='' className='img-fluid grivety mb-0' />
-
-              <div className='row'></div>
             </div>
           </div>
           <div className='col-md-6 m-auto'>
@@ -104,6 +102,7 @@ const Login = ({
                       <GradientButton
                         type='submit'
                         text='Login'
+                        className='btn btn-primary'
                         loading={loading}
                       />
                     </Form>
@@ -125,37 +124,34 @@ const Login = ({
                   </a>
                 </div>
                 <p className='small-font text-center'>
-                  New to Intuit?{' '}
-                  <a href='/#' className=''>
-                    Create an account
-                  </a>
+                  New to Intuit? <Link to='/signup'>Create an account</Link>
                 </p>
               </div>
             </div>
           </div>
-        </div>
-        <footer className='text-center extra-small-font mt-2'>
-          <div className='row'>
-            <div className='col-md-5 m-auto px-3'>
-              <div className='mb-2'>
-                <a href='/#' className=' mr-2 '>
-                  Legal
-                </a>
-                <a href='/#' className=' mr-2'>
-                  Privacy
-                </a>
-                <a href='/#'>Security</a>
+          <footer className='text-center extra-small-font mt-2'>
+            <div className='row'>
+              <div className='col-md-5 m-auto px-3'>
+                <div className='mb-2'>
+                  <a href='/#' className=' mr-2 '>
+                    Legal
+                  </a>
+                  <a href='/#' className=' mr-2'>
+                    Privacy
+                  </a>
+                  <a href='/#'>Security</a>
+                </div>
+                <p>
+                  © 2020 Grevity, Inc. All rights reserved. Grevity is a
+                  registered trademarks of Grevity Inc. Terms and conditions,
+                  features, support, pricing, and service options subject to
+                  change without notice.
+                </p>
               </div>
-              <p>
-                © 2020 Grevity, Inc. All rights reserved. Grevity is a
-                registered trademarks of Grevity Inc. Terms and conditions,
-                features, support, pricing, and service options subject to
-                change without notice.
-              </p>
             </div>
-          </div>
-        </footer>
-      </div>
+          </footer>
+        </div>
+      </section>
     </>
   );
 };

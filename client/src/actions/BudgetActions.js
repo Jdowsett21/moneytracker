@@ -1,7 +1,11 @@
 import {
   ADD_BUDGET,
   GET_BUDGETS,
+  BUDGET_INCOME_SUM,
+  BUDGET_SPENDING_SUM,
   UPDATE_BUDGET,
+  INCREMENT_BUDGET,
+  DECREMENT_BUDGET,
   DELETE_BUDGET,
 } from '../actions/types';
 import { authAxios } from '../utils/authFetch';
@@ -22,6 +26,42 @@ export const getBudgets = () => async (dispatch) => {
     type: GET_BUDGETS,
     payload: data,
   });
+};
+
+export const incrementBudget = (budget) => async (dispatch) => {
+  const { data } = await authAxios.put(
+    `/budgets/incrementBudget/${budget._id}`,
+    budget
+  );
+  dispatch({
+    type: INCREMENT_BUDGET,
+    payload: data,
+  });
+};
+
+export const decrementBudget = (budget) => async (dispatch) => {
+  const { data } = await authAxios.put(
+    `/budgets/decrementBudget/${budget._id}`,
+    budget
+  );
+
+  dispatch({
+    type: DECREMENT_BUDGET,
+    payload: data,
+  });
+};
+
+export const setBudgetMonthSum = (type) => async (dispatch) => {
+  const { data } = await authAxios.get(`/budgets/getBudgetType/${type}`);
+  type === 'Income'
+    ? dispatch({
+        type: BUDGET_INCOME_SUM,
+        payload: data,
+      })
+    : dispatch({
+        type: BUDGET_SPENDING_SUM,
+        payload: data,
+      });
 };
 
 export const updateBudget = (budget) => async (dispatch) => {

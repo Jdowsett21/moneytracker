@@ -3,6 +3,8 @@ import {
   ADD_ACCOUNT,
   SET_CASH,
   SET_DEBT,
+  SET_ACCOUNT_LOADING,
+  ACCOUNT_ERROR,
   SET_TOTAL,
   GET_ACCOUNTS,
   SET_CASH_PERCENTAGE_BAR,
@@ -19,6 +21,8 @@ const initialState = {
   cashPercent: 0.0001,
   debtPercent: 0.0001,
   totalPercent: 0.0001,
+  accountLoading: false,
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -26,7 +30,21 @@ export default (state = initialState, action) => {
     case ADD_ACCOUNT:
       return {
         ...state,
+        loading: true,
         accountList: [...state.accountList, action.payload],
+      };
+    case GET_ACCOUNTS:
+      return {
+        ...state,
+        loading: true,
+        accountList: action.payload.map((account) =>
+          account.balance < 0
+            ? {
+                ...account,
+                balance: account.balance * -1,
+              }
+            : account
+        ),
       };
     case FILTER_ACCOUNT_TYPES:
       return {
@@ -37,18 +55,10 @@ export default (state = initialState, action) => {
           ),
         ],
       };
-
-    case GET_ACCOUNTS:
+    case ACCOUNT_ERROR:
       return {
         ...state,
-        accountList: action.payload.map((account) =>
-          account.balance < 0
-            ? {
-                ...account,
-                balance: account.balance * -1,
-              }
-            : account
-        ),
+        error: action.payload,
       };
     case SET_CASH:
       return {
@@ -100,6 +110,11 @@ export default (state = initialState, action) => {
           state.cash > state.debt
             ? `${(state.total / state.cash) * 75}%`
             : `${(state.total / state.debt) * 75}%`,
+      };
+    case SET_ACCOUNT_LOADING:
+      return {
+        ...state,
+        accountLoading: true,
       };
 
     default:

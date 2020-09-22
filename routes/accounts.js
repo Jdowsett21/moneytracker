@@ -9,20 +9,12 @@ router.post(
   '/createAccount',
   asyncMiddleware(async (req, res) => {
     const user = await User.findById(req.user._id);
-    // await user
-    //   .populate({
-    //     path: 'accounts',
-    //     select: 'accountName balance hiddenAccountNumber institution',
-    //     model: 'Account',
-    //   })
-    //   .execPopulate();
 
     const existingAccounts = await Account.find({ userId: user._id });
 
     const duplicateAccount = existingAccounts.filter(
       (account) => req.body.accountType === account.accountType
     );
-
     if (duplicateAccount.length > 0)
       return res.status(400).send('Account type already exists');
 

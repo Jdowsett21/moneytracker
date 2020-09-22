@@ -1,7 +1,7 @@
 import React from 'react';
 import GoalsCard from '../Overview/OtherCards/GoalsCard';
 import SpendingCard from '../Overview/OtherCards/SpendingCard';
-import BudgetCard from '../Overview/OtherCards/BudgetCard';
+import BudgetCard from '../Overview/BudgetsCard/BudgetCard';
 
 function OverviewRightColumn(props) {
   return (

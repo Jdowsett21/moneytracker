@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 function NavBarSecondary(props) {
   return (
-    <nav className='navbar navbar-expand-sm bg-light navbar-light small-font mx-2'>
+    <nav className='navbar navbar-expand-sm bg-light navbar-light small-font'>
       <div className='container'>
         <button
           className='navbar-toggler'
@@ -12,7 +12,7 @@ function NavBarSecondary(props) {
           <span className='navbar-toggler-icon'></span>
         </button>
         <div
-          className='collapse navbar-collapse justify-content-between'
+          className='collapse small-medium-font navbar-collapse justify-content-between mx-5'
           id='navbarCollapse2'
         >
           <ul className='navbar-nav '>
