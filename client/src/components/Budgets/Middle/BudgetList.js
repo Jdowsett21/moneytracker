@@ -23,12 +23,14 @@ function BudgetList({
   useEffect(() => {
     getBudgets();
     getMonthsTransactions(month);
+    //eslint-disable-next-line
   }, [month]);
 
   useEffect(() => {
     setMonthNet(month);
     getTransactionCategories();
     getTransactionTotalByCategory(budgetList);
+    //eslint-disable-next-line
   }, [monthTransactions, budgetList]);
 
   return (
@@ -37,6 +39,7 @@ function BudgetList({
         {budgetList.map((item) => {
           //accounting for budgets with subcategories that are empty and
           //ensuring they are not added more than once to the budget page
+          //eslint-disable-next-line
           return categoryTotals.map((object) => {
             if (
               item.subCategory === object.subCategory &&

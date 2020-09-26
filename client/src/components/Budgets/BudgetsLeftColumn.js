@@ -3,7 +3,6 @@ import { setBudgetMonthSum } from '../../actions/BudgetActions';
 
 import { connect } from 'react-redux';
 import { getMonthTypeSum } from '../../actions/transactionActions';
-import NavBarSecondary from './../common/NavBarSecondary';
 
 function BudgetsLeftColumn({
   budgets: { budgetList, budgetIncomeSum, budgetSpendingSum },
@@ -31,6 +30,8 @@ function BudgetsLeftColumn({
     );
     //other factor setting margin between income and spending in left budgets column
     setOtherIncomeLength(nonBudgetedIncomeTransactions.length * 0.5);
+
+    //eslint-disable-next-line
   }, [month, budgetList]);
 
   return (
@@ -50,7 +51,7 @@ function BudgetsLeftColumn({
       {/* //setting margin so spending left column lines up with spending
       //no matter the number of income NavBarSecondary
       //could have turned entire income section into row
-      //however wanted to hide certain columns upon page size */}
+    520ad  //however wanted to hide certain columns upon page size */}
       <h2
         className='text-right'
         style={{

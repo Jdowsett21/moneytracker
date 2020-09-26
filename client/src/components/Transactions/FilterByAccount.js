@@ -25,48 +25,59 @@ function FilterByAccount({
       </div>
       <CardBody classSpecifics='p-0'>
         <ul className='list-group  m-0' style={{ borderRadius: '0rem' }}>
-          <li className='list-group-item bg-light pl-3 pt-2'>
-            <a
-              className='text text-dark'
+          <li
+            className={`list-group-item bg-${
+              clickStatus === 'Accounts' ? 'success' : 'light'
+            } pl-3 pt-2   text-${
+              clickStatus === 'Accounts'
+                ? 'white'
+                : hover === 'Accounts'
+                ? 'success'
+                : 'dark'
+            } text-decoration-none`}
+            onClick={() => {
+              setClick('Accounts');
+            }}
+            onMouseEnter={() => setHover('Accounts')}
+            onMouseLeave={() => setHover('')}
+          >
+            <button
+              className='link-button'
               onClick={() => getTransactions()}
-              href='#'
               style={{ float: 'left' }}
             >
               <h5 className='medium-large-font'>All Accounts</h5>
               <small className='medium-font'>{`${accountList.length} accounts`}</small>
-            </a>
+            </button>
           </li>
           {accountList.map((account) => (
+            // changing font and background color
+            //on click and on hover
             <li
+              key={account._id}
               className={`list-group-item medium-large-font bg-${
                 clickStatus === account ? 'success' : 'light'
-              } px-3 py-2`}
+              } px-3 py-2 
+              text-${
+                clickStatus === account
+                  ? 'white'
+                  : hover === account
+                  ? 'success'
+                  : 'dark'
+              } text-decoration-none`}
               onClick={() => setClick(account)}
               onMouseEnter={() => setHover(account)}
               onMouseLeave={() => setHover('')}
+              style={{ cursor: 'pointer' }}
             >
-              <a
-                className={`d-block text text-${
-                  clickStatus === account
-                    ? 'white'
-                    : hover === account
-                    ? 'success'
-                    : 'dark'
-                } text-decoration-none`}
+              <button
+                className={`d-block link-button`}
                 onClick={() => getAccountTransactions(account)}
               >
                 {account.institution}
-              </a>
+              </button>
               <div>
-                <small
-                  className={` text-${
-                    clickStatus === account
-                      ? 'white'
-                      : hover === account
-                      ? 'success'
-                      : 'dark'
-                  }`}
-                >
+                <small onClick={() => getAccountTransactions(account)}>
                   {account.accountName}
                 </small>
               </div>

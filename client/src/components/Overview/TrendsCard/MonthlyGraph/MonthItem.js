@@ -14,14 +14,16 @@ function MonthItem({
   const [hoverRef, isHovered] = useHover();
   useEffect(() => {
     isHovered ? setHoveredMonth(index) : moment().format('MMM');
+    //eslint-disable-next-line
   }, [isHovered, index]);
 
   return (
     <li className={type} ref={hoverRef}>
       <label className='text-extra-small text-muted'>{month}</label>
+      {/* eslint-disable-next-line */}
       <a
         className={monthNet > 0 ? '' : 'negative'}
-        href='!#'
+        href='/#'
         style={{
           height: `${
             monthNet === sixMonthMax || monthNet === sixMonthMax * -1

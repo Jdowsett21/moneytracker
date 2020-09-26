@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 function TrendsCard({ getTransactions }) {
   useEffect(() => {
     getTransactions();
+    //eslint-disable-next-line
   }, []);
 
   return (

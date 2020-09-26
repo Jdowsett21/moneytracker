@@ -22,17 +22,20 @@ function BudgetCardList({
   useEffect(() => {
     getBudgets();
     getMonthsTransactions(moment().format('MMM'));
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     setMonthNet(month);
     getTransactionCategories();
     getTransactionTotalByCategory(budgetList);
+    //eslint-disable-next-line
   }, [monthTransactions, budgetList]);
 
   return (
     <React.Fragment>
       {budgetList.map((budget) => {
+        //eslint-disable-next-line
         return categoryTotals.map((object) => {
           //overview page does not have income items
           if (

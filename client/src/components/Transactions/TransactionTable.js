@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTransactions } from './../../actions/transactionActions';
 import { getAccounts } from './../../actions/AccountActions';
+import UnselectedTableRow from './UnselectedTableRow';
+import SelectedTableRow from './SelectedTableRow';
 
 function TransactionTable({
-  transactions: { transactionList },
+  transactions: { transactionList, selectedTransaction },
   getTransactions,
+
   getAccounts,
 }) {
   useEffect(() => {
@@ -13,8 +16,9 @@ function TransactionTable({
     getAccounts();
     //eslint-disable-next-line
   }, []);
+
   return (
-    <div className=''>
+    <div>
       <table
         className='table table-striped table-hover table-bordered'
         style={{ fontSize: '0.8rem', borderColor: '#999' }}
@@ -31,23 +35,16 @@ function TransactionTable({
         </thead>
         <tbody>
           {transactionList &&
-            transactionList.map((transaction) => (
-              <tr key={transaction._id}>
-                <td>
-                  <input type='checkbox' />
-                </td>
-                <td>{transaction.shortDate}</td>
-                <td>{transaction.description}</td>
-                <td>{transaction.category}</td>
-                <td></td>
-                <td>
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(transaction.amount)}
-                </td>
-              </tr>
-            ))}
+            transactionList.map((transaction) =>
+              transaction === selectedTransaction ? (
+                <SelectedTableRow key={transaction._id} />
+              ) : (
+                <UnselectedTableRow
+                  transaction={transaction}
+                  key={transaction._id}
+                />
+              )
+            )}
         </tbody>
       </table>
     </div>

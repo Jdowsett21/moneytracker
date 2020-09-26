@@ -1,31 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { addTransaction } from '../../actions/transactionActions';
-
 import {
   isUserAuthenticated,
   setAuthInfo,
   isAdmin,
 } from '../../actions/authActions';
-
-import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast } from 'react-toastify';
-
-const TransactionSchema = Yup.object().shape({
-  accountName: Yup.string().required('Account Name is required'),
-  description: Yup.string().required('Description is required'),
-  category: Yup.string().required('Category is required'),
-  amount: Yup.string().required('Amount is required'),
-});
 
 function AddTransactionModal({
-  auth: { isAuthenticated, loading },
   isUserAuthenticated,
   setAuthInfo,
   addTransaction,
   isAdmin,
-  budgetCategories: { budgetCategoryList },
+  accounts: { accountList },
 }) {
   useEffect(() => {
     isUserAuthenticated();
@@ -56,97 +44,135 @@ function AddTransactionModal({
   return (
     <div id='addTransaction' className='modal fade'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content p-3'>
           <h2>Add Transaction</h2>
           <div className='modal-body'>
-            <div className='d-flex justify-content-between'>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  name='description'
-                  value={description}
-                  className='form-control'
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div className='form-group'>
-                <input
-                  type='text'
+            <div className='form-group'>
+              <label>Description</label>
+              <input
+                type='text'
+                name='description'
+                value={description}
+                className='form-control'
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <label htmlFor=''>Account</label>
+            <div className='row'>
+              <div className='input-field'>
+                <select
                   name='account'
                   value={account}
-                  className='form-control'
+                  className='browser-default'
                   onChange={(e) => setAccount(e.target.value)}
-                />
-              </div>
-              <div className='dropdown'>
-                <button
-                  className='btn btn-primary dropdown-toggle'
-                  type='button'
-                  id='dropdownMenuButton'
-                  data-toggle='dropdown'
-                  aria-haspopup='true'
-                  aria-expanded='false'
-                ></button>
-                <div
-                  className='dropdown-menu'
-                  aria-labelledby='dropdownMenuButton'
                 >
-                  {budgetCategoryList.map((b) => (
-                    <div className=''>
-                      <a className='dropdown-item' href='#'>
-                        <button
-                          className='btn btn-primary dropdown-toggle'
-                          type='button'
-                          value={b.category}
-                          id='dropdownMenuButton2'
-                          data-toggle='dropdown'
-                          aria-haspopup='true'
-                          aria-expanded='false'
+                  <option value=''>Select Account</option>
+                  {accountList.map((a) => (
+                    <option
+                      key={a._id}
+                      value={`${a.accountName} ${a.hiddenAccountNumber
+                        .split(' ')
+                        .join('')
+                        .slice(8)}`}
+                    >
+                      {`${a.accountName} ${a.hiddenAccountNumber
+                        .split(' ')
+                        .join('')
+                        .slice(8)}`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {/* <label htmlFor=''>Category</label>
+            <div className='dropdown'>
+              <input
+                className='form-control'
+                type='button'
+                id='dropdownCategoryMenu'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded='false'
+              />
+
+              <div
+                className='dropdown-menu m-0'
+                aria-labelledby='dropdownCategoryMenu'
+              >
+                {budgetCategoryList.map((b) => (
+                  <>
+                    <a className='dropdown-item' href='#'>
+                      <button
+                        className='btn btn-primary dropdown-toggle'
+                        type='button'
+                        value={b.category}
+                        id='dropdownSubCategory'
+                        data-toggle='dropdown'
+                        aria-haspopup='true'
+                        aria-expanded='false'
+                        onMouseOver={() => setCategory(b.category)}
+                      >
+                        {b.category}
+                      </button>
+                    </a>
+                    <div
+                      className='dropdown-menu'
+                      aria-labelledby='dropdownSubCategory'
+                    >
+                      {b.subCategories.map((item) => (
+                        <a
+                          value={item.subCategory}
+                          className='dropdown-item'
+                          href='#'
                           onMouseOver={(e) => setCategory(e.target.value)}
                         >
-                          {b.category}
-                        </button>
-                      </a>
-                      <div
-                        className='dropdown-menu'
-                        aria-labelledby='dropdownMenuButton2'
-                      >
-                        {b.subCategories.map((item) => (
-                          <a
-                            value={item.subCategory}
-                            className='dropdown-item'
-                            href='#'
-                            onMouseOver={(e) => setCategory(e.target.value)}
-                          >
-                            {item.subCategory}
-                          </a>
-                        ))}
-                      </div>
+                          {item.subCategory}
+                        </a>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                ))}
               </div>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  name='amount'
-                  value={amount}
-                  className='form-control'
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-              </div>
-              <div className='modal-footer'>
-                <a
-                  href='#'
-                  data-dismiss='modal'
-                  onClick={onSubmit}
-                  className='btn btn-primary'
-                >
-                  Add Transaction
-                </a>
-              </div>
-
-              <ToastContainer closeOnClick />
+            </div> */}
+            <div className='form-group'>
+              <label htmlFor=''>Category</label>
+              <input
+                type='text'
+                name='category'
+                value={category}
+                className='form-control'
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor=''>Category</label>
+              <input
+                type='text'
+                name='category'
+                value={subCategory}
+                className='form-control'
+                onChange={(e) => setSubCategory(e.target.value)}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor=''>Amount</label>
+              <input
+                type='text'
+                name='amount'
+                value={amount}
+                className='form-control'
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </div>
+            <div className='modal-footer'>
+              <a
+                href='/#'
+                data-dismiss='modal'
+                onClick={onSubmit}
+                className='btn btn-primary'
+              >
+                Add Transaction
+              </a>
             </div>
           </div>
         </div>
@@ -162,6 +188,7 @@ AddTransactionModal.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  accounts: state.accounts,
   budgetCategories: state.budgetCategories,
 });
 export default connect(mapStateToProps, {

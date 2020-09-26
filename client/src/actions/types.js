@@ -53,6 +53,7 @@ export const SET_HOVERED_MONTH_COLOR = 'SET_HOVERED_MONTH_COLOR';
 //transactions http requests
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+export const UPDATE_TRANSACTION = 'UPDATE_TRANSACTION';
 
 //getting the toal amount of a category value for budget page
 export const GET_TRANSACTION_CATEGORY_TOTALS =
@@ -70,6 +71,8 @@ export const GET_TRANSACTIONS_BY_MONTH = 'GET_TRANSACTIONS_BY_MONTH';
 export const GET_TRANSACTIONS_BY_ACCOUNT = 'GET_TRANSACTIONS_BY_ACCOUNT';
 export const GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY =
   '  GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY';
+//setting transaction that is clicked on
+export const SET_SELECTED_TRANSACTION = '  SET_SELECTED_TRANSACTION';
 
 //sum for total non budgeted income and spending below budget bars in budget page
 export const GET_NON_BUDGETED_INCOME_SUM = 'GET_NON_BUDGETED_INCOME_SUM';

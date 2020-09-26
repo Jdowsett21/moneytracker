@@ -26,6 +26,7 @@
   height: 485px;
   background: rgba(0, 0, 0, 0.5);
   margin-top: 46px;
+  z-index: 2;
 }
 #home-section .home-inner {
   padding-top: 50px;
@@ -71,11 +72,21 @@
   border-radius: 0.25rem;
 }
 
-.table-hover tbody tr:hover td,
-.table-hover tbody tr:hover th {
+.table-hover tbody tr:hover td {
   background-color: #8ecddf;
 }
 
+.table-hover tbody tr:hover.no-hover td {
+  background-color: #696969 !important;
+}
+
+.no-hover td {
+  vertical-align: middle;
+}
+
+.no-hover {
+  background-color: #696969 !important;
+}
 .table-header {
   background-image: linear-gradient(rgb(255, 255, 255), #dfdfdf);
 }
@@ -265,6 +276,12 @@ ul.vertical-bar p {
 ul.vertical-bar li.graphLines div.graphMiddle {
   border-color: #ccc;
 }
+
+a.text-success:focus,
+a.text-success:hover {
+  color: #28a745 !important;
+}
+
 div,
 h2,
 a {
@@ -275,11 +292,9 @@ a {
   font-style: inherit;
   font-size: 100%;
   vertical-align: baseline;
-  background-color: inherit;
-  text-decoration-color: #dfdfdf;
 }
 a:hover {
-  color: white !important;
+  color: inherit;
 }
 div {
   display: block;
@@ -409,6 +424,51 @@ ul.horizontal-bar li var {
   padding: 0px;
 }
 
+.link-button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+.table td.selected-transaction-row {
+  padding: 0.2rem !important;
+  vertical-align: center;
+  text-align: center;
+  height: 0.5rem !important;
+}
+
+.table th.selected-transaction-row {
+  padding: 0.2rem !important;
+  vertical-align: center;
+  text-align: center;
+}
+
+.table td {
+  padding: 0rem !important;
+}
+.table td.unselected-transaction-row {
+  padding-left: 0.61rem !important;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.26rem !important;
+  vertical-align: center;
+}
+
+td button:focus {
+  outline: none;
+}
+.link-button:hover,
+.link-button:focus {
+  border: none;
+  text-decoration: none;
+}
+
+/* .transaction-table {
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+  padding-right: 0.3rem !important;
+} */
 @-webkit-keyframes ring {
   0% {
     -webkit-transform: rotate(-15deg);

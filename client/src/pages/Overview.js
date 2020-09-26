@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
 
-import NavbarTop from '../components/common/NavbarTop';
-import NavBarSecondary from '../components/common/NavBarSecondary';
-
 import OverviewLeftColumn from '../components/Overview/OverviewLeftColumn';
 import Container from '../components/common/Container';
 import OverviewRightColumn from '../components/Overview/OverviewRightColumn';
@@ -12,13 +9,8 @@ import {
   isUserAuthenticated,
   setAuthInfo,
 } from '../actions/authActions';
-import { Redirect } from 'react-router-dom';
 
-function Overview({
-  isUserAuthenticated,
-  auth: { isAuthenticated },
-  setAuthInfo,
-}) {
+function Overview({ isUserAuthenticated, setAuthInfo }) {
   useEffect(() => {
     setAuthInfo();
     isUserAuthenticated();
@@ -37,11 +29,7 @@ function Overview({
   );
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   logout,
   setAuthInfo,
   isUserAuthenticated,

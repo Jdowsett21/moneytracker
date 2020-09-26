@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { setHoveredMonthColor } from '../../../actions/transactionActions';
 import { connect } from 'react-redux';
 import { setMonth, setHoveredBudgetMonth } from '../../../actions/monthActions';
 import { isUserAuthenticated } from '../../../actions/authActions';
-import { useHover } from '../../../utils/useHover';
 
 function MonthSelector({
   listMonth,
@@ -15,8 +14,6 @@ function MonthSelector({
   months: { month, hoveredBudgetMonth },
   isUserAuthenticated,
 }) {
-  const [hover, setHover] = useState(false);
-
   const settingHover = () => {
     setHoveredBudgetMonth(index) && setHoveredMonthColor(hoveredBudgetMonth);
   };
@@ -28,6 +25,7 @@ function MonthSelector({
 
   useEffect(() => {
     isUserAuthenticated();
+    //eslint-disable-next-line
   }, []);
 
   return (
@@ -37,7 +35,7 @@ function MonthSelector({
       onMouseLeave={removingHover}
     >
       <a
-        href='#'
+        href='/#'
         value={listMonth}
         onClick={() => {
           setMonth(listMonth);

@@ -11,7 +11,7 @@ function AccountTypesFilter({
   getTransactionsByAccountCategory,
   setClick,
 }) {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState('');
 
   //object array created to make route cleaner on backend
   const accountFilters = [
@@ -36,6 +36,7 @@ function AccountTypesFilter({
         >
           {accountFilters.map((account) => (
             <li
+              key={account.uiName}
               className={`list-group-item bg-${
                 clickStatus.uiName === account.uiName ? 'success' : 'light'
               } p-2`}
@@ -44,17 +45,17 @@ function AccountTypesFilter({
               onMouseLeave={() => setHover('')}
             >
               <a
+                href='/#'
                 className={`text text-${
                   clickStatus.uiName === account.uiName
                     ? 'white'
-                    : hover === account
+                    : hover === account.uiName
                     ? 'success'
                     : 'dark'
-                }`}
+                } text-decoration-none`}
                 onClick={() => {
                   getTransactionsByAccountCategory(account.backendName);
                 }}
-                href='#'
                 style={{ float: 'left' }}
               >
                 {account.uiName}

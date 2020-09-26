@@ -38,15 +38,15 @@ function BudgetItem({
     setLeftButtonHover(false);
   };
 
-  const [rightButtonHover, setRightButtonHover] = useState(false);
+  // const [rightButtonHover, setRightButtonHover] = useState(false);
 
-  const settingRightButtonHover = () => {
-    setRightButtonHover(true);
-  };
+  // const settingRightButtonHover = () => {
+  //   setRightButtonHover(true);
+  // };
 
-  const removingRightButtonHover = () => {
-    setRightButtonHover(false);
-  };
+  // const removingRightButtonHover = () => {
+  //   setRightButtonHover(false);
+  // };
 
   useEffect(() => {
     setRatio(
@@ -108,21 +108,27 @@ function BudgetItem({
                 onClick={decrement}
                 onMouseOver={settingLeftButtonHover}
                 onMouseLeave={removingLeftButtonHover}
-                className={`pr-1 fas fa-caret-left fa-xs rounded-circle align-self-end`}
+                className={`pr-1  rounded-circle align-self-end`}
+                href='/#'
                 style={{
                   backgroundColor: `${
                     leftButtonHover ? 'bg bg-secondary' : ''
                   }`,
                 }}
-              ></a>
+              >
+                <i className='fas fa-caret-left fa-xs'></i>
+              </a>
               {/* //removing or adding subcategory */}
               <h2 className='medium-font-dark align-self-end'>{`$${budget.budgetLimit} `}</h2>
               <a
                 onClick={increment}
-                onMouseOver={settingRightButtonHover}
-                onMouseLeave={removingRightButtonHover}
-                className={`px-1 fas fa-caret-right fa-xs align-self-end`}
-              ></a>
+                href='/#'
+                // onMouseOver={settingRightButtonHover}
+                // onMouseLeave={removingRightButtonHover}
+                className={`px-1  align-self-end`}
+              >
+                <i className='fas fa-caret-right fa-xs'></i>
+              </a>
               <span className='extra-small-font align-self-end'>expected</span>
             </div>
           </div>
@@ -134,7 +140,9 @@ function BudgetItem({
             ></div>
           </div>
           <div className='d-flex justify-content-between px-1 pb-1'>
-            <a className='small-font'>Edit Details</a>
+            <a href='/#' className='small-font'>
+              Edit Details
+            </a>
             <span className='small-font '>{`$${categoryTotal} spent this month`}</span>
           </div>
         </div>

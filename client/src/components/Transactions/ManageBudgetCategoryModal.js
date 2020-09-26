@@ -16,12 +16,14 @@ function ManageBudgetCategoryModal({
 
   useEffect(() => {
     setCategoryObject(budgetCategoryList[0]);
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (budgetCategoryList.length > 0 && categoryObject) {
       getBudgetSubCategories(categoryObject.category);
     }
+    //eslint-disable-next-line
   }, [budgetCategoryList, categoryObject]);
 
   const onSubmit = () => {
@@ -52,7 +54,7 @@ function ManageBudgetCategoryModal({
                 {budgetCategoryList.map((c) => (
                   <li>
                     <a
-                      href='#'
+                      href='/#'
                       className='extra-small-font'
                       onClick={() => setCategoryObject(c)}
                       key={c._id}
@@ -68,7 +70,7 @@ function ManageBudgetCategoryModal({
                     budgetSubCategories[0].subCategories.map((category) => (
                       <li>{category.subCategory}</li>
                     ))}
-                  <a href='#' onClick={onSubmit} className='btn btn-primary'>
+                  <a href='/#' onClick={onSubmit} className='btn btn-primary'>
                     Add Category
                   </a>
                   <div className='form-group'>

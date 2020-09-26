@@ -24,7 +24,7 @@ router.post(
     const correctAccount = accounts.filter(
       (account) => req.body.accountName === account.accountName
     );
-    console.log('correctAccount', correctAccount);
+
     if (correctAccount.length < 1) {
       return res.status(400).json({
         message: 'This individual does not have an account under this name',
@@ -50,6 +50,57 @@ router.post(
       },
       { new: true }
     );
+    res.send(transaction);
+  })
+);
+
+router.put(
+  '/updateTransaction/:id',
+  asyncMiddleware(async (req, res) => {
+    const user = await User.findById(req.user._id);
+
+    const accounts = await Account.find({ userId: user._id });
+
+    // const correctAccount = accounts.filter(
+    //   (account) => req.body.accountName === account.accountName
+    // );
+
+    // if (correctAccount.length < 1) {
+    //   return res.status(400).json({
+    //     message: 'This individual does not have an account under this name',
+    //   });
+    // }
+    const transaction = await Transaction.findByIdAndUpdate(
+      req.params.id,
+      {
+        shortDate: req.body.shortDate,
+        description: req.body.description,
+        accountName: req.body.accountName,
+        category: req.body.category,
+        subCategory: req.body.subCategory,
+        amount: req.body.amount,
+      },
+      { new: true }
+    );
+
+    // await Account.findByIdAndUpdate(
+    //   correctAccount,
+    //   {
+    //     $inc: {
+    //       balance:
+    //         transaction.paymentType === 'Withdrawal' &&
+    //         transaction.amount > req.body.amount
+    //           ? -(transaction.amount - req.body.amount)
+    //           : req.body.amount > transaction.amount
+    //           ? -(req.body.amount - transaction.amount)
+    //           : transaction.paymentType === 'Deposit' &&
+    //             transaction.amount > req.body.amount
+    //           ? transaction.amount - req.body.amount
+    //           : req.body.amount - transaction.amount,
+    //     },
+    //   },
+    //   { new: true }
+    // );
     res.send(transaction);
   })
 );

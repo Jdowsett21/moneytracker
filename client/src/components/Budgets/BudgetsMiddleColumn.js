@@ -48,9 +48,9 @@ function BudgetsMiddleColumn({ getBudgetCategories }) {
       <AddBudgetCategoryModal />
       <ManageBudgetCategoryModal />
       <BudgetList type='Income' />
-      <NonBudgetedTransactions type='Deposit' message={'Other Income'} />
+      <NonBudgetedTransactions type='Deposit' message='Other Income' />
       <BudgetList type='Spending' />
-      <NonBudgetedTransactions type='Withdrawal' message={'Everything Else'} />
+      <NonBudgetedTransactions type='Withdrawal' message='Everything Else' />
     </div>
   );
 }

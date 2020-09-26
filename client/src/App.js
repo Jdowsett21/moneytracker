@@ -1,10 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //redux
 import { Provider } from 'react-redux';
@@ -20,8 +15,8 @@ import AuthenticatedRoutes from './AuthenticatedRoutes';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import AppShell from './AppShell';
-import { connect } from 'react-redux';
 import AuthenticatedNavBar from './AuthenticatedNavBar';
+import AddTransaction from './pages/AddTransaction';
 const Overview = lazy(() => import('./pages/Overview'));
 const Transactions = lazy(() => import('./pages/Transactions'));
 const AddAccount = lazy(() => import('./pages/AddAccount'));
@@ -64,6 +59,9 @@ const AppRoutes = () => (
         </AuthenticatedRoutes>
         <AuthenticatedRoutes path='/goals'>
           <Goals />
+        </AuthenticatedRoutes>
+        <AuthenticatedRoutes path='/addTransactions'>
+          <AddTransaction />
         </AuthenticatedRoutes>
         <AuthenticatedRoutes path='/budgets'>
           <Budgets />

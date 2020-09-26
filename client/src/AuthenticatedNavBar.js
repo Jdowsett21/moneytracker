@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 function AuthenticatedNavBar({ auth: { isAuthenticated } }) {
   return (
     <div>
-      {isAuthenticated === false && <Redirect to='/login' />}
+      {isAuthenticated === false && <Redirect to='/' />}
       {isAuthenticated && (
         <>
           <NavbarTop />

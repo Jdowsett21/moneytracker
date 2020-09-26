@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { isUserAuthenticated, setAuthInfo } from '../actions/authActions';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import HomeNavBar from '../components/Home/HomeNavBar';
 import HomeHeader from './../components/Home/HomeHeader';
 import BudgetSection from '../components/Home/BudgetSection';

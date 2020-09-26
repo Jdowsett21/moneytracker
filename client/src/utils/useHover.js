@@ -22,7 +22,7 @@ export const useHover = () => {
 
     // If we didn't set up any listeners, we won't need to unsubscribe from anything.
     return () => {};
-  }, [ref.current]); // Ensure we remove and re-add the listeners if and only if the ref changes.
+  }, [ref]); // Ensure we remove and re-add the listeners if and only if the ref changes.
 
   return [ref, value];
 };

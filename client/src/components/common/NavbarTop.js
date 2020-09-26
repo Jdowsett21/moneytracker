@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 function NavbarTop({ logout }) {
   return (
     <nav className='navbar navbar-primary navbar-dark navbar-expand-sm logo-background p-0 px-5'>
-      <a href='!#' className='navbar-brand'>
+      <a href='/#' className='navbar-brand'>
         <img
           src={logo}
           style={{ width: '70px' }}
@@ -54,7 +54,7 @@ function NavbarTop({ logout }) {
           </li>
 
           <li className='nav-item'>
-            <a className='nav-link' href='#' onClick={logout}>
+            <a className='nav-link' href='/#' onClick={logout}>
               LOGOUT
             </a>
           </li>

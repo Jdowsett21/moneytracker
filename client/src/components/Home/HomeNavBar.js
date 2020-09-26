@@ -1,14 +1,14 @@
 import React from 'react';
 import grivety from '../../img/grivety.jpg';
-import NavBarContainer from '../common/NavBarContainer';
+
 import { Link } from 'react-router-dom';
-import ScrollSpy from 'react-scrollspy';
+
 import ScrollSpyItem from './../common/ScrollSpyItem';
 function HomeNavBar(props) {
   return (
     <nav className='fixed-top navbar-primary navbar navbar-dark navbar-expand-sm logo-background p-0'>
       {' '}
-      <a>
+      <a href='/#'>
         <img src={grivety} alt='' className='img-fluid grivety-small mb-0' />
       </a>
       <button

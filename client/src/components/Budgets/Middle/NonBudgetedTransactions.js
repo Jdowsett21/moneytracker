@@ -20,27 +20,30 @@ function NonBudgetedTransactions({
   months: { month },
   budgets: { budgetList },
 }) {
+  console.log(nonBudgetedIncomeSum);
+  console.log(nonBudgetedSpendingSum);
   useEffect(() => {
     //gets the transactions and the sum
     getNonBudgetedTransactions(month, type, budgetList);
     getNonBudgetedTransactionsSum(month, type, budgetList);
+    //eslint-disable-next-line
   }, [month, budgetList]);
   return (
     <ul className='mb-5'>
-      {
-        <div className='d-flex justify-content-between small-font-dark'>
-          <a
-            onClick={() => getNonBudgetedTransactions(month, type, budgetList)}
-          >
-            {message}
-          </a>
-          <span>
-            {type === 'Withdrawal'
-              ? nonBudgetedSpendingSum
-              : nonBudgetedIncomeSum}
-          </span>
-        </div>
-      }
+      <div className='d-flex justify-content-between small-font-dark'>
+        <a
+          href='/#'
+          onClick={() => getNonBudgetedTransactions(month, type, budgetList)}
+        >
+          {message}
+        </a>
+        <span>
+          {type === 'Withdrawal'
+            ? nonBudgetedSpendingSum
+            : nonBudgetedIncomeSum}
+        </span>
+      </div>
+
       {type === 'Withdrawal'
         ? nonBudgetedSpendingTransactions.map(
             (transaction) =>

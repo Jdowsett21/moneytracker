@@ -1,6 +1,7 @@
 import {
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
+  UPDATE_TRANSACTION,
   SET_TRANSACTION_LOADING,
   SET_MONTH_NET,
   TRANSACTION_ERROR,
@@ -11,6 +12,7 @@ import {
   GET_INCOME_SUM_BY_MONTH_TYPE,
   GET_SPENDING_SUM_BY_MONTH_TYPE,
   GET_TRANSACTIONS_BY_MONTH,
+  SET_SELECTED_TRANSACTION,
   GET_TRANSACTION_CATEGORIES,
   GET_TRANSACTIONS_BY_ACCOUNT,
   GET_NON_BUDGETED_SPENDING_TRANSACTIONS,
@@ -55,15 +57,30 @@ const initialState = {
   incomeSum: 0,
   nonBudgetedIncomeSum: 0,
   nonBudgetedSpendingSum: 0,
+  //transaction that is clicked on in transaction table
+  selectedTransaction: '',
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_TRANSACTION:
+      return {
+        ...state,
+        transactionList: state.transactionList.map((transaction) =>
+          transaction._id === action.payload._id ? action.payload : transaction
+        ),
+      };
     case GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY:
       return {
         ...state,
         transactionList: action.payload,
       };
+    case SET_SELECTED_TRANSACTION:
+      return {
+        ...state,
+        selectedTransaction: action.payload,
+      };
+
     case GET_TRANSACTIONS_BY_ACCOUNT:
       return {
         ...state,
@@ -194,18 +211,6 @@ export default (state = initialState, action) => {
           ),
       };
 
-    //list of transactions underneath budgets on budgets page
-    case GET_NON_BUDGETED_INCOME_TRANSACTIONS:
-      return {
-        ...state,
-        nonBudgetedIncomeTransactions: action.payload.data.filter(
-          (transaction) =>
-            !action.payload.budgetList.some(
-              (budget) => transaction.category === budget.category
-            )
-        ),
-      };
-
     //non budgeted spending AND Transfers
     case GET_NON_BUDGETED_SPENDING_TRANSACTIONS:
       return {
@@ -220,11 +225,11 @@ export default (state = initialState, action) => {
         ),
       };
 
-    //sum of non budgeted income items
+    //slist of non budgeted income transactions
     case GET_NON_BUDGETED_INCOME_TRANSACTIONS:
       return {
         ...state,
-        nonBudgetedIncomeSum: action.payload.data.filter(
+        nonBudgetedIncomeTransactions: action.payload.data.filter(
           (transaction) =>
             !action.payload.budgetList.some(
               (budget) =>
@@ -381,10 +386,11 @@ export default (state = initialState, action) => {
                 total: state.monthTransactions
                   .filter(
                     (transaction) =>
-                      //ensuring categories with no subcategory are not all summed together and instead filtered by category
+                      //ensuring categories with no subcategory are not all summed together and instead filtered by subcategory
                       transaction.subCategory === budget.subCategory &&
                       transaction.category === budget.category
                   )
+                  //eslint-disable-next-line
                   .reduce((accumulator, transaction) => {
                     if (
                       transaction.subCategory === budget.subCategory &&

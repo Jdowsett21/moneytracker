@@ -1,6 +1,7 @@
 import {
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
+  UPDATE_TRANSACTION,
   SET_TRANSACTION_LOADING,
   SET_MONTH_NET,
   TRANSACTION_ERROR,
@@ -18,6 +19,7 @@ import {
   SET_6_MONTH_NET,
   GET_TRANSACTIONS_BY_CATEGORY,
   GET_TRANSACTION_CATEGORY_TOTALS,
+  SET_SELECTED_TRANSACTION,
   SET_MONTH_TOTALS,
   SET_6_MONTH_MAX,
   SET_MONTH_NET_PERCENT,
@@ -37,6 +39,13 @@ export const getTransactions = () => async (dispatch) => {
       payload: error.response.data,
     });
   }
+};
+
+export const setSelectedTransaction = (transaction) => {
+  return {
+    type: SET_SELECTED_TRANSACTION,
+    payload: transaction,
+  };
 };
 
 export const getMonthTypeSum = (month, type, budgetList) => async (
@@ -95,6 +104,8 @@ export const getNonBudgetedTransactions = (month, type, budgetList) => async (
     });
   }
 };
+
+//updateTransaction
 
 //sum of all transactions that have not been budgeted
 export const getNonBudgetedTransactionsSum = (
@@ -155,6 +166,27 @@ export const addTransaction = (transaction) => async (dispatch) => {
     const { data } = await authAxios.post('/transactions', transaction);
     dispatch({
       type: ADD_TRANSACTION,
+      payload: data,
+    });
+  } catch (error) {
+    setTransactionLoading();
+
+    dispatch({
+      type: TRANSACTION_ERROR,
+      payload: error.response.data,
+    });
+  }
+};
+
+export const updateTransaction = (transaction) => async (dispatch) => {
+  try {
+    setTransactionLoading();
+    const { data } = await authAxios.put(
+      `transactions/updateTransaction/${transaction._id}`,
+      transaction
+    );
+    dispatch({
+      type: UPDATE_TRANSACTION,
       payload: data,
     });
   } catch (error) {
