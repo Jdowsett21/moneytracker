@@ -37,7 +37,8 @@
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": " env-cmd -f ./config/.env concurrently \"npm run server\" \"npm run client\""
+    "dev": " env-cmd -f ./config/.env concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "repository": {
     "type": "git",
