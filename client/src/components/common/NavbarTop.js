@@ -31,23 +31,19 @@ function NavbarTop({ logout }) {
               OVERVIEW
             </Link>
           </li>
-        </ul>
-        <ul className='navbar-nav '>
+
           <li className='nav-item '>
             <Link to='/transactions' className='nav-link'>
               TRANSACTIONS
             </Link>
           </li>
-        </ul>
 
-        <ul className='navbar-nav '>
           <li className='nav-item '>
             <Link to='/budgets' className='nav-link'>
               BUDGETS{' '}
             </Link>
           </li>
-        </ul>
-        <ul className='navbar-nav '>
+
           <li className='nav-item'>
             <a className='nav-link' href='/#' onClick={logout}>
               LOGOUT

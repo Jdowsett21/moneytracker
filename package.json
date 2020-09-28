@@ -36,7 +36,7 @@
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": " env-cmd -f ./config/.env.development.local  concurrently \"npm run server\" \"npm run client\""
+    "dev": " env-cmd -f ./config/.env concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
