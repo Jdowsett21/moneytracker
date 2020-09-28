@@ -51,7 +51,7 @@ const AppRoutes = () => (
     <AuthenticatedNavBar />
     <Suspense fallback={<LoadingFallback />}>
       <Switch>
-        {/* <AuthenticatedRoutes path='/overview'>
+        <AuthenticatedRoutes path='/overview'>
           <Overview />
         </AuthenticatedRoutes>
         <AuthenticatedRoutes path='/transactions'>
@@ -83,7 +83,7 @@ const AppRoutes = () => (
         </AuthenticatedRoutes>
         <AuthenticatedRoutes path='/tour'>
           <Profile />
-        </AuthenticatedRoutes> */}
+        </AuthenticatedRoutes>
 
         <UnauthenticatedRoutes />
       </Switch>
