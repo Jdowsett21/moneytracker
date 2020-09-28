@@ -35,7 +35,7 @@ function BudgetList({
 
   return (
     <React.Fragment>
-      <div className='my-3 pt-2 ' style={{ borderTop: '1px solid grey' }}>
+      <div className='mt-3 pt-2 ' style={{ borderTop: '1px solid grey' }}>
         {budgetList.map((item) => {
           //accounting for budgets with subcategories that are empty and
           //ensuring they are not added more than once to the budget page

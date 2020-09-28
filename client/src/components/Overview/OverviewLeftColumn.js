@@ -1,17 +1,17 @@
 import React from 'react';
 import AccountsCard from './AccountCard/AccountsCard';
-import InsightsCard from './OtherCards/InsightsCard';
+// import InsightsCard from './OtherCards/InsightsCard';
 import TrendsCard from './TrendsCard/TrendsCard';
-import FeedbackCard from './OtherCards/FeedbackCard';
+// import FeedbackCard from './OtherCards/FeedbackCard';
 
 function OverviewLeftColumn(props) {
   return (
     <React.Fragment>
-      <div className='col-md-5 col-lg-4 p-3'>
+      <div className='col-lg-4 p-3'>
         <AccountsCard />
-        <InsightsCard />
+        {/* <InsightsCard /> */}
         <TrendsCard />
-        <FeedbackCard />
+        {/* <FeedbackCard /> */}
       </div>
     </React.Fragment>
   );

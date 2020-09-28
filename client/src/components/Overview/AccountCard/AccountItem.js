@@ -1,19 +1,33 @@
 import React from 'react';
-
-function AccountItem({ account }) {
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  preventTransactionReRendering,
+  setTransactionListByAccount,
+} from './../../../actions/transactionActions';
+function AccountItem({
+  account,
+  preventTransactionReRendering,
+  setTransactionListByAccount,
+}) {
   return (
     <React.Fragment>
       <li className='list-group-item'>
         {/* this needs to be a link to account transactions */}
-        <a
-          className='card-text small-font text-dark'
+        <Link
+          to='/transactions'
+          onClick={() => {
+            preventTransactionReRendering();
+            setTransactionListByAccount(account);
+          }}
+          className='card-text small-medium-font text-dark'
           href='/#'
           style={{ float: 'left' }}
         >
           {account.accountName}
-        </a>
+        </Link>
 
-        <p className='card-text small-font ' style={{ float: 'right' }}>
+        <p className='card-text small-medium-font ' style={{ float: 'right' }}>
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -21,11 +35,11 @@ function AccountItem({ account }) {
         </p>
       </li>
       <li className='list-group-item text-muted'>
-        <p className='card-text extra-small-font ' style={{ float: 'left' }}>
+        <p className='card-text small-font ' style={{ float: 'left' }}>
           {account.institution}
         </p>
 
-        <p className='card-text extra-small-font' style={{ float: 'right' }}>
+        <p className='card-text small-font' style={{ float: 'right' }}>
           {account.lastUpdated}
         </p>
       </li>
@@ -33,4 +47,7 @@ function AccountItem({ account }) {
   );
 }
 
-export default AccountItem;
+export default connect(null, {
+  preventTransactionReRendering,
+  setTransactionListByAccount,
+})(AccountItem);

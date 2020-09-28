@@ -1,15 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  setTransactionListByCategory,
+  preventTransactionReRendering,
+} from '../../../actions/transactionActions';
+import { connect } from 'react-redux';
 
-function NonBudgetedItem({ transaction }) {
+function NonBudgetedItem({
+  months: { month },
+  transaction,
+  setTransactionListByCategory,
+  preventTransactionReRendering,
+}) {
   return (
     <li className='d-flex justify-content-between'>
-      <a
-        href='/#'
-        className='extra-small-font-grey'
-      >{`${transaction.category}: ${transaction.subCategory}`}</a>
-      <span className='extra-small-font'>{transaction.amount}</span>
+      <Link
+        to='/transactions'
+        className='small-font'
+        onClick={() => {
+          preventTransactionReRendering();
+          setTransactionListByCategory(transaction, month);
+        }}
+      >{`${transaction.category}: ${transaction.subCategory}`}</Link>
+      <span className='small-font'>
+        {new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(transaction.amount)}
+      </span>
     </li>
   );
 }
 
-export default NonBudgetedItem;
+const mapStateToProps = (state) => ({
+  months: state.months,
+});
+
+export default connect(mapStateToProps, {
+  setTransactionListByCategory,
+  preventTransactionReRendering,
+})(NonBudgetedItem);

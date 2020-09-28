@@ -41,23 +41,22 @@ function FilterByAccount({
             onMouseEnter={() => setHover('Accounts')}
             onMouseLeave={() => setHover('')}
           >
-            <button
-              className='link-button'
-              onClick={() => getTransactions()}
-              style={{ float: 'left' }}
-            >
+            {/* eslint-disable-next-line */}
+            <a onClick={() => getTransactions()} style={{ float: 'left' }}>
               <h5 className='medium-large-font'>All Accounts</h5>
               <small className='medium-font'>{`${accountList.length} accounts`}</small>
-            </button>
+            </a>
           </li>
-          {accountList.map((account) => (
-            // changing font and background color
-            //on click and on hover
-            <li
-              key={account._id}
-              className={`list-group-item medium-large-font bg-${
-                clickStatus === account ? 'success' : 'light'
-              } px-3 py-2 
+          {accountList.map(
+            (account) =>
+              // changing font and background color
+              //on click and on hover
+              account.accountCategory !== 'Property' && (
+                <li
+                  key={account._id}
+                  className={`list-group-item medium-large-font bg-${
+                    clickStatus === account ? 'success' : 'light'
+                  } px-3 py-2 
               text-${
                 clickStatus === account
                   ? 'white'
@@ -65,24 +64,26 @@ function FilterByAccount({
                   ? 'success'
                   : 'dark'
               } text-decoration-none`}
-              onClick={() => setClick(account)}
-              onMouseEnter={() => setHover(account)}
-              onMouseLeave={() => setHover('')}
-              style={{ cursor: 'pointer' }}
-            >
-              <button
-                className={`d-block link-button`}
-                onClick={() => getAccountTransactions(account)}
-              >
-                {account.institution}
-              </button>
-              <div>
-                <small onClick={() => getAccountTransactions(account)}>
-                  {account.accountName}
-                </small>
-              </div>
-            </li>
-          ))}
+                  onClick={() => setClick(account)}
+                  onMouseEnter={() => setHover(account)}
+                  onMouseLeave={() => setHover('')}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {/* eslint-disable-next-line */}
+                  <a
+                    className={`d-block`}
+                    onClick={() => getAccountTransactions(account)}
+                  >
+                    {account.institution}
+                  </a>
+                  <div>
+                    <small onClick={() => getAccountTransactions(account)}>
+                      {account.accountName}
+                    </small>
+                  </div>
+                </li>
+              )
+          )}
         </ul>
       </CardBody>
     </Card>

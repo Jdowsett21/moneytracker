@@ -26,7 +26,7 @@ function BudgetsMiddleColumn({ getBudgetCategories }) {
   ];
 
   return (
-    <div className='col-md-6 col-lg-6'>
+    <div className=' col-lg-5 pr-5 shadow-lg'>
       {/* <h2>{selectedMonth}</h2> */}
       <ul className='list-group list-group-horizontal d-flex justify-content-center'>
         {lastTwelveMonths.map((month, index) => (

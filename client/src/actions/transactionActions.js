@@ -2,6 +2,7 @@ import {
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
   UPDATE_TRANSACTION,
+  PREVENT_TRANSACTION_RE_RENDER,
   SET_TRANSACTION_LOADING,
   SET_MONTH_NET,
   TRANSACTION_ERROR,
@@ -12,6 +13,7 @@ import {
   GET_INCOME_SUM_BY_MONTH_TYPE,
   GET_SPENDING_SUM_BY_MONTH_TYPE,
   GET_TRANSACTIONS_BY_MONTH,
+  SET_TRANSACTION_LIST_NO_BUDGET,
   GET_TRANSACTION_CATEGORIES,
   GET_TRANSACTIONS_BY_ACCOUNT,
   GET_NON_BUDGETED_SPENDING_TRANSACTIONS,
@@ -23,9 +25,26 @@ import {
   SET_MONTH_TOTALS,
   SET_6_MONTH_MAX,
   SET_MONTH_NET_PERCENT,
+  ALLOW_TRANSACTION_RE_RENDER,
+  SET_TRANSACTION_LIST_BY_CATEGORY,
+  SET_TRANSACTION_LIST_BY_ACCOUNT,
 } from '../actions/types';
 import { authAxios } from '../utils/authFetch';
 
+export const setTransactionListByAccount = (account) => async (dispatch) => {
+  try {
+    const { data } = await authAxios.get(
+      `/transactions/account/${account._id}`
+    );
+
+    dispatch({ type: SET_TRANSACTION_LIST_BY_ACCOUNT, payload: data });
+  } catch (error) {
+    dispatch({
+      type: TRANSACTION_ERROR,
+      payload: error.response.data,
+    });
+  }
+};
 export const getTransactions = () => async (dispatch) => {
   try {
     setTransactionLoading();
@@ -41,6 +60,42 @@ export const getTransactions = () => async (dispatch) => {
   }
 };
 
+//this is used for changing the state and allowing transactions to re render
+//when selecting a specific budget item or budget category
+//to show those transactions, getTransactions cannot re render
+export const allowTransactionReRender = () => {
+  return {
+    type: ALLOW_TRANSACTION_RE_RENDER,
+  };
+};
+export const setTransactionList = (transactions, month) => {
+  return {
+    type: SET_TRANSACTION_LIST_NO_BUDGET,
+    payload: { transactions, month },
+  };
+};
+
+export const preventTransactionReRendering = () => {
+  return {
+    type: PREVENT_TRANSACTION_RE_RENDER,
+  };
+};
+export const setTransactionListByCategory = (transactions, month) => async (
+  dispatch
+) => {
+  try {
+    const { data } = await authAxios.get(
+      `/transactions/monthAndCategory/${transactions.category}/${month}`
+    );
+
+    dispatch({ type: SET_TRANSACTION_LIST_BY_CATEGORY, payload: data });
+  } catch (error) {
+    dispatch({
+      type: TRANSACTION_ERROR,
+      payload: error.response.data,
+    });
+  }
+};
 export const setSelectedTransaction = (transaction) => {
   return {
     type: SET_SELECTED_TRANSACTION,

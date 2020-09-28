@@ -3,8 +3,8 @@ import React from 'react';
 function NetTotalBar({ text, type, style, value }) {
   return (
     <li className={type} style={{ width: style }}>
-      <label className='text-extra-small text-muted'>{text}</label>
-      <var>{value}</var>
+      <label className='small-font-grey text-muted mr-1'>{text}</label>
+      <var className='small-font text-dark'>{value}</var>
     </li>
   );
 }

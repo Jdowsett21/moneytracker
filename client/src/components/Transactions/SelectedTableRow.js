@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   updateTransaction,
   setSelectedTransaction,
+  getTransactions,
 } from '../../actions/transactionActions';
 import { connect } from 'react-redux';
 
 function SelectedTableRow({
   updateTransaction,
-  transactions: { selectedTransaction, transactionList },
-  setSelectedTransaction,
+  transactions: { selectedTransaction },
 }) {
   const [shortDate, setShortDate] = useState('');
   const [description, setDescription] = useState('');
@@ -41,11 +41,11 @@ function SelectedTableRow({
       className='no-hover '
       onMouseLeave={() => updateTransaction(updatedTransaction)}
     >
-      <td className='selected-transaction-row'>
+      {/* <td className='selected-transaction-row'>
         <div className=''>
           <input type='checkbox' />
         </div>
-      </td>
+      </td> */}
       <td className='selected-transaction-row' style={{ maxWidth: '70px' }}>
         <input
           className=''
@@ -74,8 +74,8 @@ function SelectedTableRow({
           onChange={(e) => setCategory(e.target.value)}
         />
       </td>
-
-      <td style={{ maxWidth: '80px' }}></td>
+      {/* 
+      <td style={{ maxWidth: '80px' }}></td> */}
       <td className='selected-transaction-row' style={{ maxWidth: '85px' }}>
         <input
           className=''
@@ -84,11 +84,10 @@ function SelectedTableRow({
           defaultValue={
             //   new Intl.NumberFormat('en-US', {
             //   style: 'currency',
+            //   currency: 'USD',
+            // }).format(
             amount
           }
-          //   currency: 'USD',
-          // }).format
-
           onChange={(e) => setAmount(e.target.value)}
         />
       </td>
@@ -102,4 +101,5 @@ const mapStatetoProps = (state) => ({
 export default connect(mapStatetoProps, {
   updateTransaction,
   setSelectedTransaction,
+  getTransactions,
 })(SelectedTableRow);

@@ -3,12 +3,20 @@ import {
   incrementBudget,
   decrementBudget,
 } from '../../../actions/BudgetActions';
+import {
+  preventTransactionReRendering,
+  setTransactionListByCategory,
+} from '../../../actions/transactionActions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 function BudgetItem({
   budget,
   categoryTotal,
   incrementBudget,
   decrementBudget,
+  months: { month },
+  preventTransactionReRendering,
+  setTransactionListByCategory,
 }) {
   const [ratio, setRatio] = useState('');
   const [barColor, setBarColor] = useState('');
@@ -95,40 +103,45 @@ function BudgetItem({
           }}
         >
           <div className='px-3 d-flex align-content-end'>
-            <div className='mr-auto'>
-              <strong className='medium-font-dark '>
-                {`${budget.category}`}
-              </strong>
-              <span className='medium-font-dark'>
+            <Link
+              to='/transactions'
+              className='mr-auto text-dark'
+              onClick={() => {
+                preventTransactionReRendering();
+                setTransactionListByCategory(budget, month);
+              }}
+            >
+              {budget.subCategory === '' ? (
+                <strong className='small-medium-font '>{`${budget.category}`}</strong>
+              ) : (
+                <span className='small-medium-font '>{`${budget.category}`}</span>
+              )}
+              <strong className='small-medium-font'>
                 {budget.subCategory === '' ? '' : `: ${budget.subCategory}`}
-              </span>
-            </div>
+              </strong>
+            </Link>
             <div className='d-flex pb-1'>
+              {/* eslint-disable-next-line */}
               <a
                 onClick={decrement}
                 onMouseOver={settingLeftButtonHover}
                 onMouseLeave={removingLeftButtonHover}
-                className={`pr-1  rounded-circle align-self-end`}
-                href='/#'
+                className={`pr-1  rounded-circle fas fa-caret-left fa-xs  align-self-end`}
                 style={{
                   backgroundColor: `${
                     leftButtonHover ? 'bg bg-secondary' : ''
                   }`,
                 }}
-              >
-                <i className='fas fa-caret-left fa-xs'></i>
-              </a>
+              ></a>
               {/* //removing or adding subcategory */}
-              <h2 className='medium-font-dark align-self-end'>{`$${budget.budgetLimit} `}</h2>
+              <h2 className='small-medium-font align-self-end'>{`$${budget.budgetLimit} `}</h2>
+              {/* eslint-disable-next-line */}
               <a
                 onClick={increment}
-                href='/#'
                 // onMouseOver={settingRightButtonHover}
                 // onMouseLeave={removingRightButtonHover}
-                className={`px-1  align-self-end`}
-              >
-                <i className='fas fa-caret-right fa-xs'></i>
-              </a>
+                className={`px-1 fas fa-caret-right fa-xs  align-self-end text-decoration-none`}
+              ></a>
               <span className='extra-small-font align-self-end'>expected</span>
             </div>
           </div>
@@ -139,11 +152,11 @@ function BudgetItem({
               style={{ width: `${ratio}%` }}
             ></div>
           </div>
-          <div className='d-flex justify-content-between px-1 pb-1'>
-            <a href='/#' className='small-font'>
+          <div className='d-flex justify-content-end px-1 pb-1'>
+            {/* <a href='/#' className='small-font'>
               Edit Details
-            </a>
-            <span className='small-font '>{`$${categoryTotal} spent this month`}</span>
+            </a> */}
+            <span className='small-font i'>{`$${categoryTotal} spent this month`}</span>
           </div>
         </div>
       )}
@@ -153,15 +166,23 @@ function BudgetItem({
           <div className='d-flex justify-content-between px-3 '>
             {/* //removing or adding subcategory */}
             <div className='mr-auto'>
-              <strong className='medium-font-dark '>
-                {`${budget.category}`}
-              </strong>
-              <span className='medium-font-dark'>
+              {budget.subCategory === '' ? (
+                <strong className='small-medium-font '>{`${budget.category}`}</strong>
+              ) : (
+                <span className='small-medium-font '>{`${budget.category}`}</span>
+              )}
+              <strong className='small-medium-font'>
                 {budget.subCategory === '' ? '' : `: ${budget.subCategory}`}
-              </span>
+              </strong>
             </div>
             <div className='d-flex align-self-end pb-1'>
-              <h2 className='medium-font-dark'>{`$${categoryTotal} of $${budget.budgetLimit}`}</h2>
+              <h2 className='small-medium-font'>{`${new Intl.NumberFormat(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency: 'USD',
+                }
+              ).format(categoryTotal)} of $${budget.budgetLimit}`}</h2>
             </div>
           </div>
           <div className='progress m-1' style={{ height: '12px' }}>
@@ -178,8 +199,13 @@ function BudgetItem({
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  months: state.months,
+});
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   decrementBudget,
+  preventTransactionReRendering,
+  setTransactionListByCategory,
   incrementBudget,
 })(BudgetItem);

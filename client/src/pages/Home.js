@@ -21,7 +21,7 @@ function Home({
 
   return (
     <React.Fragment>
-      {isAuthenticated && <Redirect to='/transactions' />}
+      {isAuthenticated && <Redirect to='/budgets' />}
       <div className='logo-background'>
         <HomeNavBar />
         <HomeHeader />

@@ -14,7 +14,9 @@ import {
   GET_TRANSACTIONS_BY_MONTH,
   SET_SELECTED_TRANSACTION,
   GET_TRANSACTION_CATEGORIES,
+  ALLOW_TRANSACTION_RE_RENDER,
   GET_TRANSACTIONS_BY_ACCOUNT,
+  SET_TRANSACTION_LIST_NO_BUDGET,
   GET_NON_BUDGETED_SPENDING_TRANSACTIONS,
   GET_NON_BUDGETED_INCOME_TRANSACTIONS,
   SET_6_MONTH_NET,
@@ -23,6 +25,9 @@ import {
   SET_MONTH_TOTALS,
   SET_6_MONTH_MAX,
   SET_MONTH_NET_PERCENT,
+  PREVENT_TRANSACTION_RE_RENDER,
+  SET_TRANSACTION_LIST_BY_CATEGORY,
+  SET_TRANSACTION_LIST_BY_ACCOUNT,
 } from '../actions/types';
 import moment from 'moment';
 const initialState = {
@@ -59,6 +64,7 @@ const initialState = {
   nonBudgetedSpendingSum: 0,
   //transaction that is clicked on in transaction table
   selectedTransaction: '',
+  preventTransactionReRender: false,
 };
 
 export default (state = initialState, action) => {
@@ -401,6 +407,42 @@ export default (state = initialState, action) => {
                   }, 0),
               };
         }),
+      };
+
+    case ALLOW_TRANSACTION_RE_RENDER:
+      return {
+        ...state,
+        preventTransactionReRender: false,
+      };
+
+    //when you click on everything else or other income
+    //on budgets page underneath budget progress bars
+    //takes you to transactions page with those budgets
+    case SET_TRANSACTION_LIST_NO_BUDGET:
+      return {
+        ...state,
+        transactionList: action.payload.transactions.filter(
+          (transaction) =>
+            transaction.shortDate.split(',')[0] === action.payload.month
+        ),
+        //this ensures that when clicking on the other items
+        //button in the budgets page, all transactions are not loaded
+      };
+
+    case PREVENT_TRANSACTION_RE_RENDER:
+      return {
+        ...state,
+        preventTransactionReRender: true,
+      };
+    case SET_TRANSACTION_LIST_BY_CATEGORY:
+      return {
+        ...state,
+        transactionList: action.payload,
+      };
+    case SET_TRANSACTION_LIST_BY_ACCOUNT:
+      return {
+        ...state,
+        transactionList: action.payload,
       };
 
     //loading bar for page

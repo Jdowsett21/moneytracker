@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { setBudgetMonthSum } from '../../actions/BudgetActions';
-
 import { connect } from 'react-redux';
+
 import { getMonthTypeSum } from '../../actions/transactionActions';
 
 function BudgetsLeftColumn({
@@ -28,49 +28,71 @@ function BudgetsLeftColumn({
     setIncomeLength(
       budgetList.filter((budget) => budget.category === 'Income').length
     );
-    //other factor setting margin between income and spending in left budgets column
-    setOtherIncomeLength(nonBudgetedIncomeTransactions.length * 0.5);
+    // setting margin between income and spending in left budgets column when other transaction is added
+    setOtherIncomeLength(nonBudgetedIncomeTransactions.length);
 
     //eslint-disable-next-line
   }, [month, budgetList]);
 
   return (
-    <div className='col-lg-4 col-md-3 d-none d-md-block bg bg-light '>
-      <h2 className='text-right' style={{ marginTop: '150px' }}>
+    <div className='col-lg-4 col-md-3 d-none d-lg-block bg budget-left-background  '>
+      <h2 className='text-right' style={{ marginTop: '140px' }}>
         Income
       </h2>
       <div className='text-right'>
-        <strong>{`$${incomeSum} `}</strong>
+        <strong>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(incomeSum)}{' '}
+        </strong>
         <span>so far</span>
       </div>
       <div className='text-right'>
         <span>of</span>
-        <strong>{` $${budgetIncomeSum}`}</strong>
+        <strong>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(budgetIncomeSum)}
+        </strong>
       </div>
 
       {/* //setting margin so spending left column lines up with spending
-      //no matter the number of income NavBarSecondary
+      //no matter the number of income budgets/ other income transactions
       //could have turned entire income section into row
-    520ad  //however wanted to hide certain columns upon page size */}
+     //however wanted to hide certain columns upon page size 
+     10px is initial buffer if no income budgets or transactions
+     each budget item is 70px, other transaciton is 16px*/}
       <h2
         className='text-right'
         style={{
           marginTop: `${
             incomeLength + otherIncomeLength === 0
-              ? 80
-              : 90 * incomeLength + otherIncomeLength * 65
+              ? 10
+              : 10 + 70 * incomeLength + 16 * otherIncomeLength
           }px`,
         }}
       >
         Spending
       </h2>
       <div className='text-right'>
-        <strong>{`$${spendingSum} `}</strong>
+        <strong>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(spendingSum)}{' '}
+        </strong>
         <span>so far</span>
       </div>
       <div className='text-right'>
         <span>of</span>
-        <strong>{` $${budgetSpendingSum}`}</strong>
+        <strong>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(budgetSpendingSum)}
+        </strong>
       </div>
     </div>
   );

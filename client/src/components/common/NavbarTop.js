@@ -5,7 +5,7 @@ import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
 function NavbarTop({ logout }) {
   return (
-    <nav className='navbar navbar-primary navbar-dark navbar-expand-sm logo-background p-0 px-5'>
+    <nav className='navbar navbar-primary navbar-dark navbar-expand-sm logo-background p-0 px-5 mb-5'>
       <a href='/#' className='navbar-brand'>
         <img
           src={logo}
@@ -21,49 +21,46 @@ function NavbarTop({ logout }) {
       >
         <span className='navbar-toggler-icon'></span>
       </button>
-      <div className='collapse navbar-collapse' id='navbarCollapse'>
-        <ul className='navbar-nav ml-auto ' style={{ fontSize: '0.8rem' }}>
-          <li className='nav-item active'>
-            <Link to='/accounts' className='nav-link'>
-              +ADD ACCOUNTS
-            </Link>
-          </li>
-
-          <li className='nav-item active'>
-            <Link to='/addTransactions' className='nav-link'>
-              +ADD TRANSACTIONS
-            </Link>
-          </li>
-
+      <div
+        className='collapse navbar-collapse small-medium-font mx-5  d-flex justify-content-between'
+        id='navbarCollapse'
+      >
+        <ul className='navbar-nav'>
           <li className='nav-item'>
-            <Link to='/settings' className='nav-link'>
-              SETTINGS
+            <Link to='/overview' className='nav-link'>
+              OVERVIEW
             </Link>
           </li>
-
-          <li className='nav-item'>
-            <Link to='/profile' className='nav-link'>
-              PROFILE
+        </ul>
+        <ul className='navbar-nav '>
+          <li className='nav-item '>
+            <Link to='/transactions' className='nav-link'>
+              TRANSACTIONS
             </Link>
           </li>
+        </ul>
 
-          <li className='nav-item'>
-            <Link to='/tour' className='nav-link'>
-              TOUR
+        <ul className='navbar-nav '>
+          <li className='nav-item '>
+            <Link to='/budgets' className='nav-link'>
+              BUDGETS{' '}
             </Link>
           </li>
-
+        </ul>
+        <ul className='navbar-nav '>
           <li className='nav-item'>
             <a className='nav-link' href='/#' onClick={logout}>
               LOGOUT
             </a>
           </li>
+        </ul>
+        {/* <ul className='navbar-nav '>
           <li className='nav-item ringing-bell'>
             <a href='contact.html' className='nav-link'>
               <i className='far fa-bell fa-2x faa-ring animated-hover'></i>
             </a>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </nav>
   );

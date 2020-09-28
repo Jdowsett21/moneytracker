@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 
 import TransactionsLeftColumn from '../components/Transactions/TransactionsLeftColumn';
 import TransactionsRightColumn from '../components/Transactions/TransactionsRightColumn';
-import { getTransactions } from '../actions/transactionActions';
+import {
+  getTransactions,
+  allowTransactionReRender,
+} from '../actions/transactionActions';
 import { connect } from 'react-redux';
 
 import AddTransactionModal from '../components/Transactions/AddTransactionModal';
@@ -15,14 +18,16 @@ import Container from '../components/common/Container';
 
 function Transactions({
   isUserAuthenticated,
-
+  allowTransactionReRender,
   setAuthInfo,
-  getTransactions,
 }) {
   useEffect(() => {
-    getTransactions();
     setAuthInfo();
     isUserAuthenticated();
+    return () => {
+      console.log('hello');
+      allowTransactionReRender();
+    };
     //eslint-disable-next-line
   }, []);
 
@@ -43,5 +48,6 @@ export default connect(null, {
   logout,
   setAuthInfo,
   getTransactions,
+  allowTransactionReRender,
   isUserAuthenticated,
 })(Transactions);

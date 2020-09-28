@@ -6,13 +6,19 @@ import UnselectedTableRow from './UnselectedTableRow';
 import SelectedTableRow from './SelectedTableRow';
 
 function TransactionTable({
-  transactions: { transactionList, selectedTransaction },
+  transactions: {
+    transactionList,
+    preventTransactionReRender,
+    selectedTransaction,
+  },
   getTransactions,
-
   getAccounts,
 }) {
+  console.log(preventTransactionReRender);
   useEffect(() => {
-    getTransactions();
+    if (preventTransactionReRender === false) {
+      getTransactions();
+    }
     getAccounts();
     //eslint-disable-next-line
   }, []);
@@ -25,15 +31,15 @@ function TransactionTable({
       >
         <thead className='text-small'>
           <tr className='table-header'>
-            <th></th>
+            {/* <th></th> */}
             <th>Date</th>
             <th>Description</th>
             <th>Category</th>
-            <th>Split</th>
+            {/* <th>Split</th> */}
             <th>Amount</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ cursor: 'pointer' }}>
           {transactionList &&
             transactionList.map((transaction) =>
               transaction === selectedTransaction ? (

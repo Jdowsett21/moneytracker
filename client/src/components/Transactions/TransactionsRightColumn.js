@@ -34,7 +34,7 @@ function TransactionsRightColumn({
             <h2>All Cash & Credit Accounts</h2>
             <p className='medium-font'>{`You have ${accountList.length} accounts`}</p>
           </div>
-          <div className='ml-auto align-self-center'>
+          {/* <div className='ml-auto align-self-center'>
             <nav className='navbar '>
               <form className='form-inline'>
                 <input
@@ -51,7 +51,7 @@ function TransactionsRightColumn({
                 </button>
               </form>
             </nav>
-          </div>
+          </div> */}
         </div>
         <div className='d-flex'>
           <div className='align-self-center p-2'>

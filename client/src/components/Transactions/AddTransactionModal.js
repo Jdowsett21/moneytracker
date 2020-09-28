@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { addTransaction } from '../../actions/transactionActions';
+import {
+  addTransaction,
+  getTransactions,
+} from '../../actions/transactionActions';
 import {
   isUserAuthenticated,
   setAuthInfo,
   isAdmin,
 } from '../../actions/authActions';
 import PropTypes from 'prop-types';
-
 function AddTransactionModal({
   isUserAuthenticated,
   setAuthInfo,
   addTransaction,
   isAdmin,
+  getTransactions,
   accounts: { accountList },
 }) {
   useEffect(() => {
@@ -25,7 +28,7 @@ function AddTransactionModal({
     //eslint-disable-next-line
   }, []);
 
-  const [account, setAccount] = useState('');
+  const [accountName, setAccount] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [subCategory, setSubCategory] = useState('');
@@ -33,16 +36,22 @@ function AddTransactionModal({
 
   const onSubmit = () => {
     const transaction = {
-      account,
+      accountName: accountName.slice(0, -9),
       description,
       category,
       subCategory,
       amount,
     };
     addTransaction(transaction);
+    getTransactions();
+    setAccount('');
+    setDescription('');
+    setCategory('');
+    setSubCategory('');
+    setAmount('');
   };
   return (
-    <div id='addTransaction' className='modal fade'>
+    <div id='addTransaction' className='modal'>
       <div className='modal-dialog'>
         <div className='modal-content p-3'>
           <h2>Add Transaction</h2>
@@ -61,8 +70,8 @@ function AddTransactionModal({
             <div className='row'>
               <div className='input-field'>
                 <select
-                  name='account'
-                  value={account}
+                  name='accountName'
+                  value={accountName}
                   className='browser-default'
                   onChange={(e) => setAccount(e.target.value)}
                 >
@@ -148,7 +157,7 @@ function AddTransactionModal({
               <label htmlFor=''>Category</label>
               <input
                 type='text'
-                name='category'
+                name='subCategory'
                 value={subCategory}
                 className='form-control'
                 onChange={(e) => setSubCategory(e.target.value)}
@@ -195,5 +204,6 @@ export default connect(mapStateToProps, {
   addTransaction,
   isUserAuthenticated,
   setAuthInfo,
+  getTransactions,
   isAdmin,
 })(AddTransactionModal);

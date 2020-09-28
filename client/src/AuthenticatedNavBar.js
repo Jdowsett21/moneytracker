@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBarSecondary from './components/common/NavBarSecondary';
+// import NavBarSecondary from './components/common/NavBarSecondary';
 import NavbarTop from './components/common/NavbarTop';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -10,7 +10,7 @@ function AuthenticatedNavBar({ auth: { isAuthenticated } }) {
       {isAuthenticated && (
         <>
           <NavbarTop />
-          <NavBarSecondary />
+          {/* <NavBarSecondary /> */}
         </>
       )}
     </div>

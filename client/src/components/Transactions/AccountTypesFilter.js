@@ -44,8 +44,8 @@ function AccountTypesFilter({
               onMouseEnter={() => setHover(account)}
               onMouseLeave={() => setHover('')}
             >
+              {/* eslint-disable-next-line */}
               <a
-                href='/#'
                 className={`text text-${
                   clickStatus.uiName === account.uiName
                     ? 'white'

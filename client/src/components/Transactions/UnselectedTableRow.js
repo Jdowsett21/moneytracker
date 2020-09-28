@@ -9,9 +9,9 @@ function UnselectedTableRow({ transaction, setSelectedTransaction }) {
       key={transaction._id}
       onClick={() => setSelectedTransaction(transaction)}
     >
-      <td className='selected-transaction-row'>
+      {/* <td className='selected-transaction-row'>
         <input type='checkbox' />
-      </td>
+      </td> */}
       <td className='unselected-transaction-row' style={{ maxWidth: '80px' }}>
         {transaction.shortDate}
       </td>
@@ -19,12 +19,14 @@ function UnselectedTableRow({ transaction, setSelectedTransaction }) {
         {transaction.description}
       </td>
       <td className='unselected-transaction-row' style={{ maxWidth: '95px' }}>
-        {transaction.category}
+        {transaction.subCategory === ''
+          ? transaction.category
+          : transaction.subCategory}
       </td>
-      <td
+      {/* <td
         className='unselected-transaction-row'
         style={{ maxWidth: '80px' }}
-      ></td>
+      ></td> */}
       <td className='unselected-transaction-row' style={{ maxWidth: '90px' }}>
         {new Intl.NumberFormat('en-US', {
           style: 'currency',

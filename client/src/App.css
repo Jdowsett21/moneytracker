@@ -334,10 +334,16 @@ ul.horizontal-bar li.debt {
   border-bottom: #272727;
 }
 
-.medium-font {
-  font-size: 12px;
+element.style {
+}
+.pr-5,
+.px-5 {
+  padding-right: 3rem !important;
 }
 
+.shadow-lg {
+  box-shadow: -15px 0 25px -14px rgba(0, 0, 0, 0.175) !important;
+}
 ul.horizontal-bar li label {
   color: #999;
   text-transform: uppercase;
@@ -349,7 +355,7 @@ ul.horizontal-bar li label {
   white-space: nowrap;
   width: 40px;
   position: absolute;
-  left: 0.4rem;
+  left: 0.22rem;
 }
 .card-body {
   padding: 0.25rem;
@@ -444,10 +450,13 @@ ul.horizontal-bar li var {
   vertical-align: center;
   text-align: center;
 }
-
-.table td {
-  padding: 0rem !important;
+.month-table .table th,
+.month-table .table td {
+  padding: 0.75rem !important;
 }
+/* .table td {
+  padding: 0rem !important;
+} */
 .table td.unselected-transaction-row {
   padding-left: 0.61rem !important;
   padding-top: 0.2rem !important;

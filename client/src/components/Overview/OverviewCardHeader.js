@@ -6,7 +6,7 @@ function OverviewCardHeader({ title }) {
       <small className='font-medium' style={{ float: 'left' }}>
         {title}
       </small>
-      <i className='fas fa-cog' style={{ float: 'right' }}></i>
+      {/* <i className='fas fa-cog' style={{ float: 'right' }}></i> */}
     </React.Fragment>
   );
 }

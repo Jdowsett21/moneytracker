@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getNonBudgetedTransactions,
   getNonBudgetedTransactionsSum,
+  setTransactionList,
+  preventTransactionReRendering,
 } from '../../../actions/transactionActions';
 import NonBudgetedItem from './NonBudgetedItem';
+import { Link } from 'react-router-dom';
 function NonBudgetedTransactions({
   type,
   message,
@@ -15,32 +18,48 @@ function NonBudgetedTransactions({
     nonBudgetedSpendingSum,
     nonBudgetedIncomeSum,
   },
+  preventTransactionReRendering,
   getNonBudgetedTransactions,
+  setTransactionList,
   getNonBudgetedTransactionsSum,
   months: { month },
   budgets: { budgetList },
 }) {
-  console.log(nonBudgetedIncomeSum);
-  console.log(nonBudgetedSpendingSum);
+  const [transactions, setTransactions] = useState('');
   useEffect(() => {
     //gets the transactions and the sum
     getNonBudgetedTransactions(month, type, budgetList);
     getNonBudgetedTransactionsSum(month, type, budgetList);
-    //eslint-disable-next-line
+    setTransactions(
+      type === 'Deposit'
+        ? nonBudgetedIncomeTransactions
+        : nonBudgetedSpendingTransactions
+    ); //eslint-disable-next-line
   }, [month, budgetList]);
   return (
-    <ul className='mb-5'>
-      <div className='d-flex justify-content-between small-font-dark'>
-        <a
-          href='/#'
-          onClick={() => getNonBudgetedTransactions(month, type, budgetList)}
+    <ul className='mb-5 px-2'>
+      <div className='d-flex justify-content-between '>
+        <Link
+          to='/transactions'
+          className='small-medium-font  text-dark'
+          href='#'
+          onClick={() => {
+            preventTransactionReRendering();
+            setTransactionList(transactions, month);
+          }}
         >
           {message}
-        </a>
-        <span>
+        </Link>
+        <span className='small-medium-font'>
           {type === 'Withdrawal'
-            ? nonBudgetedSpendingSum
-            : nonBudgetedIncomeSum}
+            ? new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(nonBudgetedSpendingSum)
+            : new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(nonBudgetedIncomeSum)}
         </span>
       </div>
 
@@ -73,5 +92,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getNonBudgetedTransactions,
+  setTransactionList,
   getNonBudgetedTransactionsSum,
+  preventTransactionReRendering,
 })(NonBudgetedTransactions);

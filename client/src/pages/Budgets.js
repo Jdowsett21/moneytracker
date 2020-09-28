@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-
-import Container from '../components/common/Container';
 import BudgetsLeftColumn from '../components/Budgets/BudgetsLeftColumn';
 import BudgetsMiddleColumn from '../components/Budgets/BudgetsMiddleColumn';
 import BudgetsRightColumn from '../components/Budgets/BudgetsRightColumn';
@@ -11,6 +9,7 @@ import {
 } from '../actions/authActions';
 
 import { connect } from 'react-redux';
+import { getTransactions } from './../actions/transactionActions';
 
 function Budgets({ isUserAuthenticated, setAuthInfo, months: { month } }) {
   useEffect(() => {
@@ -21,19 +20,20 @@ function Budgets({ isUserAuthenticated, setAuthInfo, months: { month } }) {
 
   return (
     <React.Fragment>
-      <section>
-        <Container margin='m-0'>
+      <div className='container-fluid fixed-bottom-container m-auto'>
+        <div className='row d-flex justify-content-start'>
           <BudgetsLeftColumn />
           <BudgetsMiddleColumn />
           <BudgetsRightColumn />
-        </Container>
-      </section>
+        </div>
+      </div>
     </React.Fragment>
   );
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  transactions: state.transactions,
   months: state.months,
 });
 
@@ -41,4 +41,5 @@ export default connect(mapStateToProps, {
   logout,
   setAuthInfo,
   isUserAuthenticated,
+  getTransactions,
 })(Budgets);

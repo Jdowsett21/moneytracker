@@ -34,8 +34,9 @@ function MonthSelector({
       onMouseOver={settingHover}
       onMouseLeave={removingHover}
     >
+      {/* eslint-disable-next-line */}
       <a
-        href='/#'
+        href='#'
         value={listMonth}
         onClick={() => {
           setMonth(listMonth);

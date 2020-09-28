@@ -68,6 +68,29 @@ export const GET_TRANSACTION_CATEGORIES = 'GET_TRANSACTION_CATEGORIES';
 //filtering for transactions in one month
 export const GET_TRANSACTIONS_BY_MONTH = 'GET_TRANSACTIONS_BY_MONTH';
 
+//ensures when transactions page is left, transaction re rendering is allowed
+//again for getTransactions
+//so that when returning to transactiosn page, transctions are reloaded
+export const ALLOW_TRANSACTION_RE_RENDER = 'ALLOW_TRANSACTION_RE_RENDER';
+
+//ensures when a transaction/transaction cateogry is clicked
+//in budgets page, getTransactions does not run
+export const PREVENT_TRANSACTION_RE_RENDER = 'PREVENT_TRANSACTION_RE_RENDER';
+
+//filtering transactions when clicking on the other category
+//WILL ALSO DISABLE TRANSACTION RE-RENDERING, SO ALL TRANSACTIONS
+//ARENT LOADED WHEN REDIRECT TO TRANSACTION PAGE
+//TRANSACTION RE RENDERING IS ENABLED ON UNMOUNTING IN TRANSACTION PAGE
+export const SET_TRANSACTION_LIST_NO_BUDGET = 'SET_TRANSACTION_LIST_NO_BUDGET';
+
+export const SET_TRANSACTION_LIST_BY_CATEGORY =
+  'SET_TRANSACTION_LIST_BY_CATEGORY';
+
+//THIS SETS THE TRANSACTION LIST WHEN YOU CLICK ON AN
+//ACCOUNT IN THE OVERVIEW PAGE, ACCOUNTS
+export const SET_TRANSACTION_LIST_BY_ACCOUNT =
+  'SET_TRANSACTION_LIST_BY_ACCOUNT';
+
 export const GET_TRANSACTIONS_BY_ACCOUNT = 'GET_TRANSACTIONS_BY_ACCOUNT';
 export const GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY =
   '  GET_TRANSACTIONS_BY_ACCOUNT_CATEGORY';

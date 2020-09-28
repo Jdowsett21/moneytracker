@@ -184,4 +184,29 @@ router.get(
   })
 );
 
+
+router.get(
+  '/account/:account',
+  asyncMiddleware(async (req, res) => {
+    const transactions = await Transaction.find({
+      userId: req.user._id,
+      accountId: req.params.account,
+    });
+
+    res.send(transactions);
+  })
+);
+router.get(
+  '/monthAndCategory/:category/:month',
+  asyncMiddleware(async (req, res) => {
+    const transactions = await Transaction.find({
+      userId: req.user._id,
+      category: req.params.category,
+      shortDate: { $regex: req.params.month, $options: 'i' },
+    });
+
+    res.send(transactions);
+  })
+);
+
 module.exports = router;

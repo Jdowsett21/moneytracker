@@ -22,6 +22,8 @@ const transactionSchema = new mongoose.Schema({
   //Groceries, Phone Bill etc
   subCategory: {
     type: String,
+    //incase no subCategory is set
+    default: '',
   },
   amount: {
     type: Number,
