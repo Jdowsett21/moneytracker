@@ -11,4 +11,8 @@ module.exports = function () {
     })
     .then(() => winston.info(`Connected to the ${process.env.ASCENSION_DB}`))
     .catch((err) => winston.error(err));
+
+  mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected');
+  });
 };

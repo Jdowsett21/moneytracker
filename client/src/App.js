@@ -5,9 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
-//context
-import { FetchProvider } from './context/fetchContext';
-
 //pages
 import Login from './pages/Login';
 import AuthenticatedRoutes from './AuthenticatedRoutes';
@@ -95,9 +92,7 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <FetchProvider>
-          <AppRoutes />
-        </FetchProvider>
+        <AppRoutes />
       </Provider>
     </Router>
   );

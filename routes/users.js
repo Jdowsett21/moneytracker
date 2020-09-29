@@ -9,7 +9,6 @@ router.get('/csrf-token', async (req, res) => {
 });
 router.get(
   '/me',
-
   asyncMiddleware(async (req, res) => {
     const user = await User.findById(req.user._id);
 
