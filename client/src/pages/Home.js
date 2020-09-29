@@ -14,7 +14,7 @@ function Home({
   setAuthInfo,
 }) {
   useEffect(() => {
-    isUserAuthenticated();
+    // isUserAuthenticated();
     // setAuthInfo();
     //eslint-disable-next-line
   }, [expiresAt]);
