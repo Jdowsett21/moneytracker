@@ -100,7 +100,4 @@ function App() {
 
 export default App;
 
-// "build": "cd client && npm run build",
-// "install-client": "cd client && npm install",
 
-// "heroku-post": "npm run install-client && npm run build",
