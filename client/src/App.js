@@ -102,5 +102,5 @@ export default App;
 
 // "build": "cd client && npm run build",
 // "install-client": "cd client && npm install",
-// "client": "npm start --prefix client",
+
 // "heroku-post": "npm run install-client && npm run build",

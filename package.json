@@ -35,6 +35,7 @@
     "test": "jest --watchAll --verbose --coverage",
     "start": "node index.js",
     "server": "nodemon index.js",
+    "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": " env-cmd -f ./config/.env concurrently \"npm run server\" \"npm run client\""
   },
