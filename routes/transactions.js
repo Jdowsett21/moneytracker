@@ -8,7 +8,10 @@ const asyncMiddleware = require('../middleware/async');
 router.get(
   '/',
   asyncMiddleware(async (req, res) => {
-    const transactions = await Transaction.find({ userId: req.user._id });
+    const transactions = await Transaction.find();
+    //user specific searches disabled for
+    //display purposes
+    // { userId: req.user._id });
 
     res.send(transactions);
   })
@@ -17,9 +20,10 @@ router.get(
 router.post(
   '/',
   asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
-
-    const accounts = await Account.find({ userId: user._id });
+    const accounts = await Account.find();
+    //user specific searches disabled for
+    //display purposes
+    // { userId: req.user._id });
 
     const correctAccount = accounts.filter(
       (account) => req.body.accountName === account.accountName
@@ -33,7 +37,9 @@ router.post(
     const transaction = new Transaction({
       ...req.body,
       accountId: correctAccount[0]._id,
-      userId: user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: user._id,
     });
 
     await transaction.save();
@@ -57,19 +63,9 @@ router.post(
 router.put(
   '/updateTransaction/:id',
   asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const accounts = await Account.find();
+    // { userId: req. user._id });
 
-    const accounts = await Account.find({ userId: user._id });
-
-    // const correctAccount = accounts.filter(
-    //   (account) => req.body.accountName === account.accountName
-    // );
-
-    // if (correctAccount.length < 1) {
-    //   return res.status(400).json({
-    //     message: 'This individual does not have an account under this name',
-    //   });
-    // }
     const transaction = await Transaction.findByIdAndUpdate(
       req.params.id,
       {
@@ -101,6 +97,7 @@ router.put(
     //   },
     //   { new: true }
     // );
+
     res.send(transaction);
   })
 );
@@ -109,7 +106,9 @@ router.get(
   '/monthAndType/:month/:type',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       shortDate: { $regex: req.params.month, $options: 'i' },
       paymentType: req.params.type,
     });
@@ -121,7 +120,9 @@ router.get(
   '/category/:category',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       category: req.params.category,
     });
     if (transactions.length < 1)
@@ -137,7 +138,9 @@ router.get(
   '/account/:account',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       accountId: req.params.account,
     });
 
@@ -153,16 +156,23 @@ router.get(
     const accounts =
       accountCategory === 'Cash & Credit'
         ? await Account.find({
-            userId: req.user._id,
+            //user specific searches disabled for
+            //display purposes
+            // userId: req.user._id,
             $or: [{ accountCategory: 'Cash' }, { accountCategory: 'Credit' }],
           })
         : await Account.find({
-            userId: req.user._id,
+            //user specific searches disabled for
+            //display purposes
+            // userId: req.user._id,
             accountCategory: accountCategory,
           });
 
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
+
       // map through all accounts to find all transactions
       //within that account
       accountId: { $in: accounts.map((account) => account._id) },
@@ -176,7 +186,9 @@ router.get(
   '/month/:month',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       shortDate: { $regex: req.params.month, $options: 'i' },
     });
 
@@ -184,12 +196,13 @@ router.get(
   })
 );
 
-
 router.get(
   '/account/:account',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       accountId: req.params.account,
     });
 
@@ -200,7 +213,9 @@ router.get(
   '/monthAndCategory/:category/:month',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
       category: req.params.category,
       shortDate: { $regex: req.params.month, $options: 'i' },
     });

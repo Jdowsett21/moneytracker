@@ -5,7 +5,10 @@ const Budget = require('../models/budget');
 router.get(
   '/getBudgets',
   asyncMiddleware(async (req, res) => {
-    const budget = await Budget.find({ userId: req.user._id });
+    const budget = await Budget.find();
+    //user specific searches disabled for
+    //display purposes
+    // { userId: req.user._id });
 
     res.send(budget);
   })
@@ -16,7 +19,9 @@ router.get(
   asyncMiddleware(async (req, res) => {
     const budget = await Budget.find({
       budgetType: req.params.budgetType,
-      userId: req.user._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.user._id,
     });
 
     res.send(budget);
@@ -83,7 +88,9 @@ router.put(
   asyncMiddleware(async (req, res) => {
     const duplicateBudget = await Budget.find({
       subCategory: req.body.subCategory,
-      userId: req.params._id,
+      //user specific searches disabled for
+      //display purposes
+      // userId: req.params._id,
     });
 
     if (duplicateBudget)

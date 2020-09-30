@@ -36,15 +36,10 @@ router.get(
   asyncMiddleware(async (req, res) => {
     const user = await User.findById(req.user._id);
 
-    // await user
-    //   .populate({
-    //     path: 'accounts',
-    //     select: 'accountName balance hiddenAccountNumber institution',
-    //     model: 'Account',
-    //   })
-    //   .execPopulate();
-
-    const accounts = await Account.find({ userId: user._id });
+    const accounts = await Account.find();
+    //user specific searches disabled for
+    //display purposes
+    // { userId: user._id });
 
     res.json(accounts);
   })
@@ -54,19 +49,7 @@ router.get(
   '/getSingleAccount/:accountId',
 
   asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
-
-    await user
-      .populate({
-        path: 'accounts',
-        select: 'accountName balance hiddenAccountNumber institution',
-        model: 'Account',
-      })
-      .execPopulate();
-    console.log(user.accounts);
-    const singleAccount = user.accounts.filter((account) => {
-      return account._id == req.params.accountId;
-    });
+    const singleAccount = await Account.findById(req.params.accountId);
 
     res.json(singleAccount);
   })
