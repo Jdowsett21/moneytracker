@@ -33,7 +33,7 @@ module.exports = function (app) {
     app.use(express.static('client/build'));
   }
   app.use('*', (req, res, next) => {
-    res.sendFile(path.join(__dirname, 'index.html file path'));
+    res.sendFile(path.join(__dirname, 'build/index.html file path'));
   });
   app.use('/api/auth', auth);
   app.use(attachUser);
