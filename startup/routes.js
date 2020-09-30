@@ -37,7 +37,7 @@ module.exports = function (app) {
       path.join(
         __dirname,
 
-        'client/build/index.html file path'
+        '../client/build/index.html'
       )
     );
   });
