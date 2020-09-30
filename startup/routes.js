@@ -32,6 +32,9 @@ module.exports = function (app) {
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
   }
+  app.use('*', (req, res, next) => {
+    res.sendFile(path.join(__dirname, 'index.html file path'));
+  });
   app.use('/api/auth', auth);
   app.use(attachUser);
   app.use(verifyJwt);
