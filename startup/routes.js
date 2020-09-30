@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 const csrf = require('csurf');
 const express = require('express');
 const csrfProtection = csrf({ cookie: true });
-
+const path = require('path');
 const verifyJwt = jwt({
   secret: process.env.JWT_SECRET,
   iss: 'api.money-tracker',
