@@ -32,8 +32,8 @@ module.exports = function (app) {
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
   }
-  app.use('*', (req, res, next) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+  app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
   app.use('/api/auth', auth);
   app.use(attachUser);
