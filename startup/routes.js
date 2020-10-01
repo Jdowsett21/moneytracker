@@ -32,7 +32,6 @@ module.exports = function (app) {
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use;
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('/*', function (req, res) {
