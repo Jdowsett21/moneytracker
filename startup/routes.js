@@ -26,6 +26,19 @@ const verifyJwt = jwt({
 });
 
 module.exports = function (app) {
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('/*', function (req, res) {
+      res.sendFile(
+        path.join(__dirname, '../client/build, index.html'),
+        function (err) {
+          if (err) {
+            res.status(500).send(err);
+          }
+        }
+      );
+    });
+  }
   app.use(cookieParser());
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,17 +53,4 @@ module.exports = function (app) {
   app.use('/api/transactions', transactions);
   app.use('/api/budgets', budgets);
   app.use('/api/budgetCategories', budgetCategories);
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('/*', function (req, res) {
-      res.sendFile(
-        path.join(__dirname, '../client/build, index.html'),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
-    });
-  }
 };
