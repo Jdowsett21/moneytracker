@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/Trends.js"],"names":["Trends","Fragment"],"mappings":"uHAAA,2BAMeA,UAJf,WACE,OAAO,kBAAC,IAAMC,SAAP","file":"static/js/11.a654c1f2.chunk.js","sourcesContent":["import React from 'react';\r\n\r\nfunction Trends() {\r\n  return <React.Fragment></React.Fragment>;\r\n}\r\n\r\nexport default Trends;\r\n"],"sourceRoot":""}

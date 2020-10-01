@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/Goals.js"],"names":["Goals","props","Fragment"],"mappings":"sHAAA,2BAMeA,UAJf,SAAeC,GACb,OAAO,kBAAC,IAAMC,SAAP","file":"static/js/8.62a1d2ef.chunk.js","sourcesContent":["import React from 'react';\r\n\r\nfunction Goals(props) {\r\n  return <React.Fragment></React.Fragment>;\r\n}\r\n\r\nexport default Goals;\r\n"],"sourceRoot":""}
