@@ -73,8 +73,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.token,
-        expiresAt: localStorage.getItem('expiresAt', action.payload.expiresAt),
-        userInfo: localStorage.getItem(
+        expiresAt: localStorage.setItem('expiresAt', action.payload.expiresAt),
+        userInfo: localStorage.setItem(
           'userInfo',
           JSON.stringify(action.payload.userInfo)
         ),

@@ -34,19 +34,19 @@ module.exports = function (app) {
   app.use(attachUser);
   app.use(verifyJwt);
   app.use(csrfProtection);
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('/*', function (req, res) {
-      res.sendFile(
-        path.join(__dirname, '../client/build, index.html'),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
-    });
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   app.use(express.static('client/build'));
+  //   app.get('/*', function (req, res) {
+  //     res.sendFile(
+  //       path.join(__dirname, '../client/build, index.html'),
+  //       function (err) {
+  //         if (err) {
+  //           res.status(500).send(err);
+  //         }
+  //       }
+  //     );
+  //   });
+  // }
   app.use('/api/users', users);
   app.use('/api/accounts', accounts);
   app.use('/api/settings', settings);

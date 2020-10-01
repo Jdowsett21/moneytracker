@@ -17,7 +17,6 @@ router.get(
 router.get(
   '/getBudgetType/:budgetType',
   asyncMiddleware(async (req, res) => {
-    const adminUser = await User.find(user);
     const budget = await Budget.find({
       budgetType: req.params.budgetType,
 
