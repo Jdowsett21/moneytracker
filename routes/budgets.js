@@ -17,11 +17,11 @@ router.get(
 router.get(
   '/getBudgetType/:budgetType',
   asyncMiddleware(async (req, res) => {
+    const adminUser = await User.find(user);
     const budget = await Budget.find({
       budgetType: req.params.budgetType,
-      //user specific searches disabled for
-      //display purposes
-      // userId: req.user._id,
+
+      $or: { userId: req.user._id },
     });
 
     res.send(budget);
