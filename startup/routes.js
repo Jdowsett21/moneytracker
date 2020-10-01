@@ -16,6 +16,9 @@ const csrf = require('csurf');
 const express = require('express');
 const csrfProtection = csrf({ cookie: true });
 const path = require('path');
+
+const filePath = '../client/build/index.html';
+const resolvedPath = path.resolve();
 const verifyJwt = jwt({
   secret: process.env.JWT_SECRET,
   iss: 'api.money-tracker',
@@ -25,23 +28,21 @@ const verifyJwt = jwt({
 });
 
 module.exports = function (app) {
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('/*', function (req, res) {
-      res.sendFile(
-        path.join(__dirname, '../client/build, index.html'),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
-    });
-  }
   app.use(cookieParser());
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  app.use;
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('/*', function (req, res) {
+      res.sendFile(path.join('../client/build, index.html'), function (err) {
+        if (err) {
+          res.status(500).send(err);
+        }
+      });
+    });
+  }
   app.use('/api/auth', auth);
   app.use(attachUser);
   app.use(verifyJwt);
