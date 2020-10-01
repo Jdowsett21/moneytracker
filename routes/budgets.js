@@ -20,7 +20,7 @@ router.get(
     const budget = await Budget.find({
       budgetType: req.params.budgetType,
 
-      $or: { userId: req.user._id },
+      userId: req.user._id,
     });
 
     res.send(budget);
