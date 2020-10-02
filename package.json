@@ -32,7 +32,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    // "test": "jest --watchAll --verbose --coverage",
+    "test": "jest --watchAll --verbose --coverage",
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
