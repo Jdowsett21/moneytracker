@@ -30,19 +30,6 @@ module.exports = function (app) {
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    // app.get('*', function (req, res) {
-    //   res.sendFile(
-    //     path.join(__dirname, '../client/build/index.html'),
-    //     function (err) {
-    //       if (err) {
-    //         res.status(500).send(err);
-    //       }
-    //     }
-    //   );
-    // });
-  }
   app.use('/api/auth', auth);
   app.use(attachUser);
   app.use(verifyJwt);
@@ -53,4 +40,17 @@ module.exports = function (app) {
   app.use('/api/transactions', transactions);
   app.use('/api/budgets', budgets);
   app.use('/api/budgetCategories', budgetCategories);
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+      res.sendFile(
+        path.resolve(__dirname, '../client', 'build', 'index.html'),
+        function (err) {
+          if (err) {
+            res.status(500).send(err);
+          }
+        }
+      );
+    });
+  }
 };
