@@ -20,10 +20,7 @@ router.get(
 router.post(
   '/',
   asyncMiddleware(async (req, res) => {
-    const accounts = await Account.find();
-    //user specific searches disabled for
-    //display purposes
-    // { userId: req.user._id });
+    const accounts = await Account.find({ userId: req.user._id });
 
     const correctAccount = accounts.filter(
       (account) => req.body.accountName === account.accountName
@@ -37,9 +34,7 @@ router.post(
     const transaction = new Transaction({
       ...req.body,
       accountId: correctAccount[0]._id,
-      //user specific searches disabled for
-      //display purposes
-      // userId: user._id,
+      userId: req.user._id,
     });
 
     await transaction.save();
