@@ -7,7 +7,7 @@ import { getMonthTypeSum } from '../../actions/transactionActions';
 function BudgetsLeftColumn({
   budgets: { budgetList, budgetIncomeSum, budgetSpendingSum },
   transactions: { spendingSum, incomeSum, nonBudgetedIncomeTransactions },
-  months: { month },
+  time: { month },
   getMonthTypeSum,
   setBudgetMonthSum,
 }) {
@@ -101,7 +101,7 @@ function BudgetsLeftColumn({
 const mapStateToProps = (state) => ({
   budgets: state.budgets,
   transactions: state.transactions,
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {

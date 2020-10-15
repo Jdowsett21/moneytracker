@@ -43,7 +43,11 @@ function NavbarTop({ logout }) {
               BUDGETS{' '}
             </Link>
           </li>
-
+          <li className='nav-item '>
+            <Link to='/trends' className='nav-link'>
+              TRENDS{' '}
+            </Link>
+          </li>
           <li className='nav-item'>
             <a className='nav-link' href='/#' onClick={logout}>
               LOGOUT

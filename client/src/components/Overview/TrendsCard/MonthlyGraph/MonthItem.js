@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setHoveredMonth } from '../../../../actions/monthActions';
+import { setHoveredMonth } from '../../../../actions/timeActions';
 import { useHover } from '../../../../utils/useHover';
 import moment from 'moment';
 function MonthItem({

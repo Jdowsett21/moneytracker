@@ -28,6 +28,7 @@ import {
   PREVENT_TRANSACTION_RE_RENDER,
   SET_TRANSACTION_LIST_BY_CATEGORY,
   SET_TRANSACTION_LIST_BY_ACCOUNT,
+  GET_TRANSACTIONS_BY_DATE_RANGE,
 } from '../actions/types';
 import moment from 'moment';
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   monthIncome: 0,
   monthDebt: 0,
   sixMonthNetTotals: 0,
+
   lastSixMonths: [
     moment().subtract(5, 'months').format('MMM'),
     moment().subtract(4, 'months').format('MMM'),
@@ -69,6 +71,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_TRANSACTIONS_BY_DATE_RANGE:
+      return {
+        ...state,
+        transactionList: action.payload,
+      };
     case UPDATE_TRANSACTION:
       return {
         ...state,
@@ -129,6 +136,9 @@ export default (state = initialState, action) => {
           );
         }),
       };
+
+    // case SET_GRAPH:
+    //   return {};
 
     //needed to combine income debt and net into one transaction in order to properly set each value
     case SET_MONTH_TOTALS:

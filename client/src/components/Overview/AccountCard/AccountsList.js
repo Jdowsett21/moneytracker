@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AccountItem from './AccountItem';
 import { connect } from 'react-redux';
-import AccountCardHeader from './AccountTitle';
+import AccountCardHeader from './AccountCardHeader';
 
 function AccountsList({ accountCategory, accountList }) {
   const [filteredAccounts, setFilterAccount] = useState([]);

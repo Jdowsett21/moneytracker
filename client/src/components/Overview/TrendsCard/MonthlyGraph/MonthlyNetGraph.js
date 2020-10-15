@@ -16,7 +16,7 @@ function MonthlyNetGraph({
   setMonthTotals,
   setSixMonthNet,
   setSixMonthMax,
-  months: { hoveredMonth },
+  time: { hoveredMonth },
   transactions: {
     monthGraphNet,
     monthIncome,
@@ -94,7 +94,7 @@ function MonthlyNetGraph({
 }
 
 const MapStatetoProps = (state) => ({
-  months: state.months,
+  time: state.time,
   transactions: state.transactions,
   accounts: state.accounts,
 });

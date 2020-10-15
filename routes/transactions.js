@@ -4,7 +4,7 @@ const Transaction = require('../models/transaction');
 const { User } = require('../models/user');
 const Account = require('../models/account');
 const asyncMiddleware = require('../middleware/async');
-
+const moment = require('moment');
 router.get(
   '/',
   asyncMiddleware(async (req, res) => {
@@ -217,6 +217,17 @@ router.get(
 
     res.send(transactions);
   })
+);
+
+router.get(
+  '/graphInfo/:range1/:range2/:type/:subType/:accounts/:tags',
+  async (req, res) => {
+    console.log(req.query.accounts.);
+    const transactions = await Transaction.find({
+      shortDate: { $lt: moment(req.params.range1).toISOString() },
+    });
+    res.send(transactions);
+  }
 );
 
 module.exports = router;

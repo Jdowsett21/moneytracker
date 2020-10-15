@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const transactionSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
   shortDate: {
     type: String,
-    default: moment().format('MMM, DD'),
+    default: moment(this.date).format('MMM, DD'),
   },
   //merchant ex Uber.com, Interac e transfer
   description: {

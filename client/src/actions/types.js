@@ -2,7 +2,9 @@
 export const FILTER_ACCOUNT_TYPES = 'FILTER_ACCOUNT_TYPES';
 export const ADD_ACCOUNT = 'ADD_ACCOUNT';
 export const GET_ACCOUNTS = 'GET_ACCOUNTS';
-
+//setting the list of accounts to filter transactions by
+//in trends page
+export const SET_GRAPH_ACCOUNTS = 'SET_GRAPH_ACCOUNTS';
 export const ACCOUNT_ERROR = 'ACCOUNT_ERROR';
 export const TRANSACTION_ERROR = 'TRANSACTION_ERROR';
 export const MONTH_ERROR = 'MONTH_ERROR';
@@ -18,7 +20,7 @@ export const SET_TOTAL = 'SET_TOTAL';
 export const SET_HOVERED_MONTH = 'SET_HOVERED_MONTH';
 export const SET_HOVERED_BUDGET_MONTH = 'SET_HOVERED_BUDGET_MONTH';
 export const SET_MONTH = 'SET_MONTH';
-
+export const SET_TIME_INFO = 'SET_TIME_INFO';
 export const FILTER = 'FILTER';
 //setting bars on overview page
 export const SET_CASH_PERCENTAGE_BAR = 'SET_CASH_PERCENTAGE_BAR';
@@ -68,6 +70,7 @@ export const GET_TRANSACTION_CATEGORIES = 'GET_TRANSACTION_CATEGORIES';
 //filtering for transactions in one month
 export const GET_TRANSACTIONS_BY_MONTH = 'GET_TRANSACTIONS_BY_MONTH';
 
+export const GET_TRANSACTIONS_BY_DATE_RANGE = 'GET_TRANSACTIONS_BY_DATE_RANGE';
 //ensures when transactions page is left, transaction re rendering is allowed
 //again for getTransactions
 //so that when returning to transactiosn page, transctions are reloaded
@@ -145,5 +148,8 @@ export const DELETE_BUDGET_CATEGORY = 'DELETE_BUDGET_CATEGORY';
 export const GET_BUDGET_SUBCATEGORIES = 'GET_BUDGET_SUBCATEGORIES';
 
 //setting state so that in the left transaction column, only 1 item can
-//be highlighted on click
+//be highlighted on click cause they have the same values
 export const SET_CLICK = 'SET_CLICK';
+
+export const SET_DATA = 'SET_DATA';
+export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE';

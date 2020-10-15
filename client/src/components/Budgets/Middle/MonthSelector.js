@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { setHoveredMonthColor } from '../../../actions/transactionActions';
 import { connect } from 'react-redux';
-import { setMonth, setHoveredBudgetMonth } from '../../../actions/monthActions';
+import { setMonth, setHoveredBudgetMonth } from '../../../actions/timeActions';
 import { isUserAuthenticated } from '../../../actions/authActions';
 
 function MonthSelector({
@@ -11,7 +11,7 @@ function MonthSelector({
   setHoveredBudgetMonth,
   setHoveredMonthColor,
   transactions: { hoveredColor, monthNetColor },
-  months: { month, hoveredBudgetMonth },
+  time: { month, hoveredBudgetMonth },
   isUserAuthenticated,
 }) {
   const settingHover = () => {
@@ -59,7 +59,7 @@ function MonthSelector({
 }
 
 const mapStatetoProps = (state) => ({
-  months: state.months,
+  time: state.time,
   transactions: state.transactions,
 });
 export default connect(mapStatetoProps, {

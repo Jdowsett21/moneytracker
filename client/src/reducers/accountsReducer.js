@@ -9,11 +9,13 @@ import {
   GET_ACCOUNTS,
   SET_CASH_PERCENTAGE_BAR,
   SET_DEBT_PERCENTAGE_BAR,
+  SET_GRAPH_ACCOUNTS,
   SET_NET_PERCENTAGE_BAR,
 } from '../actions/types';
 
 const initialState = {
   accountList: [],
+  accountGraphList: [],
   accountCategories: null,
   cash: 0,
   debt: 0,
@@ -27,6 +29,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_GRAPH_ACCOUNTS:
+      return {
+        ...state,
+        accountGraphList: action.payload,
+      };
     case ADD_ACCOUNT:
       return {
         ...state,

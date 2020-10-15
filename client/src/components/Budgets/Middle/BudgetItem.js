@@ -14,7 +14,7 @@ function BudgetItem({
   categoryTotal,
   incrementBudget,
   decrementBudget,
-  months: { month },
+  time: { month },
   preventTransactionReRendering,
   setTransactionListByCategory,
 }) {
@@ -200,7 +200,7 @@ function BudgetItem({
   );
 }
 const mapStateToProps = (state) => ({
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {

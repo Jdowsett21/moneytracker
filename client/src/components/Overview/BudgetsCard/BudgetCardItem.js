@@ -11,7 +11,7 @@ function BudgetCardItem({
   categoryTotal,
   preventTransactionReRendering,
   setTransactionListByCategory,
-  months: { month },
+  time: { month },
 }) {
   const [ratio, setRatio] = useState('');
   const [barColor, setBarColor] = useState('');
@@ -66,7 +66,7 @@ function BudgetCardItem({
 }
 
 const mapStateToProps = (state) => ({
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {

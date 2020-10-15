@@ -3,7 +3,7 @@ import budgetImage from '../../img/Budgeting Methods_Banner.png';
 
 function BudgetSection(props) {
   return (
-    <div id='budget-section' className='logo-background pt-5'>
+    <section id='budget-section' className='logo-background pt-5'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-6'>
@@ -42,7 +42,7 @@ function BudgetSection(props) {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -28,9 +28,19 @@ import {
   ALLOW_TRANSACTION_RE_RENDER,
   SET_TRANSACTION_LIST_BY_CATEGORY,
   SET_TRANSACTION_LIST_BY_ACCOUNT,
+  GET_TRANSACTIONS_BY_DATE_RANGE,
 } from '../actions/types';
 import { authAxios } from '../utils/authFetch';
 
+export const filterTransactionsByRange = (date1, date2) => async (dispatch) => {
+  const { data } = await authAxios.get(
+    `/transactions/dateRange/${date1}/${date2}`
+  );
+  dispatch({
+    type: GET_TRANSACTIONS_BY_DATE_RANGE,
+    payload: data,
+  });
+};
 export const setTransactionListByAccount = (account) => async (dispatch) => {
   try {
     const { data } = await authAxios.get(

@@ -21,15 +21,15 @@ function Home({
 
   return (
     <React.Fragment>
-      {isAuthenticated && <Redirect to='/budgets' />}
-      <div className='logo-background'>
-        <HomeNavBar />
+      {isAuthenticated && <Redirect to='/trends' />}
+      <HomeNavBar />
+      <div>
         <HomeHeader />
+        <TrackSection />
+        <BudgetSection />
+        <AnalyzeSection />
+        <SignupSection />
       </div>
-      <TrackSection />
-      <BudgetSection />
-      <AnalyzeSection />
-      <SignupSection />
     </React.Fragment>
   );
 }

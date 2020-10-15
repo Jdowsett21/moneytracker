@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 
 function NonBudgetedItem({
-  months: { month },
+  time: { month },
   transaction,
   setTransactionListByCategory,
   preventTransactionReRendering,
@@ -33,7 +33,7 @@ function NonBudgetedItem({
 }
 
 const mapStateToProps = (state) => ({
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {

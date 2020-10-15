@@ -10,12 +10,20 @@ import {
   SET_DEBT_PERCENTAGE_BAR,
   SET_NET_PERCENTAGE_BAR,
   GET_ACCOUNTS,
+  SET_GRAPH_ACCOUNTS,
 } from '../actions/types';
 import { authAxios } from '../utils/authFetch';
 
 const setLoading = () => {
   return {
     type: SET_ACCOUNT_LOADING,
+  };
+};
+
+export const setGraphAccounts = (accounts) => {
+  return {
+    type: SET_GRAPH_ACCOUNTS,
+    payload: accounts,
   };
 };
 export const getAccounts = () => async (dispatch) => {

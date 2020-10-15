@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { getTransactions } from './../actions/transactionActions';
 
-function Budgets({ isUserAuthenticated, setAuthInfo, months: { month } }) {
+function Budgets({ isUserAuthenticated, setAuthInfo, time: { month } }) {
   useEffect(() => {
     setAuthInfo();
     isUserAuthenticated();
@@ -34,7 +34,7 @@ function Budgets({ isUserAuthenticated, setAuthInfo, months: { month } }) {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   transactions: state.transactions,
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {

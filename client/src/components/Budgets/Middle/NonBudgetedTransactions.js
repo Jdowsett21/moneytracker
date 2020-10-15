@@ -22,7 +22,7 @@ function NonBudgetedTransactions({
   getNonBudgetedTransactions,
   setTransactionList,
   getNonBudgetedTransactionsSum,
-  months: { month },
+  time: { month },
   budgets: { budgetList },
 }) {
   const [transactions, setTransactions] = useState('');
@@ -53,13 +53,13 @@ function NonBudgetedTransactions({
         <span className='small-medium-font'>
           {type === 'Withdrawal'
             ? new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            }).format(nonBudgetedSpendingSum)
+                style: 'currency',
+                currency: 'USD',
+              }).format(nonBudgetedSpendingSum)
             : new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            }).format(nonBudgetedIncomeSum)}
+                style: 'currency',
+                currency: 'USD',
+              }).format(nonBudgetedIncomeSum)}
         </span>
       </div>
 
@@ -87,7 +87,7 @@ function NonBudgetedTransactions({
 }
 const mapStateToProps = (state) => ({
   transactions: state.transactions,
-  months: state.months,
+  time: state.time,
   budgets: state.budgets,
 });
 export default connect(mapStateToProps, {

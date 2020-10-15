@@ -51,6 +51,10 @@
   border-radius: 0.6rem !important;
   border-top: #00a6a4 5px solid;
 }
+
+.navbar {
+  z-index: 9999 !important;
+}
 .navbar-primary {
   border-bottom: 4px solid;
   border-image: linear-gradient(45deg, #00a6a4, rgb(195, 121, 218)) 1;

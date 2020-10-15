@@ -17,7 +17,7 @@ function BudgetCardList({
   getTransactionTotalByCategory,
   transactions: { categoryTotals, monthTransactions },
   budgets: { budgetList },
-  months: { month },
+  time: { month },
 }) {
   useEffect(() => {
     getBudgets();
@@ -62,7 +62,7 @@ function BudgetCardList({
 const mapStateToProps = (state) => ({
   budgets: state.budgets,
   transactions: state.transactions,
-  months: state.months,
+  time: state.time,
 });
 
 export default connect(mapStateToProps, {
