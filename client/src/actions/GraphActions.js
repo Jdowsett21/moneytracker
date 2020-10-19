@@ -1,6 +1,6 @@
 import { authAxios } from '../utils/authFetch';
 import { SET_DATA, SET_GRAPH_TYPE } from './types';
-
+import qs from 'qs';
 export const setGraphData = (
   timeInfo,
   accounts,
@@ -11,7 +11,12 @@ export const setGraphData = (
   if (type === 'Spending' || type === 'Income' || type === 'Net Income') {
     console.log(accounts);
     const { data } = await authAxios.get(
-      `/transactions/graphInfo/${timeInfo.range1}/${timeInfo.range2}/${type}/${subItem}/${accounts}/${tags}`
+      `/transactions/graphInfo/${timeInfo.range1}/${timeInfo.range2}/${type}/${subItem}/${tags}`,
+      {
+        params: {
+          accounts: accounts,
+        },
+      }
     );
 
     dispatch({

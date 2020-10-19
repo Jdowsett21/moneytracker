@@ -220,12 +220,20 @@ router.get(
 );
 
 router.get(
-  '/graphInfo/:range1/:range2/:type/:subType/:accounts/:tags',
+  '/graphInfo/:range1/:range2/:type/:subType/:tags',
   async (req, res) => {
-    console.log(req.query.accounts.);
-    const transactions = await Transaction.find({
-      shortDate: { $lt: moment(req.params.range1).toISOString() },
+    const accountToFilter = req.query.accounts.map((account) => {
+      return JSON.parse(account);
     });
+
+    const transactions = await Transaction.find({
+      date: {
+        $gt: new Date(req.params.range1),
+        $lt: new Date(req.params.range2),
+      },
+      accountId: { $in: accountToFilter.map((account) => account._id) },
+    });
+    console.log('transactions', transactions);
     res.send(transactions);
   }
 );
