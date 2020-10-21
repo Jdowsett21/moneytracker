@@ -151,5 +151,8 @@ export const GET_BUDGET_SUBCATEGORIES = 'GET_BUDGET_SUBCATEGORIES';
 //be highlighted on click cause they have the same values
 export const SET_CLICK = 'SET_CLICK';
 
-export const SET_DATA = 'SET_DATA';
+export const SET_OVER_TIME_DATA = 'SET_OVER_TIME_DATA';
+export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
+export const SET_MERCHANT_DATA = 'SNET_MERCHANT_DATA';
+export const SET_NET_OVER_TIME_DATA = 'SET_NET_OVER_TIME_DATA';
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE';

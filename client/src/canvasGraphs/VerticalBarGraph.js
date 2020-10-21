@@ -1,19 +1,11 @@
 import React from 'react';
 import CanvasJSReact from './canvasjs.react';
-import { connect } from 'react-redux';
-
-function VerticalBarGraph({ graphs: { data, format } }) {
+import {connect}from'react-redux'
+function VerticalBarGraph({ graphs: { data, unit } }) {
   const CanvasJS = CanvasJSReact.CanvasJS;
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-  function addSymbols(e) {
-    var suffixes = ['', 'K', 'M', 'B'];
-    var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
-    if (order > suffixes.length - 1) order = suffixes.length - 1;
-    var suffix = suffixes[order];
-    return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
-  }
-  console.log(data);
+  
   const options = {
     animationEnabled: true,
 
@@ -26,7 +18,9 @@ function VerticalBarGraph({ graphs: { data, format } }) {
     },
     axisX: {
       labelFontSize: 10,
-      valueFormatString: format,
+interval: 1,
+intervalType: unit
+
     },
     data: [
       {
@@ -36,7 +30,7 @@ function VerticalBarGraph({ graphs: { data, format } }) {
         indexLabelPlacement: 'outside',
         color: 'darkgreen',
         cornerRadius: 4,
-        dataPoints: [{ x: new Date(1998, 5, 3), y: 10 }],
+        dataPoints: data,
       },
     ],
   };

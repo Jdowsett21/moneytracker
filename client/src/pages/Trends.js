@@ -1,9 +1,12 @@
-import React from 'react';
-import LineGraph from '../canvasGraphs/LineGraph';
+import React , {useEffect}from 'react';
 import TrendsLeftColumn from './../components/Trends/TrendsLeftColumn';
 import TrendsRightColumn from './../components/Trends/TrendsRightColumn';
-
-function Trends() {
+import { setGraphData } from '../actions/GraphActions';
+import {connect}from 'react-redux'
+function Trends({graphs: {timeInfo, category, subCategory  }, accounts: {accountGraphList}, setGraphData}) {
+  useEffect(()=> {
+    setGraphData(accountGraphList, timeInfo, category, subCategory)
+  }, [accountGraphList, timeInfo, subCategory, category])
   return (
     <React.Fragment>
       <div className='container'>
@@ -16,4 +19,8 @@ function Trends() {
   );
 }
 
-export default Trends;
+const mapStateToProps = (state) => ({
+  graphs: state.graphs,
+  accounts: state.accounts
+});
+export default connect(mapStateToProps, {setGraphData})(Trends);

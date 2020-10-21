@@ -14,9 +14,9 @@ function MenuSubsubItems({
 }) {
   const [hover, setHover] = useState('');
 
-  useEffect(() => {
-    setGraphData(timeInfo, accountGraphList, item, subItem.title);
-  }, [timeInfo, accountGraphList, item, subItem.title]);
+  // useEffect(() => {
+  //   setGraphData(timeInfo, accountGraphList, item, subItem.title);
+  // }, [timeInfo, accountGraphList, item, subItem.title]);
 
   return (
     <li

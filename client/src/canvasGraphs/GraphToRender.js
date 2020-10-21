@@ -2,10 +2,9 @@ import React from 'react';
 import LineGraph from './LineGraph';
 import HorizontalBarGraph from './HorizontalBarGraph';
 import StackedBarComboLineGraph from './StackedBarComboLineGraph';
-import PieChart from './PieChart';
+import DoughnutChart from './DoughnutChart';
 import VerticalBarGraph from './VerticalBarGraph';
 import { connect } from 'react-redux';
-import moment from 'moment';
 function GraphToRender({ graphs: { graphType } }) {
   return (
     <div className='pt-5'>
@@ -14,7 +13,7 @@ function GraphToRender({ graphs: { graphType } }) {
       ) : graphType === 'horizontalBar' ? (
         <HorizontalBarGraph />
       ) : graphType === 'Donut' ? (
-        <PieChart />
+        <DoughnutChart />
       ) : graphType === 'combo' ? (
         <StackedBarComboLineGraph />
       ) : (

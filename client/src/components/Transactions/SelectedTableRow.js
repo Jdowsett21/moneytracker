@@ -70,8 +70,8 @@ function SelectedTableRow({
         <input
           style={{ width: '95%', height: '1.23rem' }}
           type='text'
-          defaultValue={category}
-          onChange={(e) => setCategory(e.target.value)}
+          defaultValue={subCategory}
+          onChange={(e) => setSubCategory(e.target.value)}
         />
       </td>
       {/* 

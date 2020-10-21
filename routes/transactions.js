@@ -222,18 +222,22 @@ router.get(
 router.get(
   '/graphInfo/:range1/:range2/:type/:subType/:tags',
   async (req, res) => {
+    console.log(req.query.accounts)
     const accountToFilter = req.query.accounts.map((account) => {
       return JSON.parse(account);
     });
 
+    const typeArray = ['Withdrawal','Deposit' ]
+
     const transactions = await Transaction.find({
       date: {
-        $gt: new Date(req.params.range1),
-        $lt: new Date(req.params.range2),
+        $gte: new Date(req.params.range1),
+        $lte: new Date(req.params.range2),
       },
       accountId: { $in: accountToFilter.map((account) => account._id) },
+      paymentType: req.params.subType==='Spending'? typeArray[0]: req.params.subType==='Income'? typeArray[0]: {$in : typeArray.map((type)=> type) }
     });
-    console.log('transactions', transactions);
+    
     res.send(transactions);
   }
 );

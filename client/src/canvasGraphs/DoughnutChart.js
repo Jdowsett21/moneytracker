@@ -1,10 +1,23 @@
 import React from 'react';
 import CanvasJSReact from './canvasjs.react';
-
-function PieChart() {
+import {connect}from'react-redux'
+function DoughnutChart({ graphs: { data, unit } }) {
   const CanvasJS = CanvasJSReact.CanvasJS;
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+  const other= {
+    label: 'Other',
+y:data.reduce((acc, d)=> {
+  if(d.y < 1){
+    return {
+      y:  d.y+ acc
+    }  
+  }
+},0)
+  }
+
+ 
+  
   const options = {
     exportEnabled: true,
     animationEnabled: true,
@@ -20,13 +33,7 @@ function PieChart() {
         legendText: '{label}',
         indexLabelFontSize: 16,
         indexLabel: '{label} - {y}%',
-        dataPoints: [
-          { y: 18, label: 'Direct' },
-          { y: 49, label: 'Organic Search' },
-          { y: 9, label: 'Paid Search' },
-          { y: 5, label: 'Referral' },
-          { y: 19, label: 'Social' },
-        ],
+        dataPoints: [...data.filter((d)=> d.y >1), other],
       },
     ],
   };
@@ -40,4 +47,7 @@ function PieChart() {
     </div>
   );
 }
-export default PieChart;
+const mapStateToProps = (state) => ({
+  graphs: state.graphs,
+});
+export default connect(mapStateToProps)(DoughnutChart);
