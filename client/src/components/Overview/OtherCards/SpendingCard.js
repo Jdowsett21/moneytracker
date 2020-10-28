@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../../common/Card';
 import CardHeader from './../../common/CardHeader';
 import CardBody from './../../common/CardBody';
 import OverviewCardHeader from '../OverviewCardHeader';
-
-function SpendingCard(props) {
+import LineGraph from '../../../canvasGraphs/LineGraph';
+import { connect } from 'react-redux';
+import { setOverviewGraph } from '../../../actions/GraphActions';
+function SpendingCard({ setOverviewGraph, accounts: { cash } }) {
+  useEffect(() => {
+    setOverviewGraph();
+  }, [cash]);
   return (
     <Card classSpecifics='m-2'>
       <CardHeader>
         <OverviewCardHeader title='Spending' />
       </CardHeader>
-      <CardBody></CardBody>
+      <CardBody>
+        <LineGraph />
+      </CardBody>
     </Card>
   );
 }
-
-export default SpendingCard;
+const mapStateToProps = (state) => ({
+  accounts: state.accounts,
+});
+export default connect(mapStateToProps, { setOverviewGraph })(SpendingCard);

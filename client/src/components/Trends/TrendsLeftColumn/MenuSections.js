@@ -8,6 +8,7 @@ function MenuSections({ item, index }) {
     <div className='container'>
       <div data-toggle='collapse' data-target={`#${item.listHeader}`}>
         <li>
+          {/* eslint-disable-next-line */}
           <a className='small-medium-font' onClick={() => setOpen(!open)}>
             {item.listHeader}{' '}
             <i

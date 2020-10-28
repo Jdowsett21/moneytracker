@@ -21,7 +21,7 @@ function Home({
 
   return (
     <React.Fragment>
-      {isAuthenticated && <Redirect to='/trends' />}
+      {isAuthenticated && <Redirect to='/overview' />}
       <HomeNavBar />
       <div>
         <HomeHeader />

@@ -1,12 +1,18 @@
-import React , {useEffect}from 'react';
+import React, { useEffect } from 'react';
 import TrendsLeftColumn from './../components/Trends/TrendsLeftColumn';
 import TrendsRightColumn from './../components/Trends/TrendsRightColumn';
-import { setGraphData } from '../actions/GraphActions';
-import {connect}from 'react-redux'
-function Trends({graphs: {timeInfo, category, subCategory  }, accounts: {accountGraphList}, setGraphData}) {
-  useEffect(()=> {
-    setGraphData(accountGraphList, timeInfo, category, subCategory)
-  }, [accountGraphList, timeInfo, subCategory, category])
+import { setGraphData, setGraphType } from '../actions/GraphActions';
+import { connect } from 'react-redux';
+function Trends({
+  graphs: { category, subCategory },
+  accounts: { accountGraphList },
+  time: { timeInfo },
+  setGraphData,
+}) {
+  useEffect(() => {
+    setGraphData(timeInfo, accountGraphList, category, subCategory);
+    //eslint-disable-next-line
+  }, [accountGraphList, timeInfo]);
   return (
     <React.Fragment>
       <div className='container'>
@@ -21,6 +27,7 @@ function Trends({graphs: {timeInfo, category, subCategory  }, accounts: {account
 
 const mapStateToProps = (state) => ({
   graphs: state.graphs,
-  accounts: state.accounts
+  accounts: state.accounts,
+  time: state.time,
 });
-export default connect(mapStateToProps, {setGraphData})(Trends);
+export default connect(mapStateToProps, { setGraphData })(Trends);

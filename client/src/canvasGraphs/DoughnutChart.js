@@ -1,39 +1,38 @@
 import React from 'react';
 import CanvasJSReact from './canvasjs.react';
-import {connect}from'react-redux'
-function DoughnutChart({ graphs: { data, unit } }) {
-  const CanvasJS = CanvasJSReact.CanvasJS;
+import { connect } from 'react-redux';
+
+function DoughnutChart({ graphs: { data } }) {
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-  const other= {
-    label: 'Other',
-y:data.reduce((acc, d)=> {
-  if(d.y < 1){
-    return {
-      y:  d.y+ acc
-    }  
-  }
-},0)
-  }
+  const other =
+    data.filter((d) => d.y > 1).length === data.length
+      ? console.log('hello')
+      : console.log('bue');
+  // {
+  //     label: 'Other',
+  //     y: data.reduce((acc, d) => {
+  //       if (d.y < 1) {
+  //         return d.y + acc;
+  //       }
+  //       return acc;
+  //     }, 0),
+  //   }
+  // : { label: '', y: '' };
 
- 
-  
   const options = {
-    exportEnabled: true,
     animationEnabled: true,
-    title: {
-      text: 'Website Traffic Sources',
-    },
+
     data: [
       {
-        type: 'pie',
+        type: 'doughnut',
         startAngle: 90,
-        toolTipContent: '<b>{label}</b>: {y}%',
-        showInLegend: 'true',
-        legendText: '{label}',
-        indexLabelFontSize: 16,
-        indexLabel: '{label} - {y}%',
-        dataPoints: [...data.filter((d)=> d.y >1), other],
+        tootTipContent: '<b>{label}</b>: {y}%',
+        indexLabelFontSize: 12,
+        innerRadius: '30%',
+        indexLabel: '{label}',
+        yValueFormatString: "#,###.##'%'",
+        dataPoints: [...data.filter((d) => d.y > 1)],
       },
     ],
   };

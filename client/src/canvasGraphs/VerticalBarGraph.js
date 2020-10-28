@@ -1,11 +1,9 @@
 import React from 'react';
 import CanvasJSReact from './canvasjs.react';
-import {connect}from'react-redux'
-function VerticalBarGraph({ graphs: { data, unit } }) {
-  const CanvasJS = CanvasJSReact.CanvasJS;
+import { connect } from 'react-redux';
+function VerticalBarGraph({ graphs: { data, unit, category } }) {
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-  
   const options = {
     animationEnabled: true,
 
@@ -18,9 +16,8 @@ function VerticalBarGraph({ graphs: { data, unit } }) {
     },
     axisX: {
       labelFontSize: 10,
-interval: 1,
-intervalType: unit
-
+      interval: 1,
+      intervalType: unit === 'months' ? 'month' : 'day',
     },
     data: [
       {
@@ -28,7 +25,7 @@ intervalType: unit
         //indexLabel: "{y}", //Shows y value on all Data Points
         indexLabelFontColor: '#5A5757',
         indexLabelPlacement: 'outside',
-        color: 'darkgreen',
+        color: category === 'Income' ? '#0ac775' : '#f24965',
         cornerRadius: 4,
         dataPoints: data,
       },

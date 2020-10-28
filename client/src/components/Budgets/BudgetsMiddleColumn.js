@@ -6,31 +6,126 @@ import BudgetList from './Middle/BudgetList';
 import NonBudgetedTransactions from './Middle/NonBudgetedTransactions';
 import ManageBudgetCategoryModal from '../Transactions/ManageBudgetCategoryModal';
 import { getBudgetCategories } from '../../actions/BudgetCategoriesActions';
-import { connect } from 'react-redux';
 
 import AddBudgetCategoryModal from './AddBudgetCategoryModal';
-function BudgetsMiddleColumn({ getBudgetCategories }) {
+function BudgetsMiddleColumn() {
   const lastTwelveMonths = [
-    moment().subtract(11, 'months').format('MMM'),
-    moment().subtract(10, 'months').format('MMM'),
-    moment().subtract(9, 'months').format('MMM'),
-    moment().subtract(8, 'months').format('MMM'),
-    moment().subtract(7, 'months').format('MMM'),
-    moment().subtract(6, 'months').format('MMM'),
-    moment().subtract(5, 'months').format('MMM'),
-    moment().subtract(4, 'months').format('MMM'),
-    moment().subtract(3, 'months').format('MMM'),
-    moment().subtract(2, 'months').format('MMM'),
-    moment().subtract(1, 'months').format('MMM'),
-    moment().subtract(0, 'months').format('MMM'),
+    {
+      label: moment().subtract(11, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(11, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(10, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(10, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(10, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(9, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(9, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(9, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(8, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(8, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(7, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(6, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(7, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(7, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(5, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(6, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(6, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(5, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(5, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(5, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(4, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(4, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(4, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(3, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(3, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(3, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(2, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(2, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(2, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(1, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(1, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(1, 'months').toISOString(),
+      dataFilter2: moment().date(1).subtract(1, 'days').toISOString(),
+    },
+    {
+      label: moment().subtract(0, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(0, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .add(1, 'months')
+        .subtract(1, 'days')
+        .toISOString(),
+    },
   ];
 
   return (
     <div className=' col-lg-5 pr-5 shadow-lg'>
       {/* <h2>{selectedMonth}</h2> */}
       <ul className='list-group list-group-horizontal d-flex justify-content-center'>
-        {lastTwelveMonths.map((month, index) => (
-          <MonthSelector key={month} index={index} listMonth={month} />
+        {lastTwelveMonths.map((dateInfo, index) => (
+          <MonthSelector
+            key={dateInfo.label}
+            index={index}
+            dateInfo={dateInfo}
+          />
         ))}
       </ul>
       <div className=' d-flex justify-content-end'>
@@ -55,4 +150,4 @@ function BudgetsMiddleColumn({ getBudgetCategories }) {
   );
 }
 
-export default connect(null, { getBudgetCategories })(BudgetsMiddleColumn);
+export default BudgetsMiddleColumn;

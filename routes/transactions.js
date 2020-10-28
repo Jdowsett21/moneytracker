@@ -64,6 +64,7 @@ router.put(
     const transaction = await Transaction.findByIdAndUpdate(
       req.params.id,
       {
+        date: new Date(moment(req.body.shortDate).format('YYYY,MM,DD')),
         shortDate: req.body.shortDate,
         description: req.body.description,
         accountName: req.body.accountName,
@@ -73,6 +74,7 @@ router.put(
       },
       { new: true }
     );
+    s;
 
     // await Account.findByIdAndUpdate(
     //   correctAccount,
@@ -98,13 +100,16 @@ router.put(
 );
 
 router.get(
-  '/monthAndType/:month/:type',
+  '/dateAndType/:date1/:date2/:type',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
       //user specific searches disabled for
       //display purposes
       // userId: req.user._id,
-      shortDate: { $regex: req.params.month, $options: 'i' },
+      date: {
+        $gte: new Date(req.params.date1),
+        $lte: new Date(req.params.date2),
+      },
       paymentType: req.params.type,
     });
     res.send(transactions);
@@ -178,15 +183,17 @@ router.get(
 );
 
 router.get(
-  '/month/:month',
+  '/month/:date1/:date2',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
       //user specific searches disabled for
       //display purposes
       // userId: req.user._id,
-      shortDate: { $regex: req.params.month, $options: 'i' },
+      date: {
+        $gte: new Date(req.params.date1),
+        $lte: new Date(req.params.date2),
+      },
     });
-
     res.send(transactions);
   })
 );
@@ -205,14 +212,17 @@ router.get(
   })
 );
 router.get(
-  '/monthAndCategory/:category/:month',
+  '/dateAndCategory/:category/:date1/:date2',
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
       //user specific searches disabled for
       //display purposes
       // userId: req.user._id,
       category: req.params.category,
-      shortDate: { $regex: req.params.month, $options: 'i' },
+      date: {
+        $gte: new Date(req.params.date1),
+        $lte: new Date(req.params.date2),
+      },
     });
 
     res.send(transactions);
@@ -222,12 +232,11 @@ router.get(
 router.get(
   '/graphInfo/:range1/:range2/:type/:subType/:tags',
   async (req, res) => {
-    console.log(req.query.accounts)
     const accountToFilter = req.query.accounts.map((account) => {
       return JSON.parse(account);
     });
 
-    const typeArray = ['Withdrawal','Deposit' ]
+    const typeArray = ['Withdrawal', 'Deposit'];
 
     const transactions = await Transaction.find({
       date: {
@@ -235,11 +244,28 @@ router.get(
         $lte: new Date(req.params.range2),
       },
       accountId: { $in: accountToFilter.map((account) => account._id) },
-      paymentType: req.params.subType==='Spending'? typeArray[0]: req.params.subType==='Income'? typeArray[0]: {$in : typeArray.map((type)=> type) }
+      paymentType:
+        req.params.type === 'Spending'
+          ? typeArray[0]
+          : req.params.type === 'Income'
+          ? typeArray[1]
+          : { $in: typeArray.map((type) => type) },
     });
-    
+
     res.send(transactions);
   }
 );
+
+router.get('/overviewGraph/:range1/:range2/:type', async (req, res) => {
+  const transactions = await Transaction.find({
+    date: {
+      $gte: new Date(req.params.range1),
+      $lte: new Date(req.params.range2),
+    },
+    paymentType: req.params.type,
+  });
+
+  res.send(transactions);
+});
 
 module.exports = router;

@@ -28,8 +28,13 @@ export const timeFilterArray = [
     label: 'This month',
   },
   {
-    range1: moment().date(1).subtract(1, 'months').toISOString(),
-    range2: moment().date(1).subtract(1, 'days').toISOString(),
+    range1: moment()
+      .subtract(moment().date() - 1, 'days')
+      .subtract(1, 'months')
+      .toISOString(),
+    range2: moment()
+      .subtract(moment().date() + 1, 'days')
+      .toISOString(),
     length:
       (moment().date(1) - moment().date(1).subtract(1, 'months')) / 86400000,
     unit: 'days',
@@ -63,7 +68,7 @@ export const timeFilterArray = [
   {
     range1: moment().month(0).date(1).toISOString(),
     range2: today,
-    length: 12,
+    length: moment().month() + 1,
     unit: 'months',
     format: 'MMM-YYYY',
     label: 'This year',

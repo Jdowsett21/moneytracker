@@ -144,42 +144,20 @@ export default (state = initialState, action) => {
     case SET_MONTH_TOTALS:
       return {
         ...state,
-        monthIncome:
-          state.transactionList &&
-          state.transactionList
-            .filter(
-              (transaction) =>
-                action.payload === transaction.shortDate.split(',')[0]
-            )
-            .reduce((accumulator, transaction) => {
-              if (transaction.paymentType === 'Deposit') {
-                return transaction.amountValue + accumulator;
-              } else return 0 + accumulator;
-            }, 0),
-        monthDebt:
-          state.transactionList &&
-          state.transactionList
-            .filter(
-              (transaction) =>
-                action.payload === transaction.shortDate.split(',')[0]
-            )
-            .reduce((accumulator, transaction) => {
-              if (transaction.paymentType === 'Withdrawal') {
-                return (transaction.amountValue + accumulator) * -1;
-              } else return 0 + accumulator;
-            }, 0),
-        monthGraphNet:
-          state.transactionList &&
-          state.transactionList
-            .filter(
-              (transaction) =>
-                action.payload === transaction.shortDate.split(',')[0]
-            )
-            .reduce(
-              (accumulator, transaction) =>
-                transaction.amountValue + accumulator,
-              0
-            ),
+        monthIncome: action.payload.reduce((accumulator, transaction) => {
+          if (transaction.paymentType === 'Deposit') {
+            return transaction.amountValue + accumulator;
+          } else return 0 + accumulator;
+        }, 0),
+        monthDebt: action.payload.reduce((accumulator, transaction) => {
+          if (transaction.paymentType === 'Withdrawal') {
+            return transaction.amountValue * -1 + accumulator;
+          } else return 0 + accumulator;
+        }, 0),
+        monthGraphNet: action.payload.reduce(
+          (accumulator, transaction) => transaction.amountValue + accumulator,
+          0
+        ),
       };
 
     //this action is to determine the top and bottom value of the graph in the overview trends card for month net
@@ -433,7 +411,8 @@ export default (state = initialState, action) => {
         ...state,
         transactionList: action.payload.transactions.filter(
           (transaction) =>
-            transaction.shortDate.split(',')[0] === action.payload.month
+            transaction.date >= action.payload.date1 &&
+            transaction.date <= action.payload.date2
         ),
         //this ensures that when clicking on the other items
         //button in the budgets page, all transactions are not loaded

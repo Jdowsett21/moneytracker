@@ -78,10 +78,10 @@ export const allowTransactionReRender = () => {
     type: ALLOW_TRANSACTION_RE_RENDER,
   };
 };
-export const setTransactionList = (transactions, month) => {
+export const setTransactionList = (transactions, date1, date2) => {
   return {
     type: SET_TRANSACTION_LIST_NO_BUDGET,
-    payload: { transactions, month },
+    payload: { transactions, date1, date2 },
   };
 };
 
@@ -90,12 +90,14 @@ export const preventTransactionReRendering = () => {
     type: PREVENT_TRANSACTION_RE_RENDER,
   };
 };
-export const setTransactionListByCategory = (transactions, month) => async (
-  dispatch
-) => {
+export const setTransactionListByCategory = (
+  transactions,
+  date1,
+  date2
+) => async (dispatch) => {
   try {
     const { data } = await authAxios.get(
-      `/transactions/monthAndCategory/${transactions.category}/${month}`
+      `/transactions/dateAndCategory/${transactions.category}/${date1}/${date2}`
     );
 
     dispatch({ type: SET_TRANSACTION_LIST_BY_CATEGORY, payload: data });
@@ -113,13 +115,13 @@ export const setSelectedTransaction = (transaction) => {
   };
 };
 
-export const getMonthTypeSum = (month, type, budgetList) => async (
+export const getMonthTypeSum = (date1, date2, type, budgetList) => async (
   dispatch
 ) => {
   try {
     setTransactionLoading();
     const { data } = await authAxios.get(
-      `/transactions/monthAndType/${month}/${type}`
+      `/transactions/dateAndType/${date1}/${date2}/${type}`
     );
     type === 'Withdrawal'
       ? // need budget list for spending sum to only sum transactions that are
@@ -142,13 +144,16 @@ export const getMonthTypeSum = (month, type, budgetList) => async (
 };
 
 //list of all transactions that have not been budgeted for budgets page
-export const getNonBudgetedTransactions = (month, type, budgetList) => async (
-  dispatch
-) => {
+export const getNonBudgetedTransactions = (
+  date1,
+  date2,
+  type,
+  budgetList
+) => async (dispatch) => {
   try {
     setTransactionLoading();
     const { data } = await authAxios.get(
-      `/transactions/monthAndType/${month}/${type}`
+      `/transactions/dateAndType/${date1}/${date2}/${type}`
     );
 
     type === 'Deposit'
@@ -174,14 +179,15 @@ export const getNonBudgetedTransactions = (month, type, budgetList) => async (
 
 //sum of all transactions that have not been budgeted
 export const getNonBudgetedTransactionsSum = (
-  month,
+  date1,
+  date2,
   type,
   budgetList
 ) => async (dispatch) => {
   try {
     setTransactionLoading();
     const { data } = await authAxios.get(
-      `/transactions/monthAndType/${month}/${type}`
+      `/transactions/dateAndType/${date1}/${date2}/${type}`
     );
     type === 'Deposit'
       ? dispatch({
@@ -207,11 +213,15 @@ const setTransactionLoading = () => {
     type: SET_TRANSACTION_LOADING,
   };
 };
-export const setHoveredMonthColor = (month) => async (dispatch) => {
+export const setHoveredMonthColor = (month, date1, date2) => async (
+  dispatch
+) => {
   try {
     setTransactionLoading();
     if (month !== '') {
-      const { data } = await authAxios.get(`/transactions/month/${month}`);
+      const { data } = await authAxios.get(
+        `/transactions/month/${date1}/${date2}`
+      );
       dispatch({ type: SET_HOVERED_MONTH_COLOR, payload: data });
     } else {
       dispatch({ type: SET_HOVERED_MONTH_COLOR, payload: '' });
@@ -264,10 +274,12 @@ export const updateTransaction = (transaction) => async (dispatch) => {
   }
 };
 
-export const getMonthsTransactions = (month) => async (dispatch) => {
+export const getMonthsTransactions = (date1, date2) => async (dispatch) => {
   try {
     setTransactionLoading();
-    const { data } = await authAxios.get(`/transactions/month/${month}`);
+    const { data } = await authAxios.get(
+      `/transactions/month/${date1}/${date2}`
+    );
 
     dispatch({ type: GET_TRANSACTIONS_BY_MONTH, payload: data });
   } catch (error) {
@@ -346,9 +358,11 @@ export const getTransactionTotalByCategory = (budgets) => {
   };
 };
 
-export const setMonthNet = (month) => async (dispatch) => {
+export const setMonthNet1 = (date1, date2) => async (dispatch) => {
   try {
-    const { data } = await authAxios.get(`/transactions/month/${month}`);
+    const { data } = await authAxios.get(
+      `/transactions/month/${date1}/${date2}`
+    );
 
     dispatch({ type: SET_MONTH_NET, payload: data });
   } catch (error) {
@@ -369,8 +383,10 @@ export const setSixMonthNet = () => {
     type: SET_6_MONTH_NET,
   };
 };
-export const setMonthTotals = (month) => {
-  return { type: SET_MONTH_TOTALS, payload: month };
+export const setMonthTotals = (date1, date2) => async (dispatch) => {
+  const { data } = await authAxios.get(`/transactions/month/${date1}/${date2}`);
+
+  dispatch({ type: SET_MONTH_TOTALS, payload: data });
 };
 
 export const setMonthNetPercent = () => {

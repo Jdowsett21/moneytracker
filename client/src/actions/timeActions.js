@@ -4,7 +4,6 @@ import {
   SET_HOVERED_BUDGET_MONTH,
   SET_TIME_INFO,
 } from './types';
-import { authAxios } from '../utils/authFetch';
 
 export const setHoveredMonth = (index) => {
   return {

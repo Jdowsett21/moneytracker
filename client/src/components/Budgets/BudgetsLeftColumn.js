@@ -7,7 +7,7 @@ import { getMonthTypeSum } from '../../actions/transactionActions';
 function BudgetsLeftColumn({
   budgets: { budgetList, budgetIncomeSum, budgetSpendingSum },
   transactions: { spendingSum, incomeSum, nonBudgetedIncomeTransactions },
-  time: { month },
+  time: { month, date1, date2 },
   getMonthTypeSum,
   setBudgetMonthSum,
 }) {
@@ -19,8 +19,8 @@ function BudgetsLeftColumn({
   //however they are not as large as progress bars
   const [otherIncomeLength, setOtherIncomeLength] = useState(0);
   useEffect(() => {
-    getMonthTypeSum(month, 'Deposit', budgetList);
-    getMonthTypeSum(month, 'Withdrawal', budgetList);
+    getMonthTypeSum(date1, date2, 'Deposit', budgetList);
+    getMonthTypeSum(date1, date2, 'Withdrawal', budgetList);
     setBudgetMonthSum('Spending');
     setBudgetMonthSum('Income');
 

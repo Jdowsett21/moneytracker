@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setClick } from '../../../actions/ClickAction';
 import { setGraphData, setGraphType } from './../../../actions/GraphActions';
-function MenuSubsubItems({
+function MenuSubItems({
   subItem,
   item,
   clickable: { clickStatus },
@@ -17,7 +17,6 @@ function MenuSubsubItems({
   // useEffect(() => {
   //   setGraphData(timeInfo, accountGraphList, item, subItem.title);
   // }, [timeInfo, accountGraphList, item, subItem.title]);
-
   return (
     <li
       key={subItem.title}
@@ -64,4 +63,4 @@ export default connect(mapStatetoProps, {
   setClick,
   setGraphData,
   setGraphType,
-})(MenuSubsubItems);
+})(MenuSubItems);

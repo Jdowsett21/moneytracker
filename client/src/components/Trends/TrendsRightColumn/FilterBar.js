@@ -10,7 +10,7 @@ function FilterBar(props) {
       style={{ backgroundColor: '#f7f7f7' }}
     >
       <div className='d-flex justify-content-between'>
-        <CategoriesTagsFilter />
+        {/* <CategoriesTagsFilter /> */}
         <AccountsFilter />
         <TimeFilter />
       </div>

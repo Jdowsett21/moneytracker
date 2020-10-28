@@ -6,28 +6,28 @@ import {
   getMonthsTransactions,
   getTransactionCategories,
   getTransactionTotalByCategory,
-  setMonthNet,
+  setMonthNet1,
 } from '../../../actions/transactionActions';
 
 function BudgetList({
   getBudgets,
   type,
-  setMonthNet,
+  setMonthNet1,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
   transactions: { categoryTotals, monthTransactions },
   budgets: { budgetList },
-  time: { month },
+  time: { month, date1, date2 },
 }) {
   useEffect(() => {
     getBudgets();
-    getMonthsTransactions(month);
+    getMonthsTransactions(date1, date2);
     //eslint-disable-next-line
   }, [month]);
 
   useEffect(() => {
-    setMonthNet(month);
+    setMonthNet1(date1, date2);
     getTransactionCategories();
     getTransactionTotalByCategory(budgetList);
     //eslint-disable-next-line
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getBudgets,
-  setMonthNet,
+  setMonthNet1,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,

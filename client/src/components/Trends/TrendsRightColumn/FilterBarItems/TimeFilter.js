@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { timeFilterArray } from '../TimeFilterArray';
 import { filterTransactionsByRange } from '../../../../actions/transactionActions';
 import { setTimeInfo } from '../../../../actions/timeActions';
@@ -6,12 +6,14 @@ import { connect } from 'react-redux';
 function TimeFilter({ time: { timeInfo }, setTimeInfo }) {
   useEffect(() => {
     setTimeInfo(timeFilterArray[4]);
-    // setGraph();
+
+    //eslint-disable-next-line
   }, []);
 
   return (
     <div>
       <label style={{ marginBottom: '0.5rem' }}>From</label>
+      {/* eslint-disable-next-line */}
       <a
         className='form-control p-1 pr-4  small-font text-decoration-none'
         data-toggle='dropdown'
@@ -28,6 +30,7 @@ function TimeFilter({ time: { timeInfo }, setTimeInfo }) {
       </a>
       <div className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
         {timeFilterArray.map((time) => (
+          // eslint-disable-next-line
           <a
             key={time.label}
             onClick={() => {

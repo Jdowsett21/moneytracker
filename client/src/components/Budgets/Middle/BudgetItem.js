@@ -14,7 +14,7 @@ function BudgetItem({
   categoryTotal,
   incrementBudget,
   decrementBudget,
-  time: { month },
+  time: { date1, date2 },
   preventTransactionReRendering,
   setTransactionListByCategory,
 }) {
@@ -108,7 +108,7 @@ function BudgetItem({
               className='mr-auto text-dark'
               onClick={() => {
                 preventTransactionReRendering();
-                setTransactionListByCategory(budget, month);
+                setTransactionListByCategory(budget, date1, date2);
               }}
             >
               {budget.subCategory === '' ? (

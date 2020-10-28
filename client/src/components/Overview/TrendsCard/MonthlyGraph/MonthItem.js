@@ -19,7 +19,7 @@ function MonthItem({
 
   return (
     <li className={type} ref={hoverRef}>
-      <label className='text-extra-small text-muted'>{month}</label>
+      <label className='text-extra-small text-muted'>{month.label}</label>
       {/* eslint-disable-next-line */}
       <a
         className={monthNet > 0 ? '' : 'negative'}

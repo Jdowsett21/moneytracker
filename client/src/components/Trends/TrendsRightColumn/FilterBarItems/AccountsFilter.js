@@ -12,16 +12,19 @@ function AccountsFilter({
 
   useEffect(() => {
     getAccounts();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     setGraphAccounts(accountList);
+    //eslint-disable-next-line
   }, [accountList]);
 
   useEffect(() => {
     accountGraphList.length === accountList.length
       ? setAllAccounts(true)
       : setAllAccounts(false);
+    //eslint-disable-next-line
   }, [accountGraphList]);
 
   const modifyAccounts = (account) => {
@@ -40,6 +43,7 @@ function AccountsFilter({
         }}
       >
         <li className='dropdown'>
+          {/* eslint-disable-next-line */}
           <a
             href='#'
             data-toggle='dropdown'
@@ -55,7 +59,6 @@ function AccountsFilter({
               ? 'All Accounts'
               : `${accountGraphList.length} Accounts`}
           </a>
-
           <ul className='dropdown-menu mt-0'>
             <li>
               <div className='checkbox active small-font'>

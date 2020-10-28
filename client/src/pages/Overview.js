@@ -10,9 +10,11 @@ import {
   setAuthInfo,
 } from '../actions/authActions';
 
+import moment from 'moment';
 function Overview({ isUserAuthenticated, setAuthInfo }) {
   useEffect(() => {
     setAuthInfo();
+
     isUserAuthenticated();
     //eslint-disable-next-line
   }, []);

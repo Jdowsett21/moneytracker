@@ -6,27 +6,30 @@ import {
   getMonthsTransactions,
   getTransactionCategories,
   getTransactionTotalByCategory,
-  setMonthNet,
+  setMonthNet1,
 } from '../../../actions/transactionActions';
 import moment from 'moment';
 function BudgetCardList({
   getBudgets,
-  setMonthNet,
+  setMonthNet1,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
   transactions: { categoryTotals, monthTransactions },
   budgets: { budgetList },
-  time: { month },
+  time: { date1, date2 },
 }) {
   useEffect(() => {
     getBudgets();
-    getMonthsTransactions(moment().format('MMM'));
+    getMonthsTransactions(
+      moment().toISOString(),
+      moment().date(1).add(1, 'months').subtract(1, 'days')
+    );
     //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    setMonthNet(month);
+    setMonthNet1(date1, date2);
     getTransactionCategories();
     getTransactionTotalByCategory(budgetList);
     //eslint-disable-next-line
@@ -67,7 +70,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getBudgets,
-  setMonthNet,
+  setMonthNet1,
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,

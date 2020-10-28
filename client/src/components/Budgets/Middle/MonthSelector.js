@@ -5,22 +5,23 @@ import { setMonth, setHoveredBudgetMonth } from '../../../actions/timeActions';
 import { isUserAuthenticated } from '../../../actions/authActions';
 
 function MonthSelector({
-  listMonth,
+  dateInfo,
   setMonth,
   index,
   setHoveredBudgetMonth,
   setHoveredMonthColor,
   transactions: { hoveredColor, monthNetColor },
-  time: { month, hoveredBudgetMonth },
+  time: { month, hoveredBudgetMonth, date1, date2 },
   isUserAuthenticated,
 }) {
   const settingHover = () => {
-    setHoveredBudgetMonth(index) && setHoveredMonthColor(hoveredBudgetMonth);
+    setHoveredBudgetMonth(index) &&
+      setHoveredMonthColor(hoveredBudgetMonth, date1, date2);
   };
 
   const removingHover = () => {
     setHoveredBudgetMonth('');
-    setHoveredMonthColor('');
+    setHoveredMonthColor('', '', '');
   };
 
   useEffect(() => {
@@ -37,22 +38,22 @@ function MonthSelector({
       {/* eslint-disable-next-line */}
       <a
         href='#'
-        value={listMonth}
+        value={dateInfo.label}
         onClick={() => {
-          setMonth(listMonth);
-          setHoveredMonthColor('');
+          setMonth(dateInfo);
+          setHoveredMonthColor('', dateInfo.dataFilter1, dateInfo.dataFilter2);
         }}
         className='btn py-1 px-2 mt-3 '
         style={{
           backgroundColor:
-            listMonth === month
+            dateInfo.label === month
               ? monthNetColor
-              : listMonth === hoveredBudgetMonth
+              : dateInfo.label === hoveredBudgetMonth
               ? hoveredColor
               : '#e9ecef',
         }}
       >
-        <span className='text-gray extra-small-font'>{listMonth}</span>
+        <span className='text-gray extra-small-font'>{dateInfo.label}</span>
       </a>
     </li>
   );

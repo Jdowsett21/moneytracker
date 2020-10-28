@@ -14,15 +14,3 @@ const store = createStore(
 );
 
 export default store;
-
-function fizzBuzz(n) {
-  const newArray = newArray(n - 1);
-
-  newArray.map((item, index) => {
-    if (index <= n) {
-      console.log('hello');
-    }
-  });
-  console.log(newArray);
-  //  return (n/3 === 0 && n/5 === 0 )? 'FizzBuzz ' : (n/3===0 && n/5 !== 0) ? 'Fizz' : (n/3 !==0 && n/5 === 0) ? 'Buzz': n
-}

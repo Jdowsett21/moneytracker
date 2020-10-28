@@ -22,14 +22,14 @@ function NonBudgetedTransactions({
   getNonBudgetedTransactions,
   setTransactionList,
   getNonBudgetedTransactionsSum,
-  time: { month },
+  time: { month, date1, date2 },
   budgets: { budgetList },
 }) {
   const [transactions, setTransactions] = useState('');
   useEffect(() => {
     //gets the transactions and the sum
-    getNonBudgetedTransactions(month, type, budgetList);
-    getNonBudgetedTransactionsSum(month, type, budgetList);
+    getNonBudgetedTransactions(date1, date2, type, budgetList);
+    getNonBudgetedTransactionsSum(date1, date2, type, budgetList);
     setTransactions(
       type === 'Deposit'
         ? nonBudgetedIncomeTransactions
@@ -45,7 +45,7 @@ function NonBudgetedTransactions({
           href='#'
           onClick={() => {
             preventTransactionReRendering();
-            setTransactionList(transactions, month);
+            setTransactionList(transactions, date1, date2);
           }}
         >
           {message}

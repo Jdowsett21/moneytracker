@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {
   getTransactions,
-  setMonthNet,
   setMonthTotals,
   setMonthNetPercent,
   setSixMonthNet,
@@ -16,7 +15,7 @@ function MonthlyNetGraph({
   setMonthTotals,
   setSixMonthNet,
   setSixMonthMax,
-  time: { hoveredMonth },
+  time: { hoveredMonth, date1, date2 },
   transactions: {
     monthGraphNet,
     monthIncome,
@@ -27,12 +26,56 @@ function MonthlyNetGraph({
   },
 }) {
   const months = [
-    moment().subtract(5, 'months').format('MMM'),
-    moment().subtract(4, 'months').format('MMM'),
-    moment().subtract(3, 'months').format('MMM'),
-    moment().subtract(2, 'months').format('MMM'),
-    moment().subtract(1, 'months').format('MMM'),
-    moment().format('MMM'),
+    {
+      label: moment().subtract(5, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(5, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(4, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(4, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(4, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(3, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(3, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(3, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'days')
+        .subtract(2, 'months')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(2, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(2, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .subtract(1, 'months')
+        .subtract(1, 'days')
+        .toISOString(),
+    },
+    {
+      label: moment().subtract(1, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(1, 'months').toISOString(),
+      dataFilter2: moment().date(1).subtract(1, 'days').toISOString(),
+    },
+    {
+      label: moment().subtract(0, 'months').format('MMM'),
+      dataFilter1: moment().date(1).subtract(0, 'months').toISOString(),
+      dataFilter2: moment()
+        .date(1)
+        .add(1, 'months')
+        .subtract(1, 'days')
+        .toISOString(),
+    },
   ];
 
   useEffect(() => {
@@ -41,7 +84,7 @@ function MonthlyNetGraph({
     if (transactionList && transactionList.length > 0) {
       setSixMonthNet();
       setSixMonthMax();
-      setMonthTotals(hoveredMonth);
+      setMonthTotals(date1, date2);
     }
     // eslint-disable-next-line
   }, [transactionList.length, hoveredMonth]);
@@ -53,7 +96,7 @@ function MonthlyNetGraph({
         {months.map((month, index) => (
           <MonthItem
             index={index}
-            key={month}
+            key={month.label}
             type='small-font month'
             monthNet={sixMonthNetTotals && sixMonthNetTotals[index]}
             sixMonthMax={sixMonthMax}
@@ -100,7 +143,6 @@ const MapStatetoProps = (state) => ({
 });
 export default connect(MapStatetoProps, {
   getTransactions,
-  setMonthNet,
   setMonthTotals,
   setMonthNetPercent,
   setSixMonthNet,
