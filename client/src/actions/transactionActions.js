@@ -1,4 +1,6 @@
 import {
+  LAST_MONTH_SPENDING_AT_CURRENT_POINT,
+  CURRENT_MONTH_SPENDING,
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
   UPDATE_TRANSACTION,
@@ -31,6 +33,7 @@ import {
   GET_TRANSACTIONS_BY_DATE_RANGE,
 } from '../actions/types';
 import { authAxios } from '../utils/authFetch';
+import moment from 'moment';
 
 export const filterTransactionsByRange = (date1, date2) => async (dispatch) => {
   const { data } = await authAxios.get(
@@ -373,6 +376,42 @@ export const setMonthNet1 = (date1, date2) => async (dispatch) => {
   }
 };
 
+export const currentMonthSpending = () => async (dispatch) => {
+  const date1 = moment().date(1).startOf('day').toISOString();
+  const date2 = moment()
+    .date(1)
+    .add(1, 'months')
+    .subtract(1, 'days')
+    .endOf('day')
+    .toISOString();
+
+  const { data } = await authAxios.get(
+    `/transactions/dateAndType/${date1}/${date2}/Withdrawal`
+  );
+  dispatch({
+    type: CURRENT_MONTH_SPENDING,
+    payload: data,
+  });
+};
+
+//DETERMINING HOW MUCH WAS SPENT AT HTE SAME DAY LAST MONTH
+//FOR OVERVIEW LINE GRAPH
+export const lastMonthSpendingAtTodaysDate = () => async (dispatch) => {
+  const date1 = moment()
+    .date(1)
+    .subtract(1, 'months')
+    .startOf('day')
+    .toISOString();
+  const date2 = moment().subtract(1, 'months').endOf('day').toISOString();
+
+  const { data } = await authAxios.get(
+    `/transactions/dateAndType/${date1}/${date2}/Withdrawal`
+  );
+  dispatch({
+    type: LAST_MONTH_SPENDING_AT_CURRENT_POINT,
+    payload: data,
+  });
+};
 export const setSixMonthMax = () => {
   return {
     type: SET_6_MONTH_MAX,
@@ -384,6 +423,8 @@ export const setSixMonthNet = () => {
   };
 };
 export const setMonthTotals = (date1, date2) => async (dispatch) => {
+  console.log(date1);
+  console.log(date2);
   const { data } = await authAxios.get(`/transactions/month/${date1}/${date2}`);
 
   dispatch({ type: SET_MONTH_TOTALS, payload: data });

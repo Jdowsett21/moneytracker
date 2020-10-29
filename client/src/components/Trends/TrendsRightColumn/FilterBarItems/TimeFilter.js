@@ -9,7 +9,7 @@ function TimeFilter({ time: { timeInfo }, setTimeInfo }) {
 
     //eslint-disable-next-line
   }, []);
-
+  console.log(timeFilterArray);
   return (
     <div>
       <label style={{ marginBottom: '0.5rem' }}>From</label>

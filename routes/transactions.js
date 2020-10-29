@@ -108,7 +108,7 @@ router.get(
       // userId: req.user._id,
       date: {
         $gte: new Date(req.params.date1),
-        $lte: new Date(req.params.date2),
+        $lt: new Date(req.params.date2),
       },
       paymentType: req.params.type,
     });
@@ -191,7 +191,7 @@ router.get(
       // userId: req.user._id,
       date: {
         $gte: new Date(req.params.date1),
-        $lte: new Date(req.params.date2),
+        $lt: new Date(req.params.date2),
       },
     });
     res.send(transactions);
@@ -221,7 +221,7 @@ router.get(
       category: req.params.category,
       date: {
         $gte: new Date(req.params.date1),
-        $lte: new Date(req.params.date2),
+        $lt: new Date(req.params.date2),
       },
     });
 
@@ -250,7 +250,7 @@ router.get(
           : req.params.type === 'Income'
           ? typeArray[1]
           : { $in: typeArray.map((type) => type) },
-    });
+    }).sort('-date');
 
     res.send(transactions);
   }
@@ -260,10 +260,10 @@ router.get('/overviewGraph/:range1/:range2/:type', async (req, res) => {
   const transactions = await Transaction.find({
     date: {
       $gte: new Date(req.params.range1),
-      $lte: new Date(req.params.range2),
+      $lt: new Date(req.params.range2),
     },
     paymentType: req.params.type,
-  });
+  }).sort('-date');
 
   res.send(transactions);
 });

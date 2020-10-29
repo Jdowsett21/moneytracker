@@ -1,23 +1,39 @@
 import React from 'react';
 import CanvasJSReact from './canvasjs.react';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 function LineGraph({ graphs: { data3, data4 } }) {
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
   const options = {
     animationEnabled: true,
+    axisX: {
+      stripLines: [
+        {
+          startValue: Number(moment().date()),
+          endValue: Number(moment().date()) + 0.05,
+          color: 'lightgrey',
+        },
+      ],
+    },
+    axisY: {
+      gridThickness: 0,
+      includeZero: true,
+    },
     data: [
       {
         type: 'line',
         toolTipContent: ' {x}: {y}',
-        color: 'black',
+        markerType: 'none',
         dataPoints: data3,
+        color: 'lightgrey',
+        lineDashType: 'shortDot',
       },
       {
         type: 'line',
         toolTipContent: '{x}: {y}',
-        color: 'lightgrey',
+        color: '#3ab46d',
+        markerType: 'none',
         dataPoints: data4,
       },
     ],

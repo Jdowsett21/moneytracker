@@ -9,8 +9,8 @@ const initialState = {
   hoveredMonth: moment().format('MMM'),
   hoveredBudgetMonth: '',
   month: moment().format('MMM'),
-  date1: moment().date(1).toISOString(),
-  date2: moment().date(1).add(1, 'months').subtract(1, 'days').toISOString(),
+  date1: moment().date(1).startOf('day').toISOString(),
+  date2: moment().date(1).add(1, 'months').startOf('day').toISOString(),
   barHeight: 0,
   barTotal: 0,
   timeInfo: [],
@@ -27,12 +27,13 @@ export default (state = initialState, action) => {
         date1: moment()
           .date(1)
           .subtract(5 - action.payload, 'months')
-          .toISOString(),
+          .startOf('day')
+          .toISOString(0),
         date2: moment()
           .date(1)
           .subtract(4 - action.payload, 'months')
-          .subtract(1, 'days')
-          .toISOString(),
+          .startOf('day')
+          .toISOString(0),
       };
     //adding the ternary function for '' allows us to reset month to ''
     //every time we are not hovered
@@ -51,6 +52,7 @@ export default (state = initialState, action) => {
             : moment()
                 .date(1)
                 .subtract(11 - action.payload, 'months')
+                .startOf('day')
                 .toISOString(),
         date2:
           action.payload === ''
@@ -58,7 +60,7 @@ export default (state = initialState, action) => {
             : moment()
                 .date(1)
                 .subtract(10 - action.payload, 'months')
-                .subtract(1, 'days')
+                .startOf('day')
                 .toISOString(),
       };
     case SET_MONTH:

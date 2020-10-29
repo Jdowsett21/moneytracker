@@ -21,10 +21,12 @@ function BudgetCardList({
 }) {
   useEffect(() => {
     getBudgets();
-    getMonthsTransactions(
-      moment().toISOString(),
-      moment().date(1).add(1, 'months').subtract(1, 'days')
-    );
+    getMonthsTransactions(date1, date2);
+
+    // getMonthsTransactions(
+    //   moment().toISOString(),
+    //   moment().date(1).add(1, 'months').startOf('day').toISOString()
+    // );
     //eslint-disable-next-line
   }, []);
 

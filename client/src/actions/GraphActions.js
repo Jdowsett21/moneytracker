@@ -20,6 +20,13 @@ export const setGraphData = (timeInfo, accounts, type, subItem, tags) => async (
         },
       }
     );
+    console.log(
+      Math.ceil(
+        (moment(data[0].shortDate) - moment(data[data.length - 1].shortDate)) /
+          86400000 /
+          30
+      )
+    );
 
     dispatch({
       type:
@@ -33,22 +40,16 @@ export const setGraphData = (timeInfo, accounts, type, subItem, tags) => async (
       payload: { data, timeInfo, subItem, type },
     });
   }
-  // else {
-  //   const { data } = await authAxios.get(
-  //     `/accounts/${timeInfo}/${type}/${subItem}/${accounts}/${tags}`
-  //   );
-
-  //   dispatch({
-  //     type: SET_DATA,
-  //     payload: { data, timeInfo },
-  //   });
-  // }
 };
 
 export const setOverviewGraph = () => async (dispatch) => {
   const timeInfo = {
-    range1: moment().toISOString(),
-    range2: moment().date(1).subtract(1, 'months').toISOString(),
+    range1: moment()
+      .subtract(moment().date() - 1, 'days')
+      .subtract(1, 'months')
+      .startOf('day')
+      .toISOString(),
+    range2: moment().endOf('day').toISOString(),
   };
   const { data } = await authAxios.get(
     `/transactions/overviewGraph/${timeInfo.range1}/${timeInfo.range2}/Withdrawal`

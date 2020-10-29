@@ -1,4 +1,6 @@
 import {
+  LAST_MONTH_SPENDING_AT_CURRENT_POINT,
+  CURRENT_MONTH_SPENDING,
   ADD_TRANSACTION,
   GET_TRANSACTIONS,
   UPDATE_TRANSACTION,
@@ -31,6 +33,7 @@ import {
   GET_TRANSACTIONS_BY_DATE_RANGE,
 } from '../actions/types';
 import moment from 'moment';
+import { lastMonthSpendingAtTodaysDate } from '../actions/transactionActions';
 const initialState = {
   transactionList: [],
   hoveredTransactionList: [],
@@ -67,6 +70,8 @@ const initialState = {
   //transaction that is clicked on in transaction table
   selectedTransaction: '',
   preventTransactionReRender: false,
+  currentSpending: 0,
+  lastMonthSpendingTodaysDate: 0,
 };
 
 export default (state = initialState, action) => {
@@ -93,7 +98,22 @@ export default (state = initialState, action) => {
         ...state,
         selectedTransaction: action.payload,
       };
-
+    case CURRENT_MONTH_SPENDING:
+      return {
+        ...state,
+        currentSpending: action.payload.reduce(
+          (acc, trans) => trans.amount + acc,
+          0
+        ),
+      };
+    case LAST_MONTH_SPENDING_AT_CURRENT_POINT:
+      return {
+        ...state,
+        lastMonthSpendingTodaysDate: action.payload.reduce(
+          (acc, trans) => trans.amount + acc,
+          0
+        ),
+      };
     case GET_TRANSACTIONS_BY_ACCOUNT:
       return {
         ...state,
@@ -150,8 +170,8 @@ export default (state = initialState, action) => {
           } else return 0 + accumulator;
         }, 0),
         monthDebt: action.payload.reduce((accumulator, transaction) => {
-          if (transaction.paymentType === 'Withdrawal') {
-            return transaction.amountValue * -1 + accumulator;
+          if (transaction.paymentType !== 'Deposit') {
+            return transaction.amount + accumulator;
           } else return 0 + accumulator;
         }, 0),
         monthGraphNet: action.payload.reduce(

@@ -34,196 +34,377 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        data: [...Array(timeInfo.length)].map((item, index) => {
-          return {
-            x:
-              timeInfo.label === 'Last month'
-                ? new Date(
-                    moment()
-                      .subtract(moment().date(), 'days')
-                      .subtract(timeInfo.length - index - 2, timeInfo.unit)
+        data:
+          timeInfo.label === 'All time'
+            ? [
+                ...Array(
+                  Math.ceil(
+                    (moment(data[0].shortDate) -
+                      moment(data[data.length - 1].shortDate)) /
+                      86400000 /
+                      30
                   )
-                : timeInfo.label === 'Last year'
-                ? new Date(
-                    moment()
-                      .date(1)
-                      .subtract(1, 'years')
-                      .month(timeInfo.length - index - 1)
-                  )
-                : timeInfo.unit === 'months'
-                ? new Date(
-                    moment()
-                      .date(1, 'days')
-                      .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                  )
-                : new Date(
-                    moment().subtract(
-                      timeInfo.length - index - 1,
-                      timeInfo.unit
-                    )
-                  ),
-            y: data.reduce((acc, transaction) => {
-              if (
-                timeInfo.label === 'Last year' &&
-                moment()
-                  .subtract(1, 'years')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format) &&
-                transaction.paymentType === 'Deposit'
-              ) {
-                return transaction.amountValue + acc;
-              } else if (
-                timeInfo.label === 'Last month' &&
-                moment()
-                  .subtract(moment().date(), 'days')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format) &&
-                transaction.paymentType === 'Deposit'
-              ) {
-                return transaction.amountValue + acc;
-              } else {
-                if (
-                  moment()
-                    .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                    .format(timeInfo.format) ===
-                    moment(transaction.shortDate).format(timeInfo.format) &&
-                  transaction.paymentType === 'Deposit'
-                ) {
-                  return transaction.amountValue + acc;
-                }
-              }
-              return acc;
-            }, 0),
-          };
-        }),
-        data1: [...Array(timeInfo.length)].map((item, index) => {
-          return {
-            x:
-              timeInfo.label === 'Last month'
-                ? new Date(
-                    moment()
-                      .subtract(moment().date(), 'days')
-                      .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                  )
-                : timeInfo.label === 'Last year'
-                ? new Date(
+                ),
+              ].map((item, index) => {
+                return {
+                  x: new Date(
                     moment()
                       .date(1)
-                      .subtract(1, 'years')
-                      .month(timeInfo.length - index - 1)
-                  )
-                : timeInfo.unit === 'months'
-                ? new Date(
-                    moment()
-                      .date(1, 'days')
-                      .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                  )
-                : new Date(
-                    moment().subtract(
-                      timeInfo.length - index - 1,
-                      timeInfo.unit
-                    )
-                  ),
-            y: data.reduce((acc, transaction) => {
-              if (
-                timeInfo.label === 'Last year' &&
-                moment()
-                  .subtract(1, 'years')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format) &&
-                transaction.paymentType === 'Withdrawal'
-              ) {
-                return transaction.amountValue + acc;
-              } else if (
-                timeInfo.label === 'Last month' &&
-                moment()
-                  .subtract(moment().date(), 'days')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format) &&
-                transaction.paymentType === 'Withdrawal'
-              ) {
-                return transaction.amountValue + acc;
-              } else {
-                if (
-                  moment()
-                    .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                    .format(timeInfo.format) ===
-                    moment(transaction.shortDate).format(timeInfo.format) &&
-                  transaction.paymentType === 'Withdrawal'
-                ) {
-                  return transaction.amountValue + acc;
-                }
-              }
-              return acc;
-            }, 0),
-          };
-        }),
-        data2: [...Array(timeInfo.length)].map((item, index) => {
-          return {
-            x:
-              timeInfo.label === 'Last month'
-                ? new Date(
-                    moment()
                       .subtract(moment().date(), 'days')
-                      .subtract(timeInfo.length - index - 2, timeInfo.unit)
+                      .subtract(
+                        Math.ceil(
+                          (moment(data[0].shortDate) -
+                            moment(data[data.length - 1].shortDate)) /
+                            86400000 /
+                            30
+                        ) -
+                          index -
+                          2,
+                        timeInfo.unit
+                      )
+                  ),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      moment()
+                        .subtract(
+                          Math.ceil(
+                            (moment(data[0].shortDate) -
+                              moment(data[data.length - 1].shortDate)) /
+                              86400000 /
+                              30
+                          ) -
+                            index -
+                            2,
+                          timeInfo.unit
+                        )
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Deposit'
+                    ) {
+                      return transaction.amountValue + acc;
+                    }
+                    return acc;
+                  }, 0),
+                };
+              })
+            : [...Array(timeInfo.length)].map((item, index) => {
+                return {
+                  x:
+                    timeInfo.label === 'Last month'
+                      ? new Date(
+                          moment()
+                            .subtract(moment().date(), 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : timeInfo.label === 'Last year'
+                      ? new Date(
+                          moment()
+                            .date(1)
+                            .subtract(1, 'years')
+                            .month(timeInfo.length - index - 1)
+                        )
+                      : timeInfo.unit === 'months'
+                      ? new Date(
+                          moment()
+                            .date(1, 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : new Date(
+                          moment().subtract(
+                            timeInfo.length - index - 1,
+                            timeInfo.unit
+                          )
+                        ),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      timeInfo.label === 'Last year' &&
+                      moment()
+                        .subtract(1, 'years')
+                        .month(timeInfo.length - index - 1)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Deposit'
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else if (
+                      timeInfo.label === 'Last month' &&
+                      moment()
+                        .subtract(moment().date(), 'days')
+                        .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Deposit'
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else {
+                      if (
+                        moment()
+                          .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                          .format(timeInfo.format) ===
+                          moment(transaction.shortDate).format(
+                            timeInfo.format
+                          ) &&
+                        transaction.paymentType === 'Deposit'
+                      ) {
+                        return transaction.amountValue + acc;
+                      }
+                    }
+                    return acc;
+                  }, 0),
+                };
+              }),
+        data1:
+          timeInfo.label === 'All time'
+            ? [
+                ...Array(
+                  Math.ceil(
+                    (moment(data[0].shortDate) -
+                      moment(data[data.length - 1].shortDate)) /
+                      86400000 /
+                      30
                   )
-                : timeInfo.label === 'Last year'
-                ? new Date(
+                ),
+              ].map((item, index) => {
+                return {
+                  x: new Date(
                     moment()
                       .date(1)
-                      .subtract(1, 'years')
-                      .month(timeInfo.length - index - 1)
-                  )
-                : timeInfo.unit === 'months'
-                ? new Date(
-                    moment()
-                      .date(1, 'days')
-                      .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                  )
-                : new Date(
-                    moment().subtract(
-                      timeInfo.length - index - 1,
-                      timeInfo.unit
-                    )
+                      .subtract(moment().date(), 'days')
+                      .subtract(
+                        Math.ceil(
+                          (moment(data[0].shortDate) -
+                            moment(data[data.length - 1].shortDate)) /
+                            86400000 /
+                            30
+                        ) -
+                          index -
+                          2,
+                        timeInfo.unit
+                      )
                   ),
-            y: data.reduce((acc, transaction) => {
-              if (
-                timeInfo.label === 'Last year' &&
-                moment()
-                  .date(1)
-                  .subtract(1, 'years')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format)
-              ) {
-                return transaction.amountValue + acc;
-              } else if (
-                timeInfo.label === 'Last month' &&
-                moment()
-                  .subtract(moment().date(), 'days')
-                  .month(timeInfo.length - index - 1)
-                  .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format)
-              ) {
-                return transaction.amountValue + acc;
-              } else {
-                if (
-                  moment()
-                    .subtract(timeInfo.length - index - 1, timeInfo.unit)
-                    .format(timeInfo.format) ===
-                  moment(transaction.shortDate).format(timeInfo.format)
-                ) {
-                  return transaction.amountValue + acc;
-                }
-              }
-              return acc;
-            }, 0),
-          };
-        }),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      moment()
+                        .date(1)
+                        .subtract(
+                          Math.ceil(
+                            (moment(data[0].shortDate) -
+                              moment(data[data.length - 1].shortDate)) /
+                              86400000 /
+                              30
+                          ) -
+                            index -
+                            2,
+                          timeInfo.unit
+                        )
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Withdrawal'
+                    ) {
+                      return transaction.amountValue + acc;
+                    }
+                    return acc;
+                  }, 0),
+                };
+              })
+            : [...Array(timeInfo.length)].map((item, index) => {
+                return {
+                  x:
+                    timeInfo.label === 'Last month'
+                      ? new Date(
+                          moment()
+                            .subtract(moment().date(), 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : timeInfo.label === 'Last year'
+                      ? new Date(
+                          moment()
+                            .date(1)
+                            .subtract(1, 'years')
+                            .month(timeInfo.length - index - 1)
+                        )
+                      : timeInfo.unit === 'months'
+                      ? new Date(
+                          moment()
+                            .date(1, 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : new Date(
+                          moment().subtract(
+                            timeInfo.length - index - 1,
+                            timeInfo.unit
+                          )
+                        ),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      timeInfo.label === 'Last year' &&
+                      moment()
+                        .subtract(1, 'years')
+                        .month(timeInfo.length - index - 1)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Withdrawal'
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else if (
+                      timeInfo.label === 'Last month' &&
+                      moment()
+                        .subtract(moment().date(), 'days')
+                        .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format) &&
+                      transaction.paymentType === 'Withdrawal'
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else {
+                      if (
+                        moment()
+                          .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                          .format(timeInfo.format) ===
+                          moment(transaction.shortDate).format(
+                            timeInfo.format
+                          ) &&
+                        transaction.paymentType === 'Withdrawal'
+                      ) {
+                        return transaction.amountValue + acc;
+                      }
+                    }
+                    return acc;
+                  }, 0),
+                };
+              }),
+        data2:
+          timeInfo.label === 'All time'
+            ? [
+                ...Array(
+                  Math.ceil(
+                    (moment(data[0].shortDate) -
+                      moment(data[data.length - 1].shortDate)) /
+                      86400000 /
+                      30
+                  )
+                ),
+              ].map((item, index) => {
+                return {
+                  x: new Date(
+                    moment()
+                      .date(1)
+                      .subtract(moment().date(), 'days')
+                      .subtract(
+                        Math.ceil(
+                          (moment(data[0].shortDate) -
+                            moment(data[data.length - 1].shortDate)) /
+                            86400000 /
+                            30
+                        ) -
+                          index -
+                          2,
+                        timeInfo.unit
+                      )
+                  ),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      moment()
+                        .subtract(
+                          Math.ceil(
+                            (moment(data[0].shortDate) -
+                              moment(data[data.length - 1].shortDate)) /
+                              86400000 /
+                              30
+                          ) -
+                            index -
+                            2,
+                          timeInfo.unit
+                        )
+                        .format(timeInfo.format) ===
+                      moment(transaction.shortDate).format(timeInfo.format)
+                    ) {
+                      return transaction.amountValue + acc;
+                    }
+                    return acc;
+                  }, 0),
+                };
+              })
+            : [...Array(timeInfo.length)].map((item, index) => {
+                return {
+                  x:
+                    timeInfo.label === 'Last month'
+                      ? new Date(
+                          moment()
+                            .subtract(moment().date(), 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : timeInfo.label === 'Last year'
+                      ? new Date(
+                          moment()
+                            .date(1)
+                            .subtract(1, 'years')
+                            .month(timeInfo.length - index - 1)
+                        )
+                      : timeInfo.unit === 'months'
+                      ? new Date(
+                          moment()
+                            .date(1, 'days')
+                            .subtract(
+                              timeInfo.length - index - 1,
+                              timeInfo.unit
+                            )
+                        )
+                      : new Date(
+                          moment().subtract(
+                            timeInfo.length - index - 1,
+                            timeInfo.unit
+                          )
+                        ),
+                  y: data.reduce((acc, transaction) => {
+                    if (
+                      timeInfo.label === 'Last year' &&
+                      moment()
+                        .date(1)
+                        .subtract(1, 'years')
+                        .month(timeInfo.length - index - 1)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format)
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else if (
+                      timeInfo.label === 'Last month' &&
+                      moment()
+                        .subtract(moment().date(), 'days')
+                        .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                        .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format)
+                    ) {
+                      return transaction.amountValue + acc;
+                    } else {
+                      if (
+                        moment()
+                          .subtract(timeInfo.length - index - 1, timeInfo.unit)
+                          .format(timeInfo.format) ===
+                        moment(transaction.shortDate).format(timeInfo.format)
+                      ) {
+                        return transaction.amountValue + acc;
+                      }
+                    }
+                    return acc;
+                  }, 0),
+                };
+              }),
 
         category: type,
         subCategory: subItem,
@@ -240,13 +421,6 @@ export default (state = initialState, action) => {
             label: subCat,
             y: (
               (action.payload.data.reduce((acc, transaction) => {
-                // timeInfo.label ==='Last Year'?:
-                // if (
-                //   mt
-                //     .date(1)
-                //     .subtract(1, 'years')
-                //     .month(timeInfo.length - index - 1)
-                // )
                 if (subCat === transaction.subCategory) {
                   return transaction.amount + acc;
                 }
@@ -274,13 +448,6 @@ export default (state = initialState, action) => {
             label: description,
             y: (
               (action.payload.data.reduce((acc, transaction) => {
-                // timeInfo.label ==='Last Year'?:
-                // if (
-                //   mt
-                //     .date(1)
-                //     .subtract(1, 'years')
-                //     .month(timeInfo.length - index - 1)
-                // )
                 if (description === transaction.description) {
                   return transaction.amount + acc;
                 }
@@ -302,12 +469,13 @@ export default (state = initialState, action) => {
     case SET_MONTH_DAILY_DATA:
       return {
         ...state,
+        //previous month
         data3: [...Array(moment().subtract(1, 'months').daysInMonth())].map(
           (item, index) => {
             return {
               x: Number(
                 moment()
-                  .subtract(1, 'months')
+                  .subtract(moment().date(), 'days')
                   .subtract(
                     moment().subtract(1, 'months').daysInMonth() - index - 1,
                     'days'
@@ -316,16 +484,23 @@ export default (state = initialState, action) => {
               ),
               y: action.payload.data.reduce((acc, trans) => {
                 if (
-                  moment().subtract(1, 'months').format('MM-DD-YYYY') ===
-                  moment(trans.shortDate).format('MM-DD-YYYY')
+                  moment()
+                    .subtract(moment().date(), 'days')
+                    .subtract(
+                      moment().subtract(1, 'months').daysInMonth() - index - 1,
+                      'days'
+                    )
+                    .isSameOrAfter(moment(trans.shortDate)) &&
+                  moment(trans.shortDate).isBefore(moment().date(1))
                 ) {
-                  return trans + acc;
+                  return trans.amount + acc;
                 }
                 return acc;
               }, 0),
             };
           }
         ),
+        //currentMonth
         data4: [...Array(Number(moment().format('DD')))].map((item, index) => {
           return {
             x: moment()
@@ -333,74 +508,147 @@ export default (state = initialState, action) => {
               .format('DD'),
             y: action.payload.data.reduce((acc, trans) => {
               if (
-                moment().format('MM-DD-YYYY') ===
-                moment(trans.shortDate).format('MM-DD-YYYY')
+                moment()
+                  .subtract(Number(moment().format('DD')) - index - 1, 'days')
+                  .format('MMM-DD-YYYY') >=
+                  moment(trans.shortDate).format('MMM-DD-YYYY') &&
+                moment(trans.shortDate).format('MMM-DD-YYYY') >=
+                  moment().date(1).format('MMM-DD-YYYY')
               ) {
-                return trans + acc;
+                return trans.amount + acc;
               }
               return acc;
             }, 0),
+
+            // indexLabel:
+            //   Number(moment().format('DD') - 1) === index ? 'Spent: {y}' : '',
           };
         }),
       };
     case SET_OVER_TIME_DATA:
       return {
         ...state,
-        data: [...Array(action.payload.timeInfo.length)].map((item, index) => {
-          return {
-            x:
-              action.payload.timeInfo.label === 'Last year'
-                ? new Date(
+        data:
+          action.payload.timeInfo.label === 'All time'
+            ? [
+                ...Array(
+                  Math.ceil(
+                    (moment(action.payload.data[0].shortDate) -
+                      moment(
+                        action.payload.data[action.payload.data.length - 1]
+                          .shortDate
+                      )) /
+                      86400000 /
+                      30
+                  )
+                ),
+              ].map((item, index) => {
+                return {
+                  x: new Date(
                     moment()
                       .date(1)
-                      .subtract(1, 'years')
-                      .month(timeInfo.length - index - 1)
-                  )
-                : action.payload.timeInfo.unit === 'months'
-                ? new Date(
-                    moment()
-                      .date(1, 'days')
+                      .subtract(moment().date(), 'days')
                       .subtract(
-                        action.payload.timeInfo.length - index - 1,
+                        Math.ceil(
+                          (moment(action.payload.data[0].shortDate) -
+                            moment(
+                              action.payload.data[
+                                action.payload.data.length - 1
+                              ].shortDate
+                            )) /
+                            86400000 /
+                            30
+                        ) -
+                          index -
+                          2,
                         action.payload.timeInfo.unit
                       )
-                  )
-                : new Date(
-                    moment().subtract(
-                      action.payload.timeInfo.length - index - 1,
-                      action.payload.timeInfo.unit
-                    )
                   ),
-            y: action.payload.data.reduce((acc, transaction) => {
-              // timeInfo.label ==='Last Year'?:
-              // if (
-              //   mt
-              //     .date(1)
-              //     .subtract(1, 'years')
-              //     .month(timeInfo.length - index - 1) ===
-              //   moment(transaction.shortDate).format(
-              //     action.payload.timeInfo.format
-              //   )
-              // )
-              if (
-                moment()
-                  .subtract(
-                    action.payload.timeInfo.length - index - 1,
-                    action.payload.timeInfo.unit
-                  )
-                  .format(action.payload.timeInfo.format) ===
-                moment(transaction.shortDate).format(
-                  action.payload.timeInfo.format
-                )
-              ) {
-                return action.payload.category === 'Spending'
-                  ? transaction.amount * -1 + acc
-                  : transaction.amount + acc;
-              }
-              return acc;
-            }, 0),
-          };
-        }),
+                  y: action.payload.data.reduce((acc, transaction) => {
+                    if (
+                      moment()
+                        .date(1)
+                        .subtract(
+                          Math.ceil(
+                            (moment(action.payload.data[0].shortDate) -
+                              moment(
+                                action.payload.data[
+                                  action.payload.data.length - 1
+                                ].shortDate
+                              )) /
+                              86400000 /
+                              30
+                          ) -
+                            index -
+                            2,
+                          action.payload.timeInfo.unit
+                        )
+                        .format(action.payload.timeInfo.format) ===
+                      moment(transaction.shortDate).format(
+                        action.payload.timeInfo.format
+                      )
+                    ) {
+                      return transaction.amount + acc;
+                    }
+                    return acc;
+                  }, 0),
+                };
+              })
+            : [...Array(action.payload.timeInfo.length)].map((item, index) => {
+                return {
+                  x:
+                    action.payload.timeInfo.label === 'Last year'
+                      ? new Date(
+                          moment()
+                            .date(1)
+                            .subtract(1, 'years')
+                            .month(timeInfo.length - index - 1)
+                        )
+                      : action.payload.timeInfo.unit === 'months'
+                      ? new Date(
+                          moment()
+                            .date(1, 'days')
+                            .subtract(
+                              action.payload.timeInfo.length - index - 1,
+                              action.payload.timeInfo.unit
+                            )
+                        )
+                      : new Date(
+                          moment().subtract(
+                            action.payload.timeInfo.length - index - 1,
+                            action.payload.timeInfo.unit
+                          )
+                        ),
+                  y: action.payload.data.reduce((acc, transaction) => {
+                    // timeInfo.label ==='Last Year'?:
+                    // if (
+                    //   mt
+                    //     .date(1)
+                    //     .subtract(1, 'years')
+                    //     .month(timeInfo.length - index - 1) ===
+                    //   moment(transaction.shortDate).format(
+                    //     action.payload.timeInfo.format
+                    //   )
+                    // )
+                    if (
+                      moment()
+                        .subtract(
+                          action.payload.timeInfo.length - index - 1,
+                          action.payload.timeInfo.unit
+                        )
+                        .format(action.payload.timeInfo.format) ===
+                      moment(transaction.shortDate).format(
+                        action.payload.timeInfo.format
+                      )
+                    ) {
+                      return action.payload.category === 'Spending'
+                        ? transaction.amount * -1 + acc
+                        : transaction.amount + acc;
+                    }
+                    return acc;
+                  }, 0),
+                };
+              }),
         category: action.payload.type,
         subCategory: action.payload.subItem,
         length: action.payload.timeInfo.length,
