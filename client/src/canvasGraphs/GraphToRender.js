@@ -7,7 +7,7 @@ import VerticalBarGraph from './VerticalBarGraph';
 import { connect } from 'react-redux';
 function GraphToRender({ graphs: { graphType } }) {
   return (
-    <div className='pt-5'>
+    <div className='pt-2'>
       {graphType === 'line' ? (
         <LineGraph />
       ) : graphType === 'horizontalBar' ? (

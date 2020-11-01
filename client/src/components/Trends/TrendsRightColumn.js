@@ -20,7 +20,7 @@ function TrendsRightColumn({ accounts: { accountList }, setGraphData }) {
     //eslint-disable-next-line
   }, [accountList]);
   return (
-    <div className='col-md-7'>
+    <div className='col-md-9'>
       <h3>Spending Over Time</h3>
       <DateFormatter />
       <FilterBar />

@@ -46,7 +46,7 @@ function StackedBarComboLineGraph({ graphs: { data, data1, data2, unit } }) {
       {
         type: 'line',
         name: 'Net Income',
-        color: 'darkgrey',
+        color: 'black',
         dataPoints: data2,
       },
     ],

@@ -15,11 +15,9 @@ function Trends({
   }, [accountGraphList, timeInfo]);
   return (
     <React.Fragment>
-      <div className='container'>
-        <div className='row'>
-          <TrendsLeftColumn />
-          <TrendsRightColumn />
-        </div>
+      <div className='row'>
+        <TrendsLeftColumn />
+        <TrendsRightColumn />
       </div>
     </React.Fragment>
   );
