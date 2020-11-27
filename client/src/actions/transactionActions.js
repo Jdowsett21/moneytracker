@@ -377,13 +377,17 @@ export const setMonthNet1 = (date1, date2) => async (dispatch) => {
 };
 
 export const currentMonthSpending = () => async (dispatch) => {
-  const date1 = moment().date(1).startOf('day').toISOString();
-  const date2 = moment()
-    .date(1)
-    .add(1, 'months')
-    .subtract(1, 'days')
-    .endOf('day')
-    .toISOString();
+  // static solution
+  const date1 = moment('2020-10-1').startOf('day').toISOString();
+  const date2 = moment('2020-10-22').startOf('day').toISOString();
+  // dynamic solution
+  // const date1 = moment().date(1).startOf('day').toISOString();
+  // const date2 = moment()
+  //   .date(1)
+  //   .add(1, 'months')
+  //   .subtract(1, 'days')
+  //   .endOf('day')
+  //   .toISOString();
 
   const { data } = await authAxios.get(
     `/transactions/dateAndType/${date1}/${date2}/Withdrawal`
@@ -397,12 +401,17 @@ export const currentMonthSpending = () => async (dispatch) => {
 //DETERMINING HOW MUCH WAS SPENT AT HTE SAME DAY LAST MONTH
 //FOR OVERVIEW LINE GRAPH
 export const lastMonthSpendingAtTodaysDate = () => async (dispatch) => {
-  const date1 = moment()
-    .date(1)
-    .subtract(1, 'months')
-    .startOf('day')
-    .toISOString();
-  const date2 = moment().subtract(1, 'months').endOf('day').toISOString();
+  // static solution
+  const date1 = moment('2020-9-1').startOf('day').toISOString();
+  const date2 = moment('2020-9-21').endOf('day').toISOString();
+
+  // dynamic solution
+  // const date1 = moment()
+  //   .date(1)
+  //   .subtract(1, 'months')
+  //   .startOf('day')
+  //   .toISOString();
+  // const date2 = moment().subtract(1, 'months').endOf('day').toISOString();
 
   const { data } = await authAxios.get(
     `/transactions/dateAndType/${date1}/${date2}/Withdrawal`
@@ -423,8 +432,6 @@ export const setSixMonthNet = () => {
   };
 };
 export const setMonthTotals = (date1, date2) => async (dispatch) => {
-  console.log(date1);
-  console.log(date2);
   const { data } = await authAxios.get(`/transactions/month/${date1}/${date2}`);
 
   dispatch({ type: SET_MONTH_TOTALS, payload: data });

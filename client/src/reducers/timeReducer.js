@@ -6,9 +6,14 @@ import {
 } from '../actions/types';
 import moment from 'moment';
 const initialState = {
-  hoveredMonth: moment().format('MMM'),
+  hoveredMonth: moment('2020-10-31').format('MMM'),
+
+  // dynamic solution
+  // moment().format('MMM'),
   hoveredBudgetMonth: '',
-  month: moment().format('MMM'),
+  month: moment('2020-10-31').format('MMM'),
+  // dynamic solution
+  // moment().format('MMM'),
   date1: moment().date(1).month(9).startOf('day').toISOString(),
   date2: moment().date(1).month(10).startOf('day').toISOString(),
   barHeight: 0,
@@ -21,19 +26,44 @@ export default (state = initialState, action) => {
     case SET_HOVERED_MONTH:
       return {
         ...state,
-        hoveredMonth: moment()
-          .subtract(5 - action.payload, 'months')
-          .format('MMM'),
-        date1: moment()
-          .date(1)
-          .subtract(5 - action.payload, 'months')
-          .startOf('day')
-          .toISOString(0),
-        date2: moment()
-          .date(1)
-          .subtract(4 - action.payload, 'months')
-          .startOf('day')
-          .toISOString(0),
+        hoveredMonth:
+          // dynamic solution
+          // moment()
+          // .subtract(5 - action.payload, 'months')
+          // .format('MMM'),
+          //static solution
+          moment('2020-10-31')
+            .subtract(5 - action.payload, 'months')
+            .format('MMM'),
+        date1:
+          // dynamic solution
+          // moment()
+          // .date(1)
+          // .subtract(5 - action.payload, 'months')
+          // .startOf('day')
+          // .toISOString(0),
+
+          // static solution
+          moment('2020-10-31')
+            .date(1)
+            .subtract(5 - action.payload, 'months')
+            .startOf('day')
+            .toISOString(0),
+
+        date2:
+          // dynamic solution
+          // moment()
+          // .date(1)
+          // .subtract(4 - action.payload, 'months')
+          // .startOf('day')
+          // .toISOString(0),
+
+          // static solution
+          moment('2020-10-31')
+            .date(1)
+            .subtract(4 - action.payload, 'months')
+            .startOf('day')
+            .toISOString(0),
       };
     //adding the ternary function for '' allows us to reset month to ''
     //every time we are not hovered
@@ -43,25 +73,44 @@ export default (state = initialState, action) => {
         hoveredBudgetMonth:
           action.payload === ''
             ? ''
-            : moment()
+            : moment('2020-10-31')
                 .subtract(11 - action.payload, 'months')
                 .format('MMM'),
+
+        // dynamic solution
+        // moment()
+        //     .subtract(11 - action.payload, 'months')
+        //     .format('MMM'),
         date1:
           action.payload === ''
             ? ''
-            : moment()
+            : moment('2020-10-31')
                 .date(1)
                 .subtract(11 - action.payload, 'months')
                 .startOf('day')
                 .toISOString(),
+
+        // dynamic solution
+        //  moment()
+        //     .date(1)
+        //     .subtract(11 - action.payload, 'months')
+        //     .startOf('day')
+        //     .toISOString(),
         date2:
           action.payload === ''
             ? ''
-            : moment()
+            : moment('2020-10-31')
                 .date(1)
                 .subtract(10 - action.payload, 'months')
                 .startOf('day')
                 .toISOString(),
+
+        // dynamic solution
+        // moment()
+        //     .date(1)
+        //     .subtract(10 - action.payload, 'months')
+        //     .startOf('day')
+        //     .toISOString(),
       };
     case SET_MONTH:
       return {

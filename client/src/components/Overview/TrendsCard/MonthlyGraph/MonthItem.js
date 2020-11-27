@@ -13,7 +13,7 @@ function MonthItem({
 }) {
   const [hoverRef, isHovered] = useHover();
   useEffect(() => {
-    isHovered ? setHoveredMonth(index) : moment().format('MMM');
+    isHovered ? setHoveredMonth(index) : moment('2020-10-31').format('MMM');
     //eslint-disable-next-line
   }, [isHovered, index]);
 
@@ -27,7 +27,7 @@ function MonthItem({
         style={{
           height: `${
             monthNet === sixMonthMax || monthNet === sixMonthMax * -1
-              ? 47
+              ? 50
               : (monthNet < 0 && sixMonthMax > 0) ||
                 (monthNet > 0 && sixMonthMax < 0)
               ? (monthNet / sixMonthMax) * 50 * -1

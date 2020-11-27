@@ -38,45 +38,53 @@ export default (state = initialState, action) => {
           timeInfo.label === 'All time'
             ? [
                 ...Array(
-                  Math.ceil(
-                    (moment(data[0].shortDate) -
-                      moment(data[data.length - 1].shortDate)) /
-                      86400000 /
-                      30
-                  )
+                  21
+                  // dynamic solution
+                  // Math.ceil(
+                  //   (moment(data[0].shortDate) -
+                  //     moment(data[data.length - 1].shortDate)) /
+                  //     86400000 /
+                  //     30
+                  // )
                 ),
               ].map((item, index) => {
                 return {
                   x: new Date(
-                    moment()
+                    moment('2020-10-31')
                       .date(1)
-                      .subtract(moment().date(), 'days')
-                      .subtract(
-                        Math.ceil(
-                          (moment(data[0].shortDate) -
-                            moment(data[data.length - 1].shortDate)) /
-                            86400000 /
-                            30
-                        ) -
-                          index -
-                          2,
-                        timeInfo.unit
-                      )
+                      .subtract(moment('2020-10-31').date(), 'days')
+
+                      // fixed solution
+                      .date(1)
+                      .subtract(21 - index - 3, timeInfo.unit)
+
+                    // dynamic solution
+                    // .subtract(
+                    //   Math.ceil(
+                    //     (moment(data[0].shortDate) -
+                    //       moment(data[data.length - 1].shortDate)) /
+                    //       86400000 /
+                    //       30
+                    //   ) -
+                    //     index -
+                    //     2,
+                    //   timeInfo.unit
+                    // )
                   ),
                   y: data.reduce((acc, transaction) => {
                     if (
-                      moment()
-                        .subtract(
-                          Math.ceil(
-                            (moment(data[0].shortDate) -
-                              moment(data[data.length - 1].shortDate)) /
-                              86400000 /
-                              30
-                          ) -
-                            index -
-                            2,
-                          timeInfo.unit
-                        )
+                      moment('2020-10-31')
+                        .date(1)
+                        // fixed solution
+                        .subtract(21 - index - 1, timeInfo.unit)
+                        // dynamic solution
+                        // .subtract(
+                        //   Math.ceil(
+                        //     (moment(data[0].shortDate) -
+                        //       moment(data[data.length - 1].shortDate)) /
+                        //       86400000 /
+                        //       30
+                        //   ) -
                         .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format) &&
                       transaction.paymentType === 'Deposit'
@@ -92,8 +100,8 @@ export default (state = initialState, action) => {
                   x:
                     timeInfo.label === 'Last month'
                       ? new Date(
-                          moment()
-                            .subtract(moment().date(), 'days')
+                          moment('2020-10-31')
+                            .subtract(moment('2020-10-31').date(), 'days')
                             .subtract(
                               timeInfo.length - index - 1,
                               timeInfo.unit
@@ -101,14 +109,14 @@ export default (state = initialState, action) => {
                         )
                       : timeInfo.label === 'Last year'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1)
                             .subtract(1, 'years')
                             .month(timeInfo.length - index - 1)
                         )
                       : timeInfo.unit === 'months'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1, 'days')
                             .subtract(
                               timeInfo.length - index - 1,
@@ -116,7 +124,7 @@ export default (state = initialState, action) => {
                             )
                         )
                       : new Date(
-                          moment().subtract(
+                          moment('2020-10-31').subtract(
                             timeInfo.length - index - 1,
                             timeInfo.unit
                           )
@@ -124,7 +132,7 @@ export default (state = initialState, action) => {
                   y: data.reduce((acc, transaction) => {
                     if (
                       timeInfo.label === 'Last year' &&
-                      moment()
+                      moment('2020-10-31')
                         .subtract(1, 'years')
                         .month(timeInfo.length - index - 1)
                         .format(timeInfo.format) ===
@@ -134,8 +142,8 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else if (
                       timeInfo.label === 'Last month' &&
-                      moment()
-                        .subtract(moment().date(), 'days')
+                      moment('2020-10-31')
+                        .subtract(moment('2020-10-31').date(), 'days')
                         .subtract(timeInfo.length - index - 1, timeInfo.unit)
                         .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format) &&
@@ -144,7 +152,7 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else {
                       if (
-                        moment()
+                        moment('2020-10-31')
                           .subtract(timeInfo.length - index - 1, timeInfo.unit)
                           .format(timeInfo.format) ===
                           moment(transaction.shortDate).format(
@@ -163,46 +171,54 @@ export default (state = initialState, action) => {
           timeInfo.label === 'All time'
             ? [
                 ...Array(
-                  Math.ceil(
-                    (moment(data[0].shortDate) -
-                      moment(data[data.length - 1].shortDate)) /
-                      86400000 /
-                      30
-                  )
+                  21
+                  //# of months between newest transaction date - oldest transaction date
+                  // dynamic solution
+                  //     Math.ceil(
+                  //   (moment(data[0].shortDate) -
+                  //     moment(data[data.length - 1].shortDate)) /
+                  //     86400000 /
+                  //     30
+                  // )
                 ),
               ].map((item, index) => {
                 return {
                   x: new Date(
-                    moment()
+                    moment('2020-10-31')
                       .date(1)
-                      .subtract(moment().date(), 'days')
-                      .subtract(
-                        Math.ceil(
-                          (moment(data[0].shortDate) -
-                            moment(data[data.length - 1].shortDate)) /
-                            86400000 /
-                            30
-                        ) -
-                          index -
-                          2,
-                        timeInfo.unit
-                      )
+                      .subtract(moment('2020-10-31').date(), 'days')
+
+                      // fixed solution
+                      .date(1)
+                      .subtract(21 - index - 3, timeInfo.unit)
+
+                    // dynamic solution
+                    // .subtract(
+                    //   Math.ceil(
+                    //     (moment(data[0].shortDate) -
+                    //       moment(data[data.length - 1].shortDate)) /
+                    //       86400000 /
+                    //       30
+                    //   ) -
+                    //     index -
+                    //     2,
+                    //   timeInfo.unit
+                    // )
                   ),
                   y: data.reduce((acc, transaction) => {
                     if (
-                      moment()
+                      moment('2020-10-31')
                         .date(1)
-                        .subtract(
-                          Math.ceil(
-                            (moment(data[0].shortDate) -
-                              moment(data[data.length - 1].shortDate)) /
-                              86400000 /
-                              30
-                          ) -
-                            index -
-                            2,
-                          timeInfo.unit
-                        )
+                        // fixed solution
+                        .subtract(21 - index - 1, timeInfo.unit)
+                        // dynamic solution
+                        // .subtract(
+                        //   Math.ceil(
+                        //     (moment(data[0].shortDate) -
+                        //       moment(data[data.length - 1].shortDate)) /
+                        //       86400000 /
+                        //       30
+                        //   ) -
                         .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format) &&
                       transaction.paymentType === 'Withdrawal'
@@ -218,8 +234,8 @@ export default (state = initialState, action) => {
                   x:
                     timeInfo.label === 'Last month'
                       ? new Date(
-                          moment()
-                            .subtract(moment().date(), 'days')
+                          moment('2020-10-31')
+                            .subtract(moment('2020-10-31').date(), 'days')
                             .subtract(
                               timeInfo.length - index - 1,
                               timeInfo.unit
@@ -227,14 +243,14 @@ export default (state = initialState, action) => {
                         )
                       : timeInfo.label === 'Last year'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1)
                             .subtract(1, 'years')
                             .month(timeInfo.length - index - 1)
                         )
                       : timeInfo.unit === 'months'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1, 'days')
                             .subtract(
                               timeInfo.length - index - 1,
@@ -242,7 +258,7 @@ export default (state = initialState, action) => {
                             )
                         )
                       : new Date(
-                          moment().subtract(
+                          moment('2020-10-31').subtract(
                             timeInfo.length - index - 1,
                             timeInfo.unit
                           )
@@ -250,7 +266,7 @@ export default (state = initialState, action) => {
                   y: data.reduce((acc, transaction) => {
                     if (
                       timeInfo.label === 'Last year' &&
-                      moment()
+                      moment('2020-10-31')
                         .subtract(1, 'years')
                         .month(timeInfo.length - index - 1)
                         .format(timeInfo.format) ===
@@ -260,8 +276,8 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else if (
                       timeInfo.label === 'Last month' &&
-                      moment()
-                        .subtract(moment().date(), 'days')
+                      moment('2020-10-31')
+                        .subtract(moment('2020-10-31').date(), 'days')
                         .subtract(timeInfo.length - index - 1, timeInfo.unit)
                         .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format) &&
@@ -270,7 +286,7 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else {
                       if (
-                        moment()
+                        moment('2020-10-31')
                           .subtract(timeInfo.length - index - 1, timeInfo.unit)
                           .format(timeInfo.format) ===
                           moment(transaction.shortDate).format(
@@ -289,45 +305,54 @@ export default (state = initialState, action) => {
           timeInfo.label === 'All time'
             ? [
                 ...Array(
-                  Math.ceil(
-                    (moment(data[0].shortDate) -
-                      moment(data[data.length - 1].shortDate)) /
-                      86400000 /
-                      30
-                  )
+                  // fixed solution
+                  21
+                  // dynamic solution
+                  // Math.ceil(
+                  //   (moment(data[0].shortDate) -
+                  //     moment(data[data.length - 1].shortDate)) /
+                  //     86400000 /
+                  //     30
+                  // )
                 ),
               ].map((item, index) => {
                 return {
                   x: new Date(
-                    moment()
+                    moment('2020-10-31')
                       .date(1)
-                      .subtract(moment().date(), 'days')
-                      .subtract(
-                        Math.ceil(
-                          (moment(data[0].shortDate) -
-                            moment(data[data.length - 1].shortDate)) /
-                            86400000 /
-                            30
-                        ) -
-                          index -
-                          2,
-                        timeInfo.unit
-                      )
+                      .subtract(moment('2020-10-31').date(), 'days')
+
+                      // fixed solution
+                      .date(1)
+                      .subtract(21 - index - 3, timeInfo.unit)
+
+                    // dynamic solution
+                    // .subtract(
+                    //   Math.ceil(
+                    //     (moment(data[0].shortDate) -
+                    //       moment(data[data.length - 1].shortDate)) /
+                    //       86400000 /
+                    //       30
+                    //   ) -
+                    //     index -
+                    //     2,
+                    //   timeInfo.unit
+                    // )
                   ),
                   y: data.reduce((acc, transaction) => {
                     if (
-                      moment()
-                        .subtract(
-                          Math.ceil(
-                            (moment(data[0].shortDate) -
-                              moment(data[data.length - 1].shortDate)) /
-                              86400000 /
-                              30
-                          ) -
-                            index -
-                            2,
-                          timeInfo.unit
-                        )
+                      moment('2020-10-31')
+                        .date(1)
+                        // fixed solution
+                        .subtract(21 - index - 1, timeInfo.unit)
+                        // dynamic solution
+                        // .subtract(
+                        //   Math.ceil(
+                        //     (moment(data[0].shortDate) -
+                        //       moment(data[data.length - 1].shortDate)) /
+                        //       86400000 /
+                        //       30
+                        //   ) -
                         .format(timeInfo.format) ===
                       moment(transaction.shortDate).format(timeInfo.format)
                     ) {
@@ -342,8 +367,8 @@ export default (state = initialState, action) => {
                   x:
                     timeInfo.label === 'Last month'
                       ? new Date(
-                          moment()
-                            .subtract(moment().date(), 'days')
+                          moment('2020-10-31')
+                            .subtract(moment('2020-10-31').date(), 'days')
                             .subtract(
                               timeInfo.length - index - 1,
                               timeInfo.unit
@@ -351,14 +376,14 @@ export default (state = initialState, action) => {
                         )
                       : timeInfo.label === 'Last year'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1)
                             .subtract(1, 'years')
                             .month(timeInfo.length - index - 1)
                         )
                       : timeInfo.unit === 'months'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1, 'days')
                             .subtract(
                               timeInfo.length - index - 1,
@@ -366,7 +391,7 @@ export default (state = initialState, action) => {
                             )
                         )
                       : new Date(
-                          moment().subtract(
+                          moment('2020-10-31').subtract(
                             timeInfo.length - index - 1,
                             timeInfo.unit
                           )
@@ -374,7 +399,7 @@ export default (state = initialState, action) => {
                   y: data.reduce((acc, transaction) => {
                     if (
                       timeInfo.label === 'Last year' &&
-                      moment()
+                      moment('2020-10-31')
                         .date(1)
                         .subtract(1, 'years')
                         .month(timeInfo.length - index - 1)
@@ -384,8 +409,8 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else if (
                       timeInfo.label === 'Last month' &&
-                      moment()
-                        .subtract(moment().date(), 'days')
+                      moment('2020-10-31')
+                        .subtract(moment('2020-10-31').date(), 'days')
                         .subtract(timeInfo.length - index - 1, timeInfo.unit)
                         .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format)
@@ -393,7 +418,7 @@ export default (state = initialState, action) => {
                       return transaction.amountValue + acc;
                     } else {
                       if (
-                        moment()
+                        moment('2020-10-31')
                           .subtract(timeInfo.length - index - 1, timeInfo.unit)
                           .format(timeInfo.format) ===
                         moment(transaction.shortDate).format(timeInfo.format)
@@ -470,50 +495,77 @@ export default (state = initialState, action) => {
       return {
         ...state,
         //previous month
-        data3: [...Array(moment().subtract(1, 'months').daysInMonth())].map(
-          (item, index) => {
-            return {
-              x: Number(
-                moment()
-                  .subtract(moment().date(), 'days')
-                  .subtract(
-                    moment().subtract(1, 'months').daysInMonth() - index - 1,
-                    'days'
-                  )
-                  .format('DD')
-              ),
-              y: action.payload.data.reduce((acc, trans) => {
-                if (
-                  moment()
-                    .subtract(moment().date(), 'days')
-                    .subtract(
-                      moment().subtract(1, 'months').daysInMonth() - index - 1,
-                      'days'
+        data3:
+          // fixed solution
+          [...Array(30)]
+            // solution for dynamic data
+            // (moment().subtract(1, 'months').daysInMonth())]
+            .map((item, index) => {
+              return {
+                x: index + 1,
+                // solution for dynamic data
+                // Number(
+                //   moment()
+                //     .subtract(moment().date(), 'days')
+                //     .subtract(
+                //       moment().subtract(1, 'months').daysInMonth() - index - 1,
+                //       'days'
+                //     )
+                //     .format('DD')
+                // )
+                y: action.payload.data.reduce((acc, trans) => {
+                  if (
+                    // fixed solution
+                    moment(trans.shortDate).isSameOrBefore(
+                      moment('2020-9-1').add(index, 'days')
                     )
-                    .isSameOrAfter(moment(trans.shortDate)) &&
-                  moment(trans.shortDate).isBefore(moment().date(1))
-                ) {
-                  return trans.amount + acc;
-                }
-                return acc;
-              }, 0),
-            };
-          }
-        ),
+
+                    // solution for dynamic data
+                    // moment()
+                    //   .subtract(moment().date(), 'days')
+                    //   .subtract(
+                    //     moment().subtract(1, 'months').daysInMonth() - index - 1,
+                    //     'days'
+                    //   )
+                    //   .isSameOrAfter(moment(trans.shortDate)) &&
+                    // moment(trans.shortDate).isBefore(moment().date(1))+
+                  ) {
+                    return trans.amount + acc;
+                  }
+                  return acc;
+                }, 0),
+              };
+            }),
         //currentMonth
-        data4: [...Array(Number(moment().format('DD')))].map((item, index) => {
+        data4: [
+          ...Array(
+            // fixed date
+            21
+          ),
+          // dynamic date solution
+          // (Number(moment().format('DD')))
+        ].map((item, index) => {
           return {
-            x: moment()
-              .subtract(Number(moment().format('DD')) - index - 1, 'days')
-              .format('DD'),
+            x: index + 1,
+            // dynamic solution
+            // moment()
+            //   .subtract(Number(moment().format('DD')) - index - 1, 'days')
+            //   .format('DD')
             y: action.payload.data.reduce((acc, trans) => {
               if (
-                moment()
-                  .subtract(Number(moment().format('DD')) - index - 1, 'days')
-                  .format('MMM-DD-YYYY') >=
-                  moment(trans.shortDate).format('MMM-DD-YYYY') &&
-                moment(trans.shortDate).format('MMM-DD-YYYY') >=
-                  moment().date(1).format('MMM-DD-YYYY')
+                // fixed solution
+                moment(trans.shortDate).isSameOrBefore(
+                  moment('2020-10-1').add(index, 'days')
+                ) &&
+                moment(trans.shortDate).isAfter(moment('2020-9-30'))
+
+                // dynamic solution
+                // moment()
+                //   .subtract(Number(moment().format('DD')) - index - 1, 'days')
+                //   .format('MMM-DD-YYYY') >=
+                //   moment(trans.shortDate).format('MMM-DD-YYYY') &&
+                // moment(trans.shortDate).format('MMM-DD-YYYY') >=
+                //   moment().date(1).format('MMM-DD-YYYY')
               ) {
                 return trans.amount + acc;
               }
@@ -532,57 +584,68 @@ export default (state = initialState, action) => {
           action.payload.timeInfo.label === 'All time'
             ? [
                 ...Array(
-                  Math.ceil(
-                    (moment(action.payload.data[0].shortDate) -
-                      moment(
-                        action.payload.data[action.payload.data.length - 1]
-                          .shortDate
-                      )) /
-                      86400000 /
-                      30
-                  )
+                  21
+                  // dynamic solution
+                  // Math.ceil(
+                  //   (moment(action.payload.data[0].shortDate) -
+                  //     moment(
+                  //       action.payload.data[action.payload.data.length - 1]
+                  //         .shortDate
+                  //     )) /
+                  //     86400000 /
+                  //     30
+                  // )
                 ),
               ].map((item, index) => {
                 return {
                   x: new Date(
-                    moment()
+                    moment('2020-10-31')
                       .date(1)
-                      .subtract(moment().date(), 'days')
-                      .subtract(
-                        Math.ceil(
-                          (moment(action.payload.data[0].shortDate) -
-                            moment(
-                              action.payload.data[
-                                action.payload.data.length - 1
-                              ].shortDate
-                            )) /
-                            86400000 /
-                            30
-                        ) -
-                          index -
-                          2,
-                        action.payload.timeInfo.unit
-                      )
+                      .subtract(moment('2020-10-31').date(), 'days')
+                      // fixed solution
+                      .date(1)
+                      .subtract(21 - index - 3, action.payload.timeInfo.unit)
+                    // dynamic solution
+                    // .subtract(
+                    //   Math.ceil(
+                    //     (moment(action.payload.data[0].shortDate) -
+                    //       moment(
+                    //         action.payload.data[
+                    //           action.payload.data.length - 1
+                    //         ].shortDate
+                    //       )) /
+                    //       86400000 /
+                    //       30
+                    //   ) -
+                    //     index -
+                    //     2,
+                    //   action.payload.timeInfo.unit
+                    // )
                   ),
                   y: action.payload.data.reduce((acc, transaction) => {
                     if (
-                      moment()
+                      moment('2020-10-31')
                         .date(1)
-                        .subtract(
-                          Math.ceil(
-                            (moment(action.payload.data[0].shortDate) -
-                              moment(
-                                action.payload.data[
-                                  action.payload.data.length - 1
-                                ].shortDate
-                              )) /
-                              86400000 /
-                              30
-                          ) -
-                            index -
-                            2,
-                          action.payload.timeInfo.unit
-                        )
+
+                        //fixed solution
+                        .subtract(21 - index - 1, action.payload.timeInfo.unit)
+
+                        // dynamic solution
+                        // .subtract(
+                        //   Math.ceil(
+                        //     (moment(action.payload.data[0].shortDate) -
+                        //       moment(
+                        //         action.payload.data[
+                        //           action.payload.data.length - 1
+                        //         ].shortDate
+                        //       )) /
+                        //       86400000 /
+                        //       30
+                        //   ) -
+                        //     index -
+                        //     2,
+                        //   action.payload.timeInfo.unit
+                        // )
                         .format(action.payload.timeInfo.format) ===
                       moment(transaction.shortDate).format(
                         action.payload.timeInfo.format
@@ -599,14 +662,14 @@ export default (state = initialState, action) => {
                   x:
                     action.payload.timeInfo.label === 'Last year'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1)
                             .subtract(1, 'years')
-                            .month(timeInfo.length - index - 1)
+                            .month(action.payload.timeInfo.length - index - 1)
                         )
                       : action.payload.timeInfo.unit === 'months'
                       ? new Date(
-                          moment()
+                          moment('2020-10-31')
                             .date(1, 'days')
                             .subtract(
                               action.payload.timeInfo.length - index - 1,
@@ -614,7 +677,7 @@ export default (state = initialState, action) => {
                             )
                         )
                       : new Date(
-                          moment().subtract(
+                          moment('2020-10-31').subtract(
                             action.payload.timeInfo.length - index - 1,
                             action.payload.timeInfo.unit
                           )
@@ -631,7 +694,7 @@ export default (state = initialState, action) => {
                     //   )
                     // )
                     if (
-                      moment()
+                      moment('2020-10-31')
                         .subtract(
                           action.payload.timeInfo.length - index - 1,
                           action.payload.timeInfo.unit

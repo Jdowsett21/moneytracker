@@ -10,8 +10,12 @@ function LineGraph({ graphs: { data3, data4 } }) {
     axisX: {
       stripLines: [
         {
-          startValue: Number(moment().date()),
-          endValue: Number(moment().date()) + 0.05,
+          startValue: 21,
+          // dynamic solution
+          // Number(moment().date())
+          endValue: 21.05,
+          // dynamic solution
+          // Number(moment().date()) + 0.05
           color: 'lightgrey',
         },
       ],

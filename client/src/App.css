@@ -226,7 +226,7 @@ ul.vertical-bar li {
   bottom: 0;
   text-align: center;
   vertical-align: top;
-  width: 16.6%;
+  width: 16.5%;
   z-index: 2;
   display: inline-block;
   margin-left: -5px;
@@ -239,6 +239,10 @@ ul.vertical-bar li.month {
 ul.vertical-bar li.month {
   position: relative;
   color: #999;
+}
+
+li.month {
+  overflow: hidden;
 }
 ul.vertical-bar li.graphLines {
   z-index: 1;
@@ -354,12 +358,11 @@ ul.horizontal-bar li label {
   font-size: 0.55rem;
   float: none;
   text-align: left;
-  margin: 0;
   padding-left: 0.5rem;
   white-space: nowrap;
   width: 40px;
   position: absolute;
-  left: 0.22rem;
+  left: -0.2rem;
 }
 .card-body {
   padding: 0.25rem;

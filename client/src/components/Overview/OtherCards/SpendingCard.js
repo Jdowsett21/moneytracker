@@ -36,10 +36,16 @@ function SpendingCard({
             currency: 'USD',
           }
         ).format(currentSpending)}`}</h3>
-        <h4 className='medium-font-grey p-2'>{`FROM ${moment()
-          .date(1)
-          .format('MMMM-DD')
-          .toUpperCase()} - ${moment().format('MMMM-DD').toUpperCase()}`}</h4>
+        <h4 className='medium-font-grey p-2'>{`FROM ${
+          // static solution
+          moment('2020-10-1').format('MMM-DD').toUpperCase()
+          // dynamic solution
+          // moment().date(1).format('MMMM-DD').toUpperCase
+        } - ${
+          moment('2020-10-21').format('MMM-DD').toUpperCase()
+          // dynamic solution
+          // moment().format('MMMM-DD').toUpperCase()
+        }`}</h4>
         <LineGraph />
         <h3 className='medium-font p-2'>{`This time last month you'd spent ${new Intl.NumberFormat(
           'en-US',

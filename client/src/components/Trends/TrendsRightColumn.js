@@ -8,8 +8,13 @@ import moment from 'moment';
 function TrendsRightColumn({ accounts: { accountList }, setGraphData }) {
   useEffect(() => {
     const timeInfo = {
-      range1: moment().date(1).subtract(2, 'months').toISOString(),
-      range2: moment().toISOString(),
+      // fixed solution
+      range1: moment('2020-10-31').date(1).subtract(2, 'months').toISOString(),
+      range2: moment('2020-10-31').toISOString(),
+
+      // dynamic solution
+      // range1: moment().date(1).subtract(2, 'months').toISOString(),
+      // range2: moment().toISOString(),
       length: 3,
       unit: 'months',
       format: 'MMM-YYYY',

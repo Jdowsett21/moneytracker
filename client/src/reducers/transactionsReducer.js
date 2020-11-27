@@ -33,7 +33,6 @@ import {
   GET_TRANSACTIONS_BY_DATE_RANGE,
 } from '../actions/types';
 import moment from 'moment';
-import { lastMonthSpendingAtTodaysDate } from '../actions/transactionActions';
 const initialState = {
   transactionList: [],
   hoveredTransactionList: [],
@@ -44,12 +43,20 @@ const initialState = {
   sixMonthNetTotals: 0,
 
   lastSixMonths: [
-    moment().subtract(5, 'months').format('MMM'),
-    moment().subtract(4, 'months').format('MMM'),
-    moment().subtract(3, 'months').format('MMM'),
-    moment().subtract(2, 'months').format('MMM'),
-    moment().subtract(1, 'months').format('MMM'),
-    moment().format('MMM'),
+    moment('2020-10-31').subtract(5, 'months').format('MMM'),
+    moment('2020-10-31').subtract(4, 'months').format('MMM'),
+    moment('2020-10-31').subtract(3, 'months').format('MMM'),
+    moment('2020-10-31').subtract(2, 'months').format('MMM'),
+    moment('2020-10-31').subtract(1, 'months').format('MMM'),
+    moment('2020-10-31').format('MMM'),
+
+    // dynamic solution
+    // moment().subtract(5, 'months').format('MMM'),
+    // moment().subtract(4, 'months').format('MMM'),
+    // moment().subtract(3, 'months').format('MMM'),
+    // moment().subtract(2, 'months').format('MMM'),
+    // moment().subtract(1, 'months').format('MMM'),
+    // moment().format('MMM'),
   ],
   sixMonthMaxNet: 0,
   transactionCategories: [],
