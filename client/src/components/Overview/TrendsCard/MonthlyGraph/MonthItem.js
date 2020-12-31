@@ -30,7 +30,7 @@ function MonthItem({
               ? 50
               : (monthNet < 0 && sixMonthMax > 0) ||
                 (monthNet > 0 && sixMonthMax < 0)
-              ? (monthNet / sixMonthMax) * 50 * -1
+              ? (monthNet / sixMonthMax) * -50
               : (monthNet / sixMonthMax) * 50
           }%`,
 

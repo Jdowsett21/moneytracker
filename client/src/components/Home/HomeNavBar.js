@@ -7,28 +7,11 @@ import ScrollSpyItem from './../common/ScrollSpyItem';
 function HomeNavBar(props) {
   return (
     <nav className='fixed-top navbar-primary navbar navbar-dark navbar-expand-sm logo-background p-0'>
-      {' '}
       <a href='/#'>
         <img src={grivety} alt='' className='img-fluid grivety-small mb-0' />
       </a>
-      <button
-        className='navbar-toggler'
-        data-toggle='collapse'
-        data-target='#collapseNavBarHome'
-      >
-        <span className='navbar-toggler-icon'></span>
-      </button>
-      <div className='collapse navbar-collapse' id='collapseNavbar'>
-        {/* hoping to set up scroll spy in future */}
-        {/* <ScrollSpy
-          items={[
-            'home-section',
-            'track-section',
-            'budget-section',
-            'summary-section',
-            'signup-section',
-          ]}
-        > */}
+
+      <div className='collapse navbar-collapse' id='collapseNavbarHome'>
         <ul className='navbar-nav mr-auto'>
           <li className='nav-item'>
             <ScrollSpyItem

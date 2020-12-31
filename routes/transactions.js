@@ -74,8 +74,6 @@ router.put(
       },
       { new: true }
     );
-    s;
-
     // await Account.findByIdAndUpdate(
     //   correctAccount,
     //   {
