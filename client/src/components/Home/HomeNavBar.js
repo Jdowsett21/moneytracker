@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import ScrollSpyItem from './../common/ScrollSpyItem';
 function HomeNavBar(props) {
   return (
-    <nav className='fixed-top navbar-primary navbar navbar-dark navbar-expand-sm logo-background p-0'>
+    <nav className='fixed-top navbar-primary navbar navbar-dark navbar-expand-sm logo-background p-0 pl-5'>
       <a href='/#'>
         <img src={grivety} alt='' className='img-fluid grivety-small mb-0' />
       </a>
