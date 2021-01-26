@@ -283,7 +283,7 @@ export const getMonthsTransactions = (date1, date2) => async (dispatch) => {
     const { data } = await authAxios.get(
       `/transactions/month/${date1}/${date2}`
     );
-
+    console.log(data);
     dispatch({ type: GET_TRANSACTIONS_BY_MONTH, payload: data });
   } catch (error) {
     setTransactionLoading();

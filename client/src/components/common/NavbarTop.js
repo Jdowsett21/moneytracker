@@ -25,11 +25,12 @@ function NavbarTop({ logout }) {
         className='collapse navbar-collapse small-medium-font mx-5  d-flex justify-content-between'
         id='navbarCollapse'
       >
-        <Link to='/overview' className='nav-link'>
-          OVERVIEW
-        </Link>
         <ul className='navbar-nav'>
-          <li className='nav-item'></li>
+          <li className='nav-item'>
+            <Link to='/overview' className='nav-link'>
+              OVERVIEW
+            </Link>
+          </li>
 
           <li className='nav-item '>
             <Link to='/transactions' className='nav-link'>
