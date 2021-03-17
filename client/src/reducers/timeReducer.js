@@ -14,8 +14,8 @@ const initialState = {
   month: moment('2020-10-31').format('MMM'),
   // dynamic solution
   // moment().format('MMM'),
-  date1: moment().date(1).month(9).startOf('day').toISOString(),
-  date2: moment().date(31).month(9).startOf('day').toISOString(),
+  date1: moment('2020-10-01').toISOString(),
+  date2: moment('2020-10-31').toISOString(),
   barHeight: 0,
   barTotal: 0,
   timeInfo: [],

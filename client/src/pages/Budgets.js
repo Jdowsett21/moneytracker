@@ -11,7 +11,11 @@ import {
 import { connect } from 'react-redux';
 import { getTransactions } from './../actions/transactionActions';
 
-function Budgets({ isUserAuthenticated, setAuthInfo, time: { month } }) {
+function Budgets({
+  isUserAuthenticated,
+  setAuthInfo,
+  time: { month, date1, date2 },
+}) {
   useEffect(() => {
     // setAuthInfo();
     // isUserAuthenticated();

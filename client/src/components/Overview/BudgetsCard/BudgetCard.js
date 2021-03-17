@@ -4,10 +4,7 @@ import CardHeader from '../../common/CardHeader';
 import CardBody from '../../common/CardBody';
 import OverviewCardHeader from '../OverviewCardHeader';
 import { connect } from 'react-redux';
-import {
-  getTransactions,
-  getMonthsTransactions,
-} from '../../../actions/transactionActions';
+import { getTransactions } from '../../../actions/transactionActions';
 import moment from 'moment';
 import BudgetCardList from './BudgetCardList';
 
@@ -20,7 +17,6 @@ function BudgetCard({ getTransactions }) {
   useEffect(() => {
     getTransactions();
   });
-
   return (
     <Card classSpecifics='m-2'>
       <CardHeader>
@@ -36,11 +32,4 @@ function BudgetCard({ getTransactions }) {
   );
 }
 
-const mapStatetoProps = (state) => ({
-  time: state.time,
-  transactions: state.transactions,
-});
-export default connect(mapStatetoProps, {
-  getTransactions,
-  getMonthsTransactions,
-})(BudgetCard);
+export default connect(null, { getTransactions })(BudgetCard);
