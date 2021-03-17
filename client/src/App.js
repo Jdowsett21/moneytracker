@@ -48,39 +48,50 @@ const AppRoutes = () => (
     <AuthenticatedNavBar />
     <Suspense fallback={<LoadingFallback />}>
       <Switch>
-        <AuthenticatedRoutes path='/overview'>
+        {/* <AuthenticatedRoutes path='/overview'> */}
+        <Route path='/overview'>
           <Overview />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/transactions'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/transactions'> */}
+        <Route path='/transactions'>
           <Transactions />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/goals'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/goals'> */}
+        <Route path='/goals'>
           <Goals />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/addTransactions'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/addTransactions'> */}
+        <Route path='/addTransactions'>
           <AddTransaction />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/budgets'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/budgets'> */}
+        <Route path='/budgets'>
           <Budgets />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/trends'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/trends'> */}
+        <Route path='/trends'>
           <Trends />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/waystosave'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/waystosave'> */}
+        <Route path='/waystosave'>
           <WaysToSave />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/accounts'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/accounts'> */}
+        <Route path='/accounts'>
           <AddAccount />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/settings'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/settings'> */}
+        <Route path='/settings'>
           <Settings />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/profile'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/profile'> */}
+        <Route path='/profile'>
           <Profile />
-        </AuthenticatedRoutes>
-        <AuthenticatedRoutes path='/tour'>
+        </Route>
+        {/* <AuthenticatedRoutes path='/tour'> */}
+        <Route path='/tour'>
           <Profile />
-        </AuthenticatedRoutes>
+        </Route>
 
         <UnauthenticatedRoutes />
       </Switch>

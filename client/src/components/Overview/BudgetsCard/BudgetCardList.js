@@ -15,7 +15,7 @@ function BudgetCardList({
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
-  transactions: { categoryTotals, monthTransactions },
+  transactions: { categoryTotals, monthTransactions, transactions },
   budgets: { budgetList },
   time: { date1, date2 },
 }) {
@@ -28,10 +28,11 @@ function BudgetCardList({
     //   moment().date(1).add(1, 'months').startOf('day').toISOString()
     // );
     //eslint-disable-next-line
-  }, []);
+  }, [transactions]);
 
   useEffect(() => {
     setMonthNet1(date1, date2);
+
     getTransactionCategories();
     getTransactionTotalByCategory(budgetList);
     //eslint-disable-next-line

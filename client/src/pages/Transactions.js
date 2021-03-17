@@ -22,8 +22,8 @@ function Transactions({
   setAuthInfo,
 }) {
   useEffect(() => {
-    setAuthInfo();
-    isUserAuthenticated();
+    // setAuthInfo();
+    // isUserAuthenticated();
     return () => {
       console.log('hello');
       allowTransactionReRender();

@@ -16,7 +16,8 @@ function BudgetList({
   getTransactionCategories,
   getMonthsTransactions,
   getTransactionTotalByCategory,
-  transactions: { categoryTotals, monthTransactions },
+
+  transactions: { categoryTotals, monthTransactions, transactions },
   budgets: { budgetList },
   time: { month, date1, date2 },
 }) {
@@ -24,7 +25,7 @@ function BudgetList({
     getBudgets();
     getMonthsTransactions(date1, date2);
     //eslint-disable-next-line
-  }, [month]);
+  }, [month, transactions]);
 
   useEffect(() => {
     setMonthNet1(date1, date2);

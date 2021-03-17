@@ -6,13 +6,15 @@ import { Redirect } from 'react-router-dom';
 function AuthenticatedNavBar({ auth: { isAuthenticated } }) {
   return (
     <div>
-      {isAuthenticated === false && <Redirect to='/' />}
+      {/* viewing */}
+      <NavbarTop />
+      {/* secure version */}
+      {/* {isAuthenticated === false && <Redirect to='/' />}
       {isAuthenticated && (
         <>
           <NavbarTop />
-          {/* <NavBarSecondary /> */}
         </>
-      )}
+      )} */}
     </div>
   );
 }

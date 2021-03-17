@@ -104,6 +104,7 @@ router.get(
       //user specific searches disabled for
       //display purposes
       // userId: req.user._id,
+
       date: {
         $gte: new Date(req.params.date1),
         $lt: new Date(req.params.date2),
@@ -182,6 +183,7 @@ router.get(
 
 router.get(
   '/month/:date1/:date2',
+
   asyncMiddleware(async (req, res) => {
     const transactions = await Transaction.find({
       //user specific searches disabled for
@@ -192,6 +194,7 @@ router.get(
         $lt: new Date(req.params.date2),
       },
     });
+
     res.send(transactions);
   })
 );

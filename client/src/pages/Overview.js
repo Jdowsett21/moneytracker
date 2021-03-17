@@ -13,9 +13,8 @@ import {
 import moment from 'moment';
 function Overview({ isUserAuthenticated, setAuthInfo }) {
   useEffect(() => {
-    setAuthInfo();
-
-    isUserAuthenticated();
+    // setAuthInfo();
+    // isUserAuthenticated();
     //eslint-disable-next-line
   }, []);
 

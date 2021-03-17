@@ -13,8 +13,8 @@ import { getTransactions } from './../actions/transactionActions';
 
 function Budgets({ isUserAuthenticated, setAuthInfo, time: { month } }) {
   useEffect(() => {
-    setAuthInfo();
-    isUserAuthenticated();
+    // setAuthInfo();
+    // isUserAuthenticated();
     //eslint-disable-next-line
   }, [month]);
 

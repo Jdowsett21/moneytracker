@@ -8,7 +8,11 @@ const asyncMiddleware = require('../middleware/async');
 router.post(
   '/createAccount',
   asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    // production code
+    // const user = await User.findById(req.user._id);
+
+    // viewing purposes
+    const user = await User.find();
 
     const existingAccounts = await Account.find({ userId: user._id });
 
@@ -34,7 +38,7 @@ router.get(
   '/getAccounts',
 
   asyncMiddleware(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    // const user = await User.findById(req.user._id);
 
     const accounts = await Account.find();
     //user specific searches disabled for

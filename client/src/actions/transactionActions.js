@@ -278,24 +278,17 @@ export const updateTransaction = (transaction) => async (dispatch) => {
 };
 
 export const getMonthsTransactions = (date1, date2) => async (dispatch) => {
-  try {
-    setTransactionLoading();
-    const { data } = await authAxios.get(
-      `/transactions/month/${date1}/${date2}`
-    );
-    console.log(data);
-    dispatch({ type: GET_TRANSACTIONS_BY_MONTH, payload: data });
-  } catch (error) {
-    setTransactionLoading();
+  const { data } = await authAxios.get(`/transactions/month/${date1}/${date2}`);
 
-    dispatch({
-      type: TRANSACTION_ERROR,
-      payload: error.response.data,
-    });
-  }
+  dispatch({ type: GET_TRANSACTIONS_BY_MONTH, payload: data });
 };
+
 export const getCategoryTransactions = (category) => async (dispatch) => {
   try {
+    console.log(
+      '🚀 ~ file: transactionActions.js ~ line 290 ~ getMonthsTransactions ~ data',
+      data
+    );
     setTransactionLoading();
     const { data } = await authAxios.get(`/transactions/category/${category}`);
 
@@ -316,7 +309,6 @@ export const getAccountTransactions = (account) => async (dispatch) => {
     const { data } = await authAxios.get(
       `/transactions/account/${account._id}`
     );
-    console.log(data);
     dispatch({ type: GET_TRANSACTIONS_BY_ACCOUNT, payload: data });
   } catch (error) {
     setTransactionLoading();

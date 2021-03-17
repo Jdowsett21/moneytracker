@@ -20,7 +20,8 @@ router.get(
     const budget = await Budget.find({
       budgetType: req.params.budgetType,
 
-      userId: req.user._id,
+      // disabled for viewing
+      // userId: req.user._id,
     });
 
     res.send(budget);
@@ -40,7 +41,11 @@ router.post(
         .status(400)
         .json({ message: 'Budget with that category already exists' });
 
-    const budget = new Budget({ ...req.body, userId: req.user._id });
+    const budget = new Budget({
+      ...req.body,
+      // disabled for viewing
+      // userId: req.user._id
+    });
 
     await budget.save();
 
